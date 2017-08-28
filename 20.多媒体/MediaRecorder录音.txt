@@ -1,0 +1,36 @@
+MediaRecorder 录音	
+
+注意：Mainfest.xml添加权限
+
+//初始化   录音  
+	private void init_MediaRecorder_Audio(){       //测试   OK
+		mediaRecorder = new MediaRecorder();
+		//1.设置  录音声音来源
+		mediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
+		//2.设置  声音输出格式
+		mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
+		//3.设置  声音编码格式
+		mediaRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
+		//4.设置  声音文件路劲
+		mediaRecorder.setOutputFile("/mnt/sdcard/video/my_recorder.amr"); //录音文件格式有：aac amr  3gp
+		//5.准备 录制
+		try {
+			mediaRecorder.prepare();
+		} catch (IllegalStateException e) {
+			// TODO Auto-generated catch block
+			Log.e("init_MediaRecorder_Audio>>IllegalStateException","异常抛出！");
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			Log.e("init_MediaRecorder_Audio>>IOException","异常抛出！");
+			e.printStackTrace();  
+		}
+	}
+
+//调用：
+init_MediaRecorder_Audio();
+mediaRecorder.start(); //开始录音
+
+mediaRecorder.stop(); //停止 录音 
+mediaRecorder.release(); //释放 资源
+mediaRecorder = null;

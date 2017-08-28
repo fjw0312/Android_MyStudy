@@ -1,0 +1,48 @@
+1.前提条件：先装好windows系统JDK（有javac javah命令）、eclipse-android、Linux系统NDK.
+
+2.eclipse新建 android application project.
+3.在工程中创建一个java文件 MyJni.java
+  文件中声明本地调用的函数声明：eg:private native void myJniToSay();
+  也可以顺便声明：static{   System.loadLibrary("myJni");
+    }
+
+4.生成MyJni.class文件：在windows dos下：cd /到application project/src/MyJni.java文件目录下
+            >  javac MyJni.java
+5.生成**.**.MyJni.h: 在windows dos下：cd /到application project/src文件目录下
+            >  javah -jni com.example.u002.MyJni(一定得时class文件的包名路径)
+
+6.修改.h文件名，并放入工程子目录/jni/下（没有目录可新建），并书写.c文件 和拷贝进入Android.mk文件
+
+7.将 android application project.工程文件 放入LINUX系统。
+  cd  /application project.工程文件 下 ，直接 > ndk-build  
+  即可生成.so
+  (生成的lib与obj文件中，都有.so ，obj/下so包含了调试信息，可直接去/lib/下so)
+
+
+
+
+8.变量类型说明：
+   传入/返回变量中：如果为一般：int(jint)、float(jfloat)、double(fdouble)、char(fbyte)
+                   则可以在native.c文件中自由等效赋予/等于/返回，
+                   但，如果是字符串/数组/指针  则需要一定的函数转化，且为const变量不可改变
+                    否则会报错！
+
+8.c java jni 代码中：返回字符串： return (*env)->NewStringUTF(env, "Hello from JNI !");
+                     返回bool型： return JNI_TRUE;  /  return JNI_FALSE;
+
+     返回字符串：char *s = "sss";   return (*env)->NewStringUTF(env, s);
+     输入数组赋值：  int lenth = (*env)->GetArrayLength(env, arr);//获取数组长度
+                     int *arrp =  (*env)->GetIntArrayElements(env, arr, 0); //获取数组指针
+                     *（arrp +i） = 0;  //对数组赋值
+
+
+
+
+
+9.可添加打印日志：
+#include<android/log.h>
+#define LOG_TAG "System.out" 
+#define LOGD(...)  _android_log_print(ANDROID_LOG_DEBUG, LOG_TAG, _VA_ARGS);
+#define LOGI(...)  _android_log_print(ANDROID_LOG_INFO, LOG_TAG, _VA_ARGS);
+（使用： LOGD("c语言打印日志");）
+

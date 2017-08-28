@@ -1,0 +1,32 @@
+//初始化   录制视屏                测试 失败   原因待查
+	@SuppressLint("SdCardPath")
+	private void init_MediaRecorder_Video(){
+		surfaceHolder = surfaceView.getHolder();
+		surfaceHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
+		surfaceHolder.setFixedSize(320, 280);  //应该是  设置预览分辨率
+		surfaceHolder.setKeepScreenOn(true);  //设置 保持亮屏幕
+		mediaRecorder = new MediaRecorder();
+		mediaRecorder.reset();
+	//	mediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);  //设置 声音来源
+		mediaRecorder.setAudioSource(MediaRecorder.AudioSource.CAMCORDER);  //设置 声音来源
+		mediaRecorder.setVideoSource(MediaRecorder.VideoSource.CAMERA);  //设置  图像来源
+		mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4); //设置  输出格式
+	//	mediaRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.DEFAULT);  //设置  输出编码
+		mediaRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);  //设置  输出编码
+		mediaRecorder.setVideoEncoder(MediaRecorder.VideoEncoder.MPEG_4_SP);  //设置  输出编码
+//		mediaRecorder.setVideoSize(320, 280);
+		mediaRecorder.setVideoFrameRate(30);                      //设置  帧速率
+		mediaRecorder.setOutputFile("/mnt/sdcard/video/my_recorderVideo.mp4");                        //设置  输出文件
+		mediaRecorder.setPreviewDisplay(surfaceHolder.getSurface());         //设置预览
+		try {
+			mediaRecorder.prepare();               //准备 录制
+		} catch (IllegalStateException e) {
+			// TODO Auto-generated catch block
+			Log.e("init_MediaRecorder_Video>>IllegalStateException","异常抛出！");
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			Log.e("init_MediaRecorder_Video>>IOException","异常抛出！");
+		}  
+	}

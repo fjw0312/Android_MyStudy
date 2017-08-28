@@ -1,0 +1,49 @@
+json解析：
+
+json文件体积小，适用于网络传输。
+
+android自带的json解析器：
+json读取：
+1.实例化JSONArray
+2.遍历JSONArray，获取JSONObject=getJSONObject();
+3.直接获取数据eg:String = jsonObject.getString();
+json写入文件：
+4.写入数据：JsonObject.put("", data);
+5.将jsonobject的String 写入新建的文件
+
+
+
+
+demo:
+
+	//解析整个json 字符流
+	public static void parseJson(String jsonData) throws Exception{
+		JSONObject jsonObject = new JSONObject(jsonData);
+		int head = jsonObject.getInt("head");
+		JSONArray jsonArray = jsonObject.getJSONArray("");
+	}
+	//解析json 数组
+	public static void parseJsonArray(String jsonData) throws Exception{
+		JSONArray jsonArray = new JSONArray(jsonData);
+		for(int i=0;i<jsonArray.length();i++){
+			JSONObject jsonObject = jsonArray.getJSONObject(i);
+			String id = jsonObject.getString("id");
+			String Name = jsonObject.getString("name");
+			String version = jsonObject.getString("version");
+			
+			Log.e("id", id);
+			Log.e("Name", Name);
+			Log.e("version", version);
+		}
+	}
+
+
+==============================================================
+google开源gson解析器
+1.添加google gson.jar包
+2.实例化Gson = new Gson();
+3.根据json单组数据定义一个class类。
+4.将单组json数据自动解析实例化class类 eg:Person = gson.form(jsonData,person.class);
+5.若是json数组： List<Person> people = gson.form(jsonData,new TypeToken< List<Person>>(){}.getType());
+
+

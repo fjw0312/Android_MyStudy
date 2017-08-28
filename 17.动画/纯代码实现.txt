@@ -1,0 +1,92 @@
+animator 动画：
+
+已实现方式分为2大类：
+1.xml配置文件
+2.纯代码实现。
+
+特征分类3中：
+补间动画View animator
+帧动画  frame animator
+属性动画 property animator
+
+--------------------纯代码实现----------------------
+补间动画View animator
+//透明度
+		AlphaAnimation alphanimation = new AlphaAnimation(1.0f, 0.0f);
+		alphanimation.setDuration(2000);
+		textView01.startAnimation(alphanimation);
+ //拉伸
+		ScaleAnimation scaleAnimation = new ScaleAnimation(1.0f, 3.0f, 1.0f, 0.5f);
+		scaleAnimation.setDuration(2000);
+		textView01.startAnimation(scaleAnimation);
+ //位移
+		TranslateAnimation translateAnimation = new TranslateAnimation(0, 0, 200, 200);
+		translateAnimation.setDuration(2000);
+		textView01.startAnimation(translateAnimation);
+//旋转
+		RotateAnimation rotateAnimation = new RotateAnimation(0, 360);
+		rotateAnimation.setDuration(2000);
+		textView01.startAnimation(rotateAnimation);
+//组合
+		AlphaAnimation alphanimation = new AlphaAnimation(1.0f, 0.0f);
+		alphanimation.setDuration(2000);
+		ScaleAnimation scaleAnimation = new ScaleAnimation(1.0f, 3.0f, 1.0f, 0.5f);
+		scaleAnimation.setDuration(2000);
+		AnimationSet animationSet = new AnimationSet(false);
+		animationSet.addAnimation(alphanimation);
+		animationSet.addAnimation(scaleAnimation);
+		textView01.startAnimation(animationSet);
+
+帧动画  frame animator
+Drawable drawble1 = getResources().getDrawable(R.drawable.p102);
+Drawable drawble2 = getResources().getDrawable(R.drawable.p103);
+Drawable drawble3 = getResources().getDrawable(R.drawable.p104);
+AnimationDrawable animationDraw = new AnimationDrawable();
+animationDraw.addFrame(drawble1, 800);
+animationDraw.addFrame(drawble2, 800);
+animationDraw.addFrame(drawble3, 800);
+animationDraw.setOneShot(false);
+textView01.setBackgroundDrawable(animationDraw);
+animationDraw.start();
+
+属性动画 property animator
+//方式 一：
+ObjectAnimator alphaAnimation = ObjectAnimator.ofFloat(textView01, "alpha", 0f, 1f);
+alphaAnimation.setDuration(2000);
+alphaAnimation.setRepeatCount(0);
+alphaAnimation.setRepeatMode(ValueAnimator.REVERSE);
+alphaAnimation.setStartDelay(200);
+ alphaAnimation.setInterpolator(new AccelerateDecelerateInterpolator());
+alphaAnimation.start();
+				
+//方式 二：
+ObjectAnimator scaleXAnimator = ObjectAnimator.ofFloat(imageview, "scaleX", 1f, 1.5f);
+scaleXAnimator.setDuration(1000);
+scaleXAnimator.setRepeatCount(1);
+scaleXAnimator.setRepeatMode(ValueAnimator.REVERSE);
+scaleXAnimator.start();
+
+ObjectAnimator scaleYAnimator = ObjectAnimator.ofFloat(imageview, "scaleY", 1f, 1.5f);
+scaleYAnimator.setDuration(1000);
+scaleYAnimator.setRepeatCount(1);
+scaleYAnimator.setRepeatMode(ValueAnimator.REVERSE);
+
+AnimatorSet animatorSet = new AnimatorSet();
+animatorSet.playTogether(scaleXAnimator, scaleYAnimator);
+animatorSet.start();
+
+/方式 三
+/*
+ PropertyValuesHolder scaleXValuesHolder = PropertyValuesHolder.ofFloat("scaleX", 1.0f, 1.5f);
+ PropertyValuesHolder scaleYValuesHolder = PropertyValuesHolder.ofFloat("scaleY", 1.0f, 1.5f);
+ ObjectAnimator objectAnimator = ObjectAnimator.ofPropertyValuesHolder(imageView, scaleXValuesHolder, scaleYValuesHolder);
+objectAnimator.setDuration(500);
+objectAnimator.setRepeatCount(1);
+objectAnimator.setRepeatMode(ValueAnimator.REVERSE);
+objectAnimator.start();
+ */
+//方式 四
+//  ViewPropertyAnimator viewPropertyAnimator=imageView.animate();
+//  viewPropertyAnimator.scaleXBy(1.0f).scaleX(1.5f).scaleYBy(1.0f).scaleY(1.5f).setDuration(500).start();
+
+

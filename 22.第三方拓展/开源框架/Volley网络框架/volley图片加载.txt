@@ -1,0 +1,103 @@
+volley图片加载 共有3种方式：
+
+一。获取ImageRequest-->Bitmap 
+ 可以按需求压缩请求图片的大小。
+缺点：没有缓存机制，会增大服务器负担
+
+1. RequestQueue mQueue = Volley.newRequestQueue(context);
+2.ImageRequest imageRequest = new JsonArrayRequest(url, 
+             new Response.Listener<Bitmap>(){  public void onResponse(Bitmap response){} },
+                               0,0, Config.RGB_565,
+             new Response.ErrorListner(){ public void onErrorResponse(VolleryError error){} }, );
+3. mQueue.add(imageRequest);
+
+
+二。ImageLoader解析获取数据  -->直接传入控件，性能较上面好，可以设置占位图，
+优点;有缓存机制
+1.创建一个RequestQueue对象
+2.创建一个RequestLoader对象
+3.获取一个ImageListener对象
+4.调用ImageLoader的get()方法加载网络图片
+-----------
+1. RequestQueue mQueue = Volley.newRequestQueue(context);
+2. ImageLoader imageLoader = new ImageLoader(mQueue, 
+                             new ImageCache(){
+                                    public void putBitmap(String url, Bitmap bitmap){}
+                                    public Bitmap getBitmap(String url){}
+                           });
+3.ImageListener listener = ImageLoader.getImageListener(imageView, R.drawable.is_image,R.drawable_failed_image);
+                            参数：1显示图片的控件  2.加载图片等的过程中显示的图片  3.加载图片失败时显示的图片
+4.imageLoader.get("http://image.ikk.679jkk.jpeg", listener);  
+//imageLoader.get("http://image.ikk.679jkk.jpeg", listener, 200,200);限制图片大小
+
+
+
+三。直接使用volley图片布局控件 -->NetworkImageView
+1.创建一个RequestQueue对象
+2.创建一个RequestLoader对象
+3.在布局文件中添加一个NetworkImageView控件
+4.获取该控件
+5.设置要加载的图片地址及其他参数
+-------------
+1. RequestQueue mQueue = Volley.newRequestQueue(context);
+2. ImageLoader imageLoader = new ImageLoader(mQueue, new ImageCache(){
+                            public void putBitmap(String url, Bitmap bitmap){}
+                            public Bitmap getBitmap(String url){}
+                           });
+前面第1.2步，可以换成ImageLoader imageLoader = AppController.getInstance().getImageLoader();
+3.在布局文件中添加一个NetworkImageView控件
+4.networkImageView = (NetworkImageView)findViewByid(R.id.network_iamge_view);
+5.networkImageView.setDefaultImageResId( R.drawable.is_image);
+  networkImageView.setErrorImageResId(R.drawable_failed_image);
+  networkImageView.setImageUrl("http://image.ikk.679jkk.jpeg", imageLoader);
+
+
+===================================================================================================
+图片缓存意义：减少图片多次加载网络费流量，页面返回快速本地缓存加载。还防止OOM,图片加载占一定内存后管理。
+建议可以多级缓存
+自定义图片缓存类
+public class MyImageCache implements ImageLoader.ImageCache {
+
+    // LruCache图片缓存处理类
+    //  当缓存的图片达到了预先设定值时，近期使用次数最少的图片就会被回收
+    //  设置手机存储的1/8大小来缓存图片
+   //  这个类一般都是直接拷贝使用，可当工具类，一般只修改其要求的大小（即修改1024/8）
+
+    private LruCache<String,Bitmap> myCache;
+
+    public MyImageCache(){
+        myCache = new LruCache<String,Bitmap>((int)(Runtime.getRuntime().maxMemory()/1024/8)){
+            @Override
+            protected int sizeOf(String key, Bitmap value) {
+                return value.getRowBytes()*value.getHeight();
+            }
+        };
+    }
+
+    //从缓存中返回位图
+    @Override
+    public Bitmap getBitmap(String s) {
+        return myCache.get(s);
+    }
+    //将图片放入缓存
+    @Override
+    public void putBitmap(String s, Bitmap bitmap) {
+        myCache.put(s,bitmap);
+    }
+
+    //创建 单例模式
+     public static MyImageCache bitmapCache; //表示该软件程序 内 如果有使用到 该缓存 就使用该静态 缓存图片列表
+     public static  MyImageCache instance(){
+		if(bitmapCache==null){
+			bitmapCache = new MyImageCache();
+		}
+		return bitmapCache;
+     }
+}
+==========================================================================================================
+使用注意：
+RequestQueue mQueue = Volley.newRequestQueue(context);会创建请求线程，
+且创建的队列内存会保存activity的context引用会一直占用内存。所以程序内高度建议只创建一个全局的RequestQueue。防止OOM.
+可以使用单例instance定义.
+加载图片时 建议不要每张图片都new ImageLoader，只需实例化一次就可以。
+

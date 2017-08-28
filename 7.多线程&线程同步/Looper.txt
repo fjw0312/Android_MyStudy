@@ -1,0 +1,31 @@
+looper：
+
+messageQueue 消息队列的管理器。处理消息Message
+
+线程中只能有一个Looper 和一个 messageQueue.
+
+除了ui mianThread 主线程，其他新建的子线程 都没有Looper messageQueue.需要时需手动创建。
+ui mianThread 主线程,在进程诞生时就拥有了 MainLooper 和messageQueue.
+Activity\Service 启动主线程就已诞生MianLooper了。
+
+
+Handler为Looper的一个入口接口。
+每个线程中new Handler()；就会将Looper绑定到该线程。代表该线程采用哪个线程的Looper.
+当new Handler()；不带参数时，表示handler 使用该线程的looper.
+当new Handler(myLooper);带参数时，表示handler 使用该参数looper.
+(常使用ui thread的looper   Looper.getMainLooper() )
+
+
+
+注意：使用Hander一定要绑定存在的Looper,当在子线程中new Handler()一定要确认绑定的Looper
+      是否存在。
+     
+在Ui Thread（MianThread） 直接new Handler();  或者 new Handler(Looper.getMainLooper() )
+在子线程中：绑定子线程Looper,1.需要创建looper:Looper.prepare();
+                             2.new handler(); 或者 new Handler(Looper.MyLooper() )
+                             3.Looper.loop(); //注意会执行在此处 阻塞
+如果线程绑定的Looper非Ui线程Mianlooper 是不能刷新ui的。 
+
+
+故，非mainLooper的new Handler主要用于子线程通信，传递消息。不能刷新ui     
+             

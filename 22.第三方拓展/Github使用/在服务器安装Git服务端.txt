@@ -1,0 +1,19 @@
+在服务器安装Git服务端：
+
+1.安装Git
+sudo apt-get install git
+yun install git
+
+2.创建一个git用户，来运行git服务
+sudo adduser git
+
+3.创建证书使用公钥免密码登录（可选）
+ssh-keygen -t rsa
+vi ~/.ssh/authorized_keys
+
+4.初始化Git仓库
+sudo git init --bare sample.git
+sudo chown -R git:git sample.git
+
+5在客户端远程克隆仓库。
+git clone ***

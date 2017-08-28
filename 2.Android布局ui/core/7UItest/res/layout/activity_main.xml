@@ -1,0 +1,58 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/textView01"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20pt"
+        android:gravity="center"
+        android:text="text01" />
+
+    
+    <TextView
+        android:id="@+id/textView02"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:gravity="center"
+        android:text="text02" />
+        
+        
+        
+     <TextView
+        android:id="@+id/textView03"
+        android:layout_width="match_parent"
+        android:layout_height="60px"
+        android:background="@android:color/holo_blue_light"
+        android:gravity="center"
+        android:text="查看像素" />
+            
+            
+    <TextView
+        android:id="@+id/textView04"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@android:color/holo_red_light"
+        android:gravity="center"
+        android:text="查看分辨率" />
+    
+    
+     <TextView
+        android:id="@+id/textView05"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="像素：" />
+        
+     <TextView
+        android:id="@+id/textView06"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="分辨率：" />
+    
+</LinearLayout>

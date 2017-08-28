@@ -1,0 +1,15 @@
+AlertDailog写法样式：
+
+一：
+Builder buider = new AlertDialog.Builder(context);
+builder.setTitle();
+builder.setMessage();
+AlertDialog alert = builder.create();
+alert .show();
+
+二：
+new AlertDialog.Builder(context)
+    .setTitle()
+    .setMesage()
+    .show();
+

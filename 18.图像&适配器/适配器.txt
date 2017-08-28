@@ -1,0 +1,113 @@
+android:适配器
+
+常用适配器：BaseAdapter  simpleAdapter  ArrayAdapter
+
+适配器：将数据变成界面风格形式。
+
+常提供给使用的组件：ListView、GridView、Spinner、 Gallery、ViewPage、ViewFilter
+
+一、ArrayAdapter 数组适配器
+new ArrayAdapter<String>(context, android.R.layout.simple_list_item_l, new String[]);
+
+
+二、simpleAdapter  简易适配器 （可以一块layout对象多个元素）（适配一张表）
+List<Map<String,Object>> myList = new ArrayList<Map<String,Object>>();
+new SimpleAdapter(this, myList, R.layout.my_image, //适配的layout
+		new String[]{"item2","item3"}, new int[]{R.id.image,R.id.textView01});
+                //需要匹配的列 key数组      //对应匹配的layout组件id
+
+
+三、BaseAdapter  基础适配器（自定义 成适配一个对象）
+public class ImageAdapter extends BaseAdapter {
+	private Context context = null;					// Context对象
+	private int[] picIds = null;					// 保存所有图片资源
+
+	public ImageAdapter(Context context, int[] picIds) {
+		this.context = context;						// 接收Context
+		this.picIds = picIds;						// 保存图片资源
+	}
+
+	@Override
+	public int getCount() {							// 取得个数
+		return this.picIds.length;
+	}
+
+	@Override
+	public Object getItem(int position) {			// 取得每一项的信息
+		return this.picIds[position];
+	}
+
+	@Override
+	public long getItemId(int position) {			// 取得指定项的ID
+		return this.picIds[position];
+	}
+
+	@Override
+	public View getView(int position, View convertView, ViewGroup parent) {
+		ImageView img = new ImageView(this.context);	// 定义图片视图
+		img.setImageResource(this.picIds[position]); 	// 给ImageView设置资源
+		img.setScaleType(ImageView.ScaleType.CENTER); 	// 居中显示
+		return img;
+	}
+}
+
+=========================================================================================
+public class personAdapter extends ArrayAdapter<person>{
+
+
+	private int item_layout_id;
+	
+	public personAdapter(Context context,int id,ArrayList<person> list) {
+		// TODO Auto-generated constructor stub
+		super(context,id,list);
+		item_layout_id = id;
+//		lst = list;
+	}
+	
+//	public int getCount(){
+//		return lst.size();
+//	}
+	
+//	public person getItem(int arg0){
+//		return lst.get(arg0);
+//	}
+	
+//	public long getIemID(int arg0){
+//		return arg0;
+//	}
+	
+	//由于每次滑动view 会使适配器重新适配，为了提高速率可以先判断view arg1是否为null
+	public View getView(int arg0, View arg1, ViewGroup arg2){
+		person p = getItem(arg0);
+		View view;
+		ViewHolder viewHolder;
+		if(arg1==null){
+//			view = LayoutInflater.from(getContext()).inflate(item_layout_id, null); 
+			view = View.inflate(getContext(), item_layout_id, null);//两种写法一样
+			
+			//添加ViewHolder
+			viewHolder = new ViewHolder();
+			viewHolder.image = (ImageView)view.findViewById(R.id.imageview);
+			viewHolder.text = (TextView)view.findViewById(R.id.name);
+			view.setTag(viewHolder);
+		}else{
+			view = arg1;
+			viewHolder = (ViewHolder)view.getTag();  //重新获取 ViewHolder
+		}
+
+
+		
+		viewHolder.image.setImageResource(p.getImageId());
+		viewHolder.text.setText(p.getName());
+		return view;
+	}
+	
+	//定义一个 参数适配类
+	class ViewHolder{
+		ImageView image;
+		TextView text;
+	}
+	
+}
+
+

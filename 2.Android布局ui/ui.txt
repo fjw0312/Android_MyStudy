@@ -1,0 +1,64 @@
+android ui
+
+
+常用的5大布局：
+LinearLayout 线性布局
+RelativeLayout  相对布局
+AbosulteLayout   绝对布局
+FrameLayout     帧布局
+TableLayout    表格布局  TableRow配合使用
+
+ui使用大小单位：
+老的单位            新单位
+px 像素             dp(dip)密度 （1dp=每英寸160px）
+pt 字体磅数         sp      字体可伸缩像素
+
+//获取屏幕分辨率 像素：
+float xPx = this.getResources().getDisplayMetrics().widthPixels;
+float yPx = this.getResources().getDisplayMetrics().heightPixels;
+//获取屏幕密度
+float xdpi = this.getResources().getDisplayMetrics().xdpi;
+float ydpi = this.getResources().getDisplayMetrics().ydpi;
+//密度比值
+float density = this.getResources().getDisplayMetrics().density;
+float densityDpi = this.getResources().getDisplayMetrics().densityDpi;
+
+
+
+android查找适配屏幕密度图片资源：
+1.先根据手机屏幕密度查看对应的文件夹：eg:420dpi -》 xxhdpi
+2.如果对应文件夹查找不到时，会向高密度文件夹查找  eg: 160dpi ->mdpi->hdpi->xhdpi
+3.查找到最高密度还查找不到时，会查找nodpi文件夹，然后又向低密度查找。
+
+//组件控件摆放参数：
+相对父layout位置 layout_alignParentRight="true"
+		 layout_alignParentLeft="true"
+		 layout_alignParentTop="true"
+		 layout_alignParentButtom="true"
+
+与其他View对其   layout_alignRight="true"
+		 layout_alignLeft="true"
+		 layout_alignTop="true"
+		 layout_alignButtom="true"
+
+相对于其他View位置方位：layout_above=""
+ (在某view的什么位置)   layout_below=""
+                        layout_toLeftOf=""
+                        layout_toRightOf=""
+
+
+TableLayout布局中：
+有view要占多列时 android:layout_Span="2"
+也可设置view可伸缩：android:StretchColums=""   
+                    android:ShrinkColums=""
+
+
+代码中：
+Matrix 类，可以实现对图片的变化操作。
+LinearGradient 线性渲染器，可以实现彩虹变换
+
+
+解决app已进入EditView就进入聚焦弹出键盘的解决方法：
+在该聚焦的EditView的父View上添加2行布局参数：就OK
+    android:focusable="true"
+    android:focusableInTouchMode="true"

@@ -1,0 +1,84 @@
+1.Intent  目的、意图  ------- 也适用IPC       调用其他应用三大组件
+作用：启动Activity  启动Service 发送BroadcastRevice
+传递基本数据：基本数据和Uri等常用数据（本质也是内部使用Bundle）
+传递Bundle：Bundle:主要用于传递数据，它保存的数据是以Key-value值形式存在的。
+       android三大组件activity\Service\broadcastReciver 都支持Intent 传递Bundle数据，
+       由于Bundle实现了Parcelable接口，所以可以IPC
+       (可以在一个进程中启动另一进程的三大组件，也就通过Intent将Bundle数据传递出去)
+       （当Bundle传递对象或对象数组时，必须实现Serialzable或Parcelable接口）
+
+
+
+
+eg:
+-------------------------------------------------------------------------
+Intent intent = new Intent(MainActivity.this, Page3Activity.class);
+Bundle myBundle = new Bundle();
+myBundle.putString("fjw", "intent 发送Bundle(String)数据");
+//intent.putExtras(myBundle);
+intent.putExtra("fjw_Bundle3", myBundle);
+startActivity(intent); 
+
+//获取 启动该Activity 的intent   接收Bundle数据   Bundle数据只包含一个String
+		Intent intent = this.getIntent(); 
+		//Bundle myBundle = intent.getExtras();
+		//String getStr = myBundle.getString("fjw");
+		Bundle myBundle = intent.getBundleExtra("fjw_Bundle3");				
+		if(myBundle != null){
+			getStr = myBundle.getString("fjw");
+		}
+
+....................................................................	
+Intent intent = new Intent(MainActivity.this, Page4Activity.class);
+Bundle myBundle = new Bundle();
+String str = "人生苦短";
+myBundle.putString("fjw-string", "intent 发送Bundle(xxxx)数据");
+myBundle.putInt("fjw-int", 6666);
+myBundle.putFloat("fjw-float", 999.999f);
+myBundle.putCharArray("fjw-CharArray", str.toCharArray());
+intent.putExtra("fjw_Bundle4", myBundle);
+startActivity(intent);		
+
+//获取 启动该Activity 的intent  接收Bundle数据   Bundle数据  包含多个数据   int float string
+		Intent intent = this.getIntent(); 
+		Bundle myBundle = intent.getBundleExtra("fjw_Bundle4");				
+		if(myBundle != null){
+			getStr = myBundle.getString("fjw-string");
+			getInt = myBundle.getInt("fjw-int");
+			getFloat = myBundle.getFloat("fjw-float");
+			bs = myBundle.getCharArray("fjw-CharArray");
+			
+			getStr = getStr +">" +String.valueOf(getInt)+">" +String.valueOf(getFloat)+">"+new String(bs);
+		}	
+
+......................................................................
+person per = new person();
+per.id = 1;
+per.f = 666.666f;
+per.name ="jjyy"; 
+				
+Intent intent = new Intent(MainActivity.this, Page5Activity.class);
+Bundle myBundle = new Bundle();
+myBundle.putParcelable("fjw-Parcelable", per);
+intent.putExtra("fjw_Bundle5", myBundle);
+startActivity(intent);
+
+//获取 启动该Activity 的intent
+		Intent intent = this.getIntent(); 
+		Bundle myBundle = intent.getBundleExtra("fjw_Bundle5");				
+		if(myBundle != null){
+			person per = myBundle.getParcelable("fjw-Parcelable");  //获取Parcelable序列化
+............................................................................
+
+Intent intent = new Intent(MainActivity.this, Page6Activity.class);
+Bundle myBundle = new Bundle();
+myBundle.putSerializable("fjw-Serializable", per);
+intent.putExtra("fjw_Bundle6", myBundle);
+startActivity(intent);
+
+//获取 启动该Activity 的intent
+		Intent intent = this.getIntent(); 
+		Bundle myBundle = intent.getBundleExtra("fjw_Bundle6");				
+		if(myBundle != null){
+			Book book = (Book) myBundle.getSerializable("fjw-Serializable");
+.....................................................................

@@ -1,0 +1,89 @@
+xml解析由三种方式：
+
+
+DOM解析：基于信息层次，w3c推荐的处理xml的一种标准方式，必须读取整体文档，才能建立DOM模型；
+         优点：允许对数据上下修改，在内存持久，可随意修改内容。
+java jdk 自带的解析工具
+
+
+SAM解析：采用事件驱动模型，边读取边解析，不需将整体xml数据存储于内存，解析快速，占内存小。
+
+
+Pull解析：采用事件驱动模型，但能主动获取事件
+android 自带的解析工具
+
+
+
+附：JDOM解析：较DOM API简化，方便使用。仅使用具体类而不使用API。
+    Dom4j解析：开源代码库，性能最好，使用众多。
+
+=================================================================================================
+######################pull解析步骤############################
+********
+1.定义pull解析器 XmlPullParser
+2.设置解析器参数
+3.获取Xml解析事件类型
+4.判断节点类型  并获取信息
+5.指针移位下一个节点
+*******
+//1.定义xml解析器
+XmlPullParser pullParser = Xml.newPullParser();
+//2.设置解析器参数
+pullParser.setInput(inStream, "UTF-8");
+//3.获取Xml解析事件类型
+int event = pullParser.getEventType();
+//4.判断节点类型  并获取信息
+while(event != XmlPullParser.END_DOCUMENT){
+	switch(event){
+	//a.文件头
+	case XmlPullParser.START_DOCUMENT:
+	   break;
+	//b.节点的头
+	case XmlPullParser.START_TAG:
+	//获取节点名称
+	String name = pullParser.getName();
+	//判断节点类型
+	if("user".equals(name)){   person.name = pullParser.getAttributeValue("", "name");
+	}
+	 break;
+	//c.节点的尾
+	case XmlPullParser.END_TAG:
+	 break;
+	
+//5.指针移位下一个节点
+event = pullParser.next();
+}
+
+
+#########################SAX解析步骤###########################
+1.创建SAX解析工厂 SAXParserFactory        SAXParserFactory spf = SAXParserFactory.newInstance();
+2.创建SAX解析器  根据SAXParserFactory.newSAXParser() 方法返回一个SAXParser解析器。  SAXParser = spf.newSAXParser();
+3.实例化一个DefaultHandler对象。 class XMLContentHandler extends DefaultHandler{解析文档、节点API重写}
+4.SAX解析器解析,调用SAXParser的parser方法从输入源中获取xml数据        SAXParser.parse();
+5.通过DefaultHandler返回我们需要的数据集合。 handler.getPersons();
+
+//具体解析时 内部自动回调。
+class XMLContentHandler extends DefaultHandler{
+   startDocument(){} //读取文档头
+   startElement(){}  //读取节点头
+   characters(){}    //读取字符内容
+   endElement(){}    //读取节点结尾
+   endDocument(){}    //读取文档结尾
+}
+
+
+
+#########################DOM解析步骤###########################
+1.创建DOM工厂对象         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+2.获取DocumentBuilder对象 DocumentBuilder builder = factory.newDocumentBuilder();
+3.获取文档对象            Document doc = builder.parse(xmlFile);
+4.获取根节点              Element root = doc.getDocumentElement();
+5.获取节点下所有节点链    NodeList nodes = root.getElementsByTagName("person");
+6.遍历具体节点获取赋值。  Element e = (Element) NodeList.item(x);
+
+List = Element.getChildren("");
+Element = rootElement.getChild("");
+String idValue1 = Element.getAttribute("").getValue();
+                 
+
+

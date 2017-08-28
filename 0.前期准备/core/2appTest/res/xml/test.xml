@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CfgMonitorUnit MonitorUnitId="1" MonitorUnitName="IDU_CK" MonitorUnitType="17" IPAddress="127.0.0.1" EventLocked="false" ControlLocked="false" Description="IDU-串口服务器" LastUpdateTime="20170515160147" EXTENDFIELD1="">
+  <Ports>
+    <CfgPort PortId="1" PortNo="2" PortType="4" PortSetting="10.2.17.246:1031" PortLibName="" Description="com2" />
+    <CfgPort PortId="2" PortNo="3" PortType="4" PortSetting="10.2.17.246:1032" PortLibName="" Description="com3" />
+    <CfgPort PortId="3" PortNo="4" PortType="4" PortSetting="10.2.17.246:1033" PortLibName="" Description="com4" />
+    <CfgPort PortId="4" PortNo="5" PortType="4" PortSetting="10.2.17.246:1034" PortLibName="" Description="com5" />
+    <CfgPort PortId="5" PortNo="6" PortType="4" PortSetting="10.2.17.246:1035" PortLibName="" Description="com6" />
+    <CfgPort PortId="6" PortNo="7" PortType="4" PortSetting="10.2.17.246:1036" PortLibName="" Description="com7" />
+    <CfgPort PortId="7" PortNo="8" PortType="4" PortSetting="10.2.17.246:1037" PortLibName="" Description="com8" />
+  </Ports>
+  <Equipments>
+    <CfgEquipment EquipId="1" EquipTemplateId="173" EquipmentName="串口服务器" PortId="7" EquipAddress="100" ExtPortSetting="" LibName="NetSerDevIO.so" SampleInterval="4" EventLocked="false" ControlLocked="false" Description="" />
+    <CfgEquipment EquipId="2" EquipTemplateId="181" EquipmentName="UPS" PortId="1" EquipAddress="1" ExtPortSetting="" LibName="UPS_9106.so" SampleInterval="4" EventLocked="false" ControlLocked="false" Description="" />
+    <CfgEquipment EquipId="3" EquipTemplateId="174" EquipmentName="主路电表" PortId="2" EquipAddress="3" ExtPortSetting="" LibName="YD2010C-K2.so" SampleInterval="4" EventLocked="false" ControlLocked="false" Description="" />
+    <CfgEquipment EquipId="4" EquipTemplateId="175" EquipmentName="支路电表" PortId="3" EquipAddress="1" ExtPortSetting="" LibName="DMZ3368-12U.so" SampleInterval="4" EventLocked="false" ControlLocked="false" Description="" />
+    <CfgEquipment EquipId="5" EquipTemplateId="176" EquipmentName="空调" PortId="4" EquipAddress="1" ExtPortSetting="" LibName="FocusAir.so" SampleInterval="4" EventLocked="false" ControlLocked="false" Description="" />
+    <CfgEquipment EquipId="6" EquipTemplateId="178" EquipmentName="微环境" PortId="5" EquipAddress="1" ExtPortSetting="" LibName="FS102HT.so" SampleInterval="4" EventLocked="false" ControlLocked="false" Description="" />
+  </Equipments>
+  <LogActions>
+    <EventLogAction LogActionId="2" ActionName="烟感告警联动" TriggerType="1" StartExpression="[1,1]==1" SuppressExpression="">
+      <Action ActionId="2" ActionName="DO1" EquipmentId="1" ControlId="1" Token="11" ActionValue="1" />
+    </EventLogAction>
+    <EventLogAction LogActionId="1" ActionName="烟感告警结束" TriggerType="1" StartExpression="[1,1]==0" SuppressExpression="">
+      <Action ActionId="1" ActionName="DO1" EquipmentId="1" ControlId="1" Token="11" ActionValue="0" />
+    </EventLogAction>
+  </LogActions>
+</CfgMonitorUnit>

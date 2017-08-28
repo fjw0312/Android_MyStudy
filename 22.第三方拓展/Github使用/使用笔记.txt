@@ -1,0 +1,56 @@
+git:
+
+一。登录官网，建立库。
+GitHub官网：https://github.com/.
+进入官网后可以建立免费公开库：create a New Repository.
+
+二。本地客户端
+下载安装本地git客户端：git_windos  or git_linux  or git_OSX
+
+三。配置本地客户端
+1.建立本地ssh key.
+$ssh-keygen -t rsa -C "your_email@yourEmail.com"
+之后默认一路回车。
+
+2.自动生成.ssh文件，进入打开id_rsa.pub复制里面的key.
+
+3.回到gitHub上，进入Account Settings(账户配置)，左边选择SSH Keys. Add SSH Key。黏贴刚复制的key.
+
+4.验证在客户端下：
+$ ssh -T git@github.com
+
+5.配置用户名（表示以后该电脑使用该账户登录）
+$git config --global user.name "your name"
+$git config --global user.email "your_email@yourEmal.com"
+
+
+本人GitHub账户：
+
+
+-------------------------------------------------------------
+git常用命令：
+1.初始化设置
+git config --global user.name "myName"
+git config --global user.email "myEmail"
+
+2.git本地操作
+git add   保存更新
+git status  检查更新
+git commit 提交更新  -am 包含修改内容和说明
+
+3.git远端操作
+git clone <git地址> 克隆到本地
+git fetch   远端抓取
+git merge  与本地分支合并
+git pull <远端别名> 抓取
+git push  <远端别名> 推送到远端
+
+
+git pull 更新本地仓库到最新
+git fetch 抓取远程仓库更新
+git long 查看提交记录
+git status 查看修改状态
+git diff 查看修改内容
+git show 显示某次修改内容
+
+git checkout 从缓存区复制到工作区

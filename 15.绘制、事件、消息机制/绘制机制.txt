@@ -1,0 +1,73 @@
+android 绘制机制
+
+整个View树的绘图流程 在ViewRoot类.performTraversals()函数开始
+树的遍历绘制，父视图会先于子视图。
+
+android源码：
+ViewRoot类.performTraversals(){
+  final View host = mView;
+  ....
+  host.measure(childWidthMeasureSpec, childHeightMeasureSpec);
+  ....
+  host.layout(0, 0 , host.getMeasureWidth(), host.MeasureHeight());
+  ....
+  draw(fullRedrawNeed);
+}
+
+
+View 的绘制机制。基本3个方法：
+Measure->onMesure();    测量
+layout->onLayout();     布局
+Draw->onDraw();         绘制
+
+----------------------------------------------------------------------------------------
+mesure 测量传递尺寸     ---从上到下有序测量
+传递2个类：
+   ViewGroup.layoutParams (View自身的布局参数)
+   MeasureSpecs类 （父视图对子视图的测量要求）
+
+
+final View.measure()->View.onMeasure()->final view.setMeasureDimension(); 
+父视图对子视图的宽高测量要求 
+final View.measure()->.onMeasure(int widthMeasureSpec, int heightMeasureSpec) 
+测量最后阶段，onMeasure(）会调用setMeasureDimension()处理测量的结果。
+
+在ViewGroup中内部源码流程：
+MeasureChildren->measureChild->getChildMeasureSpec->Measure->onMeasure->setMeasrueDimention-结束
+过程中每个视图都存储了自身的尺寸，然后layout自上到下执行，
+过程中父视图会根据Measure得到的尺寸确定子视图位置。
+
+由于final view.measure(),所以在外部可以直接调用View.measure();
+自定义：
+重写onMeasure()并需要调用 setMeasureDimension() 或 super.onMeasure(); 才不会抛出异常！
+如果view用wrap_content 时需调用setMeasureDimension()
+如果view用fill_content 时可以直接super.onMeasure();
+
+-------------------------------------------------------------------------------------------
+layout 布局底板         ---从上到下的绘制
+
+layout过程中会调用getMeasureWidth() getMeasureHeight() 获取到Measure中的MeasureWidth MeasureHeight
+       作为width height  最后还调用-->onLayout();
+view.onlayout() 空实现。
+final view.layout()->view.onlayout()   
+
+自定义：
+重写onlayout();
+
+
+-------------------------------------------------------------------------------------------
+Draw  绘制视图         
+
+view/ViewGroup 都有Draw()方法，不过ViewGroup.Draw()里面空实现。 自定义中 应该重写onDraw（）方法。	
+               View.onDraw() 源码为空实现。
+               View.dispatchDraw() 源吗空实现，而ViewGroup.dispatchDraw()会对子view进行绘制，自定义不用管。
+
+源吗流程
+Draw()->onDraw()->dispatchDraw()->onDrawScrollBars();
+
+
+
+-----------------------------------------------------------------------------------------
+最后通知View树重绘刷新有view.invalidate()  view.postInvalidate();
+    通知重新测量和布局requestLayout(),他会触发measure()  layout();
+ 

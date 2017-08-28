@@ -1,0 +1,52 @@
+Android 事件机制：
+
+事件机制 主要有： 事件的  传递 & 消费
+
+主要形式： OnTouch  OnClick  OnLongClick
+细微动作步骤：action_down  action_move  action_up 等。
+
+
+事件分发传递：由外层的父View 开始向内分发传递，直到 有子View捕获相应消费。
+事件响应消费：由内层的子View 开始向外相应捕获，最后 事件响应消费或到根View.
+
+传递顺序：Activity->ViewGroup->View
+
+事件分发过程协作的方法：
+dispatchTouchEvent()       分发（传递）点击事件              事件传递给当前View时该方法会被调用
+onInterceptTouchEvent()   是否拦截某个事件（只存在VIewGroup）在dispatchTouchEvent()内部被调用。
+OnTouchEvent()            处理点击事件                        在dispatchTouchEvent()内部被调用；
+
+当dispatchTouchEvent()返回true.向下分发会结束。
+当onInterceptTouchEvent()返回true,表示不再分发 在此View 消费响应onTouchEvent 
+(其他的action up  dwon move也在此viewGroup 消费)
+
+由于View没有onInterceptTouchEvent()，消息传递到View会被响应，后看返回是否true,父viewGroup是否也响应。
+-------------------------------------------------------------------------------------------------
+android层最先接收到事件触摸的是：ViewRootImp-->dispatchTouchEvent()
+
+onTouch() 比 onTouchEvent() 优先级高  如果onTouch()返回true,onTouchEvent()就不能处理了。
+onTouch()>onTouchEvent()>onClick()>onLongClick();
+onTouch()返回true时才会本监听内消耗到up/down/move  ,而onTouchEvent()不管返回什么都会消耗up/down/move；
+
+OnTouch()常使用setOnTouchListerner(new onTouchListener(.onTouch()))方法（由于有2必要条件）
+onTouchEvent()常使用在view中重写方法的 方法实现。
+onClick()由 onTouchEvent()的performclick()进入，如果执行会消耗掉事件（相当onTouchEvent()内部返回true)
+
+
+从ViewGroup源码中：
+public boolean dispatchTouchEvent(Motion e){
+  boolean result = false;
+  if(onInterceptTouchEvent e){
+     result = onTouchEvent();
+  }else{
+    reslut = child.dispatchTouchEvent(e);
+  }
+  return reslut;
+}
+
+如果viewGroup1包含viewGroup2包含View3  点击view3 然后打印log，不人为返回true:
+viewGroup1.dispatchTouchEvent()->viewGroup1.onInterceptTouchEvent()
+->viewGroup2.dispatchTouchEvent()->viewGroup2.onInterceptTouchEvent()
+->view3.dispatchTouchEvent()->view3.onTouchEvent();
+->viewGroup2.onTouchEvent()->viewGroup3.onTouchEvent()
+如果view3.onTouchEvent()返回true, viewGroup2.onTouchEvent()->viewGroup3.onTouchEvent()就不会执行

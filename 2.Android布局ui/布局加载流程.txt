@@ -1,0 +1,6 @@
+activity布局加载流程：
+
+oncreate()-setContentView()
+               ->PhoneWidow->setContentView()->LayoutInflater.inflate()
+
+包含关系： Activity->PhoneWindow->DecorView->TitleView/ContentView

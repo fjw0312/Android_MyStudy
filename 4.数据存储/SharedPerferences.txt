@@ -1,0 +1,32 @@
+SharedPerferences。
+少量存储、数据简单。键值key-value格式文件。
+常适用于配置文件。
+
+使用方法：
+数据写入：
+1.获取sharedPerferences
+ sharedPerferences = getSharedPreferences("data", MODE_PRIVATE);//data文件名。
+2.写入需要获取Editor类
+  sharedPerferences.Editor =  getgetSharedPreferences().Editor;
+3.添加写入数据
+     editor.putXXX("Key","value");
+  eg:
+		editor.putString("name", "fang");
+		editor.putInt("age", 25);
+		editor.putBoolean("married", false);
+4.提交数据
+     editor.commit();
+
+
+
+数据读取：
+1.获取sharedPerferences
+ sharedPerferences = getSharedPreferences("data", MODE_PRIVATE);//data文件名。
+2.获取键值。
+value=sharedPerferences.getXXX("","");
+eg:
+	String name = pref.getString("name", "");
+	int age = pref.getInt("age", 0);
+	boolean married = pref.getBoolean("married", false);
+
+

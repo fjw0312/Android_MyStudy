@@ -1,0 +1,20 @@
+contentProvider 内容提供器
+
+Android四大组件之一：
+主要用于应用程序间实现数据共享功能。一套数据提供共享机制 或接口方式。实现数据共享数据安全。
+
+对共享数据的操作，需要借助ContentResolver.
+context.getContentResolver() 获取到该类的实例。然后可以进行CRUD.  与数据库SQLite操作一样
+
+insert();  ---需要借助ContentValue类。再.put("","");
+delete();
+update();
+query();  --- 需要借助Cursor类。再getString("");
+
+onCreate()
+getType();
+
+
+内容提供器的索引通过URI (2部分组成：权限&路径)
+eg：content://com.example.app.provider/table1
+使用：Uri uri = Uri.parse("content://com.example.app.provider/table1");

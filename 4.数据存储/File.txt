@@ -1,0 +1,36 @@
+File 文件的操作 使用说明。
+
+文件的操作api   
+File file = new File("path");
+//新建文件               //新建路劲
+file.createNewFile();    file.mkdir();
+
+//判断是否为文件  或路径
+file.isFile();
+file.isDirectory();
+
+//获取子文件名称
+String[] = file.list();
+
+文件内容的读写：
+字节流：
+OutputStream()---FileOutPutStream();
+InputStream();---FileInputStream();
+OutputStream.write();
+InputStream.read();
+
+字符流：
+Writer()---FileWriter();
+Reader()---FileReader();
+Writer.write();
+Reader.read();
+
+高级流：
+PrintWriter(FileWriter(file));
+BufferedReader(FileReader(file));
+PrintWriter.printfln(String);
+BufferedReader.readLine();
+
+
+字节流转化为 高级字符流：
+BufferedReader( InputStreamReader( FileInputStream()) )

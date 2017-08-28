@@ -1,0 +1,79 @@
+定义背景图形，相当于引用 图片为背景类似。
+
+1.在/res/drawable/新建文件  
+
+2.定义shape用于设定形状
+
+    <!-- 描边 -->
+    <stroke/>
+
+    <!-- 填充 -->
+    <solid/>
+
+    <!-- 大小 -->
+    <size/>
+
+    <!-- 间隔 -->
+    <padding/>
+
+    <!-- 圆角 -->
+    <corners/>
+
+    <!-- 渐变 -->
+    <gradient/>
+
+
+
+
+==================================================================  
+02.<shape  
+03.    xmlns:android="http://schemas.android.com/apk/res/android"  
+04.    android:shape=["rectangle" | "oval" | "line" | "ring"]      //共有4种类型，矩形（默认）/椭圆形/直线形/环形  
+05.    // 以下4个属性只有当类型为环形时才有效  
+06.    android:innerRadius="dimension"     //内环半径  
+07.    android:innerRadiusRatio="float"    //内环半径相对于环的宽度的比例，比如环的宽度为50,比例为2.5,那么内环半径为20  
+08.    android:thickness="dimension"   //环的厚度  
+09.    android:thicknessRatio="float"     //环的厚度相对于环的宽度的比例  
+10.    android:useLevel="boolean">    //如果当做是LevelListDrawable使用时值为true，否则为false.  
+11.  
+12.    <corners    //定义圆角  
+13.        android:radius="dimension"      //全部的圆角半径  
+14.        android:topLeftRadius="dimension"   //左上角的圆角半径  
+15.        android:topRightRadius="dimension"  //右上角的圆角半径  
+16.        android:bottomLeftRadius="dimension"    //左下角的圆角半径  
+17.        android:bottomRightRadius="dimension" />    //右下角的圆角半径  
+18.  
+19.    <gradient   //定义渐变效果  
+20.        android:type=["linear" | "radial" | "sweep"]    //共有3中渐变类型，线性渐变（默认）/放射渐变/扫描式渐变  
+21.        android:angle="integer"     //渐变角度，必须为45的倍数，0为从左到右，90为从上到下  
+22.        android:centerX="float"     //渐变中心X的相当位置，范围为0～1  
+23.        android:centerY="float"     //渐变中心Y的相当位置，范围为0～1  
+24.        android:startColor="color"      //渐变开始点的颜色  
+25.        android:centerColor="color"     //渐变中间点的颜色，在开始与结束点之间  
+26.        android:endColor="color"    //渐变结束点的颜色  
+27.        android:gradientRadius="float"  //渐变的半径，只有当渐变类型为radial时才能使用  
+28.        android:useLevel=["true" | "false"] />  //使用LevelListDrawable时就要设置为true。设为false时才有渐变效果  
+29.  
+30.    <padding    //内部边距  
+31.        android:left="dimension"  
+32.        android:top="dimension"  
+33.        android:right="dimension"  
+34.        android:bottom="dimension" />  
+35.  
+36.    <size   //自定义的图形大小  
+37.        android:width="dimension"  
+38.        android:height="dimension" />  
+39.  
+40.    <solid  //内部填充颜色  
+41.        android:color="color" />  
+42.  
+43.    <stroke     //描边  
+44.        android:width="dimension"   //描边的宽度  
+45.        android:color="color"   //描边的颜色  
+46.        // 以下两个属性设置虚线  
+47.        android:dashWidth="dimension"   //虚线的宽度，值为0时是实线  
+48.        android:dashGap="dimension" />      //虚线的间隔  
+49.</shape>  
+
+
+

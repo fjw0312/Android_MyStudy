@@ -1,0 +1,8 @@
+
+
+
+自制跳转url连接：
+新建一个txt文件，写入内容：
+[InternetShortcut]
+URL=http://www.baidu.com
+保存文件，并修改文件为.url就可以点击连接了。---目前设计无效

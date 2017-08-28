@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:background="@drawable/actionbar_shape" >
+    
+    <ImageView 
+        android:id="@+id/img_TitleLogo"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="8"
+        android:layout_marginLeft="2dp"
+        android:src="@drawable/action_logo"/>
+    
+    <ImageView 
+        android:id="@+id/img_findLogo"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="17"
+        android:layout_gravity="center"
+        android:src="@drawable/find_logo"/>
+    
+    <ImageView 
+        android:id="@+id/img_shareLogo"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="8"
+        android:layout_marginRight="2dp"
+        android:src="@drawable/share_logo"/>
+
+</LinearLayout>

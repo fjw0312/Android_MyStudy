@@ -1,0 +1,102 @@
+Intent  目的  意图
+android 组件间的媒介。   
+
+一、 intent 用来启动组件
+    1.启动Activity  startActivity(Intent)
+    2.启动Service   startService(Intent)
+    3.发送BroadCast  sendBroadcast(Intent)
+
+   启动Activity：eg:
+   a.退出到桌面
+   Intent intent = new Intent(Intent.ACTION_MAIN);
+   intent.addCategory("android.intent.category.HOME");
+   startActivity(intent);
+   
+   b.跳转Activity
+   Intent intent = new Intent(MainActivity.this, Page2Activity.class);
+   startActivity(intent);
+
+   c.传递信息给跳转的Activity
+   Intent intent = new Intent(MainActivity.this, Page2Activity.class);
+   intent.putExtra("fjw", "xxxooo");
+   startActivity(intent);
+   -----------------------------
+   Intent intent = super.getIntent();
+   String str = intent.getStringExtra("fjw");
+
+   d.调用系统图片查看器
+   Intent intent = new Intent(Intent.ACTION_VIEW);
+   intent.setDataAndType(Uri.fromFile(new File("/mnt/sdcard/fjw_photo/8.jpg")), "image/*");
+   startActivity(intent);    //查看图片
+
+   e.调用系统浏览器
+   Intent intent = new Intent(Intent.ACTION_VIEW);
+   intent.setData(Uri.parse("http://www.baidu.com"));
+   intent.setClassName("com.android.browser", "com.android.browser.BrowserActivity");//添加指定默认 浏览器
+   startActivity(intent);   //启动浏览器活动
+
+   f.间接拨打电话
+   Intent intent = new Intent(Intent.ACTION_DIAL);
+   intent.setData(Uri.parse("tel:13726248137"));
+   startActivity(intent);   //间接拨打电话
+
+   g.直接拨打电话----记得开拨打电话权限
+   Intent intent = new Intent(Intent.ACTION_CALL);
+   intent.setData(Uri.parse("tel:13726248137"));
+   startActivity(intent);   //直接拨打电话
+
+   h.发送邮件
+   Intent emailIntent = new Intent(Intent.ACTION_SEND) ;// 实例化
+   IntentemailIntent.setType("plain/text") ;// 设置类型
+   emailIntent.putExtra(Intent.EXTRA_EMAIL, address) ;	// 设置首件人
+			
+   emailIntent.putExtra(Intent.EXTRA_SUBJECT, subject) ;// 设置主题
+		
+   emailIntent.putExtra(Intent.EXTRA_TEXT, content) ;	// 设置内容	
+   startActivity(intent);   //发送邮件		
+ 	
+   i.（应用选择器）选择图片浏览工具
+   Intent intent = new Intent(Intent.ACTION_GET_CONTENT);// 定义Intent
+   intent.setType("image/*");		// 定义操作类型
+   startActivity(Intent.createChooser(intent,"选择图片浏览工具"));// 创建选择器
+
+二、intent组件间数据传递 （本质Intent+Bundle）
+  intent.putExtra("xxx","yyy"); 可以传递任意数据类型
+  获取到数据eg： 
+Intent intent = super.getIntent();
+String data = intent.getStringExtra("xxx");
+
+使用Bundle时：
+发送：
+Intent intent = new Intent(MainActivity.this, Page3Activity.class);
+Bundle myBundle = new Bundle();
+myBundle.putString("fjw", "intent 发送Bundle(String)数据");//intent.putExtras(myBundle);
+intent.putExtra("fjw_Bundle3", myBundle);
+startActivity(intent);
+获取：
+Intent intent = this.getIntent(); 
+Bundle myBundle = intent.getBundleExtra("fjw_Bundle3");
+String getStr = myBundle.getString("fjw");
+
+
+//发送一个类
+Intent intent = new Intent(MainActivity.this, Page6Activity.class);
+Bundle myBundle = new Bundle();
+myBundle.putSerializable("fjw-Serializable", per);
+intent.putExtra("fjw_Bundle6", myBundle);
+startActivity(intent);
+//获取 该类定义时要继承Serializable接口
+Intent intent = this.getIntent(); 
+Bundle myBundle = intent.getBundleExtra("fjw_Bundle6");				
+Book book = (Book) myBundle.getSerializable("fjw-Serializable");
+
+
+三、intent 的相关参数
+   Action 动作
+   Data  数据
+   Category 分类
+   Type 类型
+   Content 组件
+   EXtra  附加信息
+
+intent 有显式和隐式  2种使用方式。

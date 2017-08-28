@@ -1,0 +1,12 @@
+NDK：
+下载工具链：android-ndk-r8b-linux-x86.tar.bz2
+
+1.配置JNI 生成android项目的so
+需要将android-ndk-r8b-linux-x86.tar.bz2 解压后配置ndk-build 环境
+
+2.配置android 标准的C/C++编译链  编译C/C++应用程序
+  使用android-ndk-r8b-linux-x86.tar.bz2 解压后进入/build/tools/下，执行文件下的
+  make-standalone-toolchain.sh 脚本，需要追加一些参数（具体加--help查看）
+  会生成android 标准编译链于/tmp/ndk
+  再将生成的编译链解压，配置环境即可使用arm-linux-androideabi-gcc等编译
+  

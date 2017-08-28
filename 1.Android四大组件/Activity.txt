@@ -1,0 +1,40 @@
+Activity 知识说明：
+活动。  android 四大组件   一个活动：一个窗口。
+        一般一个页面 设计一个窗口活动。
+
+多个窗口活动，每个activity 需要在AndroidMainfest.xml文件注册每个activity.
+然后定义每个XXactivity.对应定义每个页面Layout .放入：setContentView(R.layout.activity_main);
+
+生命周期：
+oncreate(); 创建
+onstart();  可见
+onresume();  可交互
+onPause();   不可交互
+onStop();    不可见
+ondestory(); 销毁
+onrestart(); 重新可见
+
+
+
+启动activity:
+Intent intent = new Intent(MainActivity.this,NormalActivity.class);
+startActivity();          直接跳转过去
+startActivityForResult(); 直接跳转过去，结束还自动回来该Activity.onActivityResult()
+
+关闭activity:
+.finish();
+
+activity数据保存：Boundle
+onCreate(Bundle savedInstanceState){
+	//获取该活动的保存数据
+	if(savedInstanceState!=null){
+		String tempData = savedInstanceState.getString("fjw_key");
+		textview.setText(tempData);
+	}
+	//将活动页面的数据进行保存
+	protected void onSaveInstanceState(Bundle outState){
+		super.onSaveInstanceState(outState);
+		String tempData = "save my data";
+		outState.putString("fjw_key", tempData);
+	}
+}

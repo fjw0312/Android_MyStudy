@@ -1,0 +1,45 @@
+	//获取系统时间
+	private long getSysTime(){
+		long time = System.currentTimeMillis();
+		return time;
+	}
+	//转化时间字符
+	private String timeToString(long time){
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//时间格式转换
+		Date date = new Date(time);
+		String strTime = formatter.format(date);
+		return strTime;
+	}
+	
+	//转化时间字符
+	private long stringTotime(String strtime){
+		//获取strtime 00:00:00的时间秒数	  将昨天凌晨 作为初始时刻时间。	
+		long time = 0;
+		try {
+			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//时间格式转换
+			time = formatter.parse(strtime).getTime(); //单位ms
+		} catch (Exception e) {
+			// TODO Auto-generated catch block 
+			e.printStackTrace();
+		}
+		return time;
+	}
+-------------------------------------------------------------------------------------------------------
+
+
+private Calendar calendar;
+private  DatePickerDialog  dialog;  //日期对话框选择应用
+//日期设置对话框
+			calendar = Calendar.getInstance();
+			year = calendar.get(Calendar.YEAR);
+			month = calendar.get(Calendar.MONTH);
+			day = calendar.get(Calendar.DAY_OF_MONTH);
+			dialog = new DatePickerDialog(context, new OnDateSetListener() {			
+				@Override
+				public void onDateSet(DatePicker arg0, int arg1, int arg2, int arg3) {
+					// TODO Auto-generated method stub		
+					num = 0;  //天数加减按纽清零
+//					String text = year + "-" + month +"-" + day;				
+//					Log.i("LocalList-OnDateSetListener 选择的日期是:", text);
+				}
+			}, year, month, day);

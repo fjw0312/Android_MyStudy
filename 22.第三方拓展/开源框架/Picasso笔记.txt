@@ -1,0 +1,26 @@
+Picasso 图片加载缓冲框架
+
+===========================================================================
+地址：http://square.github.io/picasso/
+
+Picasso不仅实现了图片的异步加载，还解决了android加载图片时需要解决的常见问题。
+
+
+使用方法:(常就1句话)
+//加载资源图片
+Picasso.with(Context).load(R.drawable.pp).into(ImageView);
+
+//加载本地图片
+Picasso.with(Context).load(new File("")).into(ImageView);
+
+//加载网络图片
+Picasso.with(Context).load(Url).into(ImageView);
+
+//剪裁图片尺寸
+.resize(50,50)
+//设置图片圆角
+.centerCrop()
+//加载占位图
+.placeholder(R.drawable.yy)
+//加载错误占位图
+.error(R.drawable.error)

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="myTitleView">
+        <attr name="backgroundColor" format="color"/>
+        <attr name="text" format="string"/>
+        <attr name="textColor" format="color"/>
+        <attr name="textDrawable" format="integer|reference"/>
+        <attr name="leftButtonVisible" format="boolean"/>
+        <attr name="rightButtonVisible" format="boolean"/>
+        <attr name="leftButton_text" format="string"/>
+        <attr name="leftButton_textColor" format="color"/>
+        <attr name="leftButton_Drawable" format="integer|reference"/>
+        <attr name="rightButton_text" format="string"/>
+        <attr name="rightButton_textColor" format="color"/>
+        <attr name="rightButton_Drawable" format="integer|reference"/>
+    </declare-styleable>
+</resources>

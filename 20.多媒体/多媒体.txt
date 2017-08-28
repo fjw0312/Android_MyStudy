@@ -1,0 +1,36 @@
+多媒体：
+
+Mediaplayer 
+soundPool
+VideoView
+surfaceView
+MediaRecorder
+Camera
+
+------------------------MediaPlayer----------------------------
+适用于播放音频、视频(需要surfaceView配合)。
+使用：
+1）获取MediaPlayer实例
+   可以直接new      MediaPlayer media = new MediaPlayer();
+  或使用create      MediaPlayer media = MediaPlayer.create(this, R.raw.test);
+                     //也不再用设置播放资源setDataSource了。
+
+2）设置播放文件
+  文件来源一般有3种方式
+  a.应用内自带resource资源：mediaPlayer.create(this, R.raw.test);
+  b.系统文件资源播放：      media.setDataSource("/mnt/sdcard/test.mp3");
+  c.网络上的资源媒体：      media.setDataSource("http://www.citynorth.cn/music/confucius.mp3");
+  // media.setDataSource（参数）共有4种方式：String path\ File fd \ contxt&Uri \ File&long&long
+
+3）播放器的主要控制方法
+  1.perpare() 和 prepareAsync() 提供同步和异步 方式让播放器进入准备缓冲阶段。
+    注意，如果MediaPlayer 是create创建的就不需要perpare()，因为创建时已做了缓冲。
+  2.start()  真正启动播放
+  3.pause() \ stop() 暂停 和停止播放。
+  4.seekTo() 定位播放,该方法为异步（方法返回不意味定位完成），
+             要真正定位完成会触发OnSeekComplete.onSeekComplete();
+  5.release() 释放播放器占用的资源
+  6.reset()  可以使播放器从Error状态中恢复过来。
+
+4）设置播放器监听
+   setOnCompletionListener()  \   setOnErrorListener();

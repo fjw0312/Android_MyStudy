@@ -1,0 +1,32 @@
+由于常在子线程中要 用到context去使用Toast 或 SendBroadcast 或Dialog
+所以，需要在子线程获取Context的设计。
+常我们可以设计获取Application.context
+
+1.定义一个类
+public class MyApplication extends Application{
+	private static Context context;
+	
+	@Override
+	public void onCreate() {
+		// TODO Auto-generated method stub
+		super.onCreate();
+		context = getApplicationContext();
+	}
+
+	//获取 context
+	public static Context getContextObject(){
+		return context;
+	}
+
+}
+
+2.在AndroidMainfest.xml 添加一句：
+<application 
+	android:name=".MyApplication"
+
+
+3.使用Toast:   (使用Toast的线程必须拥有Looper。子线程需手动创建Looper.prepare())
+Looper.prepare(); //创建 该线程的looper和message.   Toast所在线程 需要有Looper
+Toast.makeText(MyApplication.getContextObject(), "HttpURLConnectionHAL-Post Error!", Toast.LENGTH_LONG).show();
+Looper.loop();  //looper 指针移动   但该行会使 线程阻塞。如果线程不断复用，可考虑先广播。
+

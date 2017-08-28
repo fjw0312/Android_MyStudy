@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<set xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- 可以同时设置四种动画，但目前无法同一种动画 多次不同实现 -->
+    <alpha 
+        android:duration="2000"
+        android:fromAlpha="0.3"
+        android:toAlpha="1.0"
+        android:fillAfter="true"
+        android:repeatCount="2"/>
+    
+    <scale />
+    <translate />
+    <rotate />
+    
+</set>

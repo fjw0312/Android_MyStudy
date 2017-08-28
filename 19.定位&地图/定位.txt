@@ -1,0 +1,30 @@
+android 定位：主要分3种
+
+一、GPS定位
+说明：需要GPS硬件支持，获取卫星数据，不需要网络
+优点：速度快、精度高、无需网络
+缺点：首次连接时间长，较适合户外无遮挡出，较耗电。
+
+
+二、network网络定位
+又细分为：1.WIFI定位  2.基站定位
+1.wifi:需要有wifi受环境影响小，但不精准。
+2.基站：需要耗费流量，精度差（10~90m）
+
+
+三、AGPS定位(辅助全球卫星定位系统)
+优点精度好10m内，  结合基站和GPS的技术。
+
+注。实际项目可以考虑 百度SDK 高德Sdk 的第三方定位  会更精准！
+
+
+代码：
+1.获取定位服务：locationManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
+2.获取定位提供器：
+List<String> providerList = locationManager.getProviders(true);
+provider = LocationManager.GPS_PROVIDER;   //or
+provider = LocationManager.NETWORK_PROVIDER;
+3.获取上次定位信息
+location = locationManager.getLastKnownLocation(provider);
+4.申请定时定位更新 监听
+locationManager.requestLocationUpdates(provider, 5000, 1, locationListener);

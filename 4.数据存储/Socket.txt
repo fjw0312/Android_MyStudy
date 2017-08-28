@@ -1,0 +1,78 @@
+就 网络通信：socket.
+
+分为客户端socket  和   服务端ServerSocket
+
+首先一定要先在AndroidMainfest.xml中先放开权限！！！！
+
+服务端ServerSocket：
+使用步骤：
+1.ServerSocket serverSocket = new ServerSocket(Port);  //建立ServerSocket
+2.Socket Clientsocket = serverSocket.accept();         //等待客户端连接
+3.socket.setSoTimeout(1000*10);                       //设置socket 接收超时 10s
+4.in = socket.getInputStream();                       //获取输入 输出流
+  out = socket.getOutputStream();
+5.int num = in.read(recvBuf, 0, recvLenth);           //接收recvBuf
+6.out.write(sendBuf, 0, sendBuf.length);              //发送sendBuf
+
+7.out.close(); in.close();  socket.close()            //流 和socket 关闭
+
+
+客户端socket：
+使用步骤：
+1.Socket socket = new Socket();                          //建立socket
+2.socket.connect(new InetSocketAddress(IP, Port), 500);  //建立Socket连接
+3.socket.setSoTimeout(1000*5);                             //设置socket 接收超时 5s
+4.in = socket.getInputStream();                       //获取输入 输出流
+  out = socket.getOutputStream();
+5.int num = in.read(recvBuf, 0, recvLenth);           //接收recvBuf
+6.out.write(sendBuf, 0, sendBuf.length);              //发送sendBuf
+
+7.out.close(); in.close();  socket.close()            //流 和socket 关闭
+//第1.2条也可以合并为Socket socket= new Socket("localhost",8888)；
+
+
+
+
+//==========================================================================================
+locAdd = InetAddress.getLocalHost() ;// 得到本机
+
+
+//UDP服务端
+public class UDPServer{
+	public static void main(String args[]) throws Exception{	// 所有异常抛出
+		DatagramSocket ds = null ;		// 定义发送数据报的对象
+		DatagramPacket dp = null ;		// 声明DatagramPacket对象
+		ds = new DatagramSocket(3000) ;	// 服务端在3000端口上等待服务器发送信息\
+		String str = "hello World!!!" ;
+		dp = new DatagramPacket(str.getBytes(),str.length(),InetAddress.getByName("localhost"),9000) ; // 所有的信息使用buf保存
+		System.out.println("发送信息。") ;
+		ds.send(dp);	// 发送信息出去
+		ds.close() ;
+	}
+};
+
+//UDP客户端
+public class UDPClient{
+	public static void main(String args[]) throws Exception{	// 所有异常抛出
+		DatagramSocket ds = null ;		// 定义接收数据报的对象
+		byte[] buf = new byte[1024] ;	// 开辟空间，以接收数据
+		DatagramPacket dp = null ;		// 声明DatagramPacket对象
+		ds = new DatagramSocket(9000) ;	// 客户端在9000端口上等待服务器发送信息
+		dp = new DatagramPacket(buf,1024) ; // 所有的信息使用buf保存
+		ds.receive(dp)  ;	// 接收数据
+		String str = new String(dp.getData(),0,dp.getLength()) + "from " + 
+			dp.getAddress().getHostAddress() + "：" + dp.getPort() ;
+		System.out.println(str) ;	// 输出内容
+	}
+};
+
+
+
+在linux c开发中：
+
+socket开发中通信时，一个通信端close后会导致另一端被系统推出的问题。
+
+原因：close表示关闭网络通信双工通道中的2条信道。所以任何一端close都会关闭连接。
+触发点：当close socket时，连接关闭，未关闭的一端还收recv\write.
+       当未close端write第一次，返回FIN信号，还正常返回发送成功，此时该端read 返回0，
+       当write第二次时，会接收到RST，导致系统生成SIGPIPE信号，系统将该进程杀死。

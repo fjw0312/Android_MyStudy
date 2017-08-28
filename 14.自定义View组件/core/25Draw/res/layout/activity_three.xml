@@ -1,0 +1,191 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:myattrs="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="30sp"
+        android:text="自定义viewGroup 控件 " />
+    
+    <LinearLayout 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        
+        <TextView 
+            android:id="@+id/textView01"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:text="..."
+            android:textSize="20sp"/>
+        
+         <TextView 
+            android:id="@+id/textView02"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:text="..."
+            android:textSize="20sp"/>
+    </LinearLayout>
+    
+    <LinearLayout 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        
+        <Button 
+            android:id="@+id/button01"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:text="返回"
+            android:textSize="20sp"/>
+        
+         <Button  
+            android:id="@+id/button02"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:text="下一页"
+            android:textSize="20sp"/>
+    </LinearLayout>
+
+    <fang.myViewGroup.MyViewGroup01
+        android:id="@+id/myViewGroup1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+         
+        <TextView 
+            style="@style/fang_style01"
+            android:background="@drawable/myground01"
+            android:text="c语言"
+            android:textColor="#ffff0000"/>
+       <TextView 
+            style="@style/fang_style01"
+            android:background="@drawable/myground01"
+            android:text="c++"
+            android:textColor="#ffff0000"/>
+        <TextView 
+            style="@style/fang_style01"
+            android:background="@drawable/myground01"
+            android:text="Java"
+            android:textColor="#ffff0000"/>
+       <TextView 
+            style="@style/fang_style01"
+            android:background="@drawable/myground01"
+            android:text="javaScrip"
+            android:textColor="#ffff0000"/>
+        <TextView 
+            style="@style/fang_style01"
+            android:background="@drawable/myground01"
+            android:text="python"
+            android:textColor="#ffff0000"/>
+       <TextView 
+            style="@style/fang_style01"
+            android:background="@drawable/myground01"
+            android:text="C#"
+            android:textColor="#ffff0000"/>
+        <TextView 
+            style="@style/fang_style01"
+            android:background="@drawable/myground01"
+            android:text="php"
+            android:textColor="#ffff0000"/>
+       <TextView 
+            style="@style/fang_style01"
+            android:background="@drawable/myground01"
+            android:text="人生苦短，事态无常"
+            android:textColor="#ffff0000"/> 
+      <TextView 
+            style="@style/fang_style01"
+            android:background="@drawable/myground01"
+            android:text="中国广东省深圳市南山区"
+            android:textColor="#ffff0000"/>    
+    <TextView 
+            style="@style/fang_style01"
+            android:background="@drawable/myground01"
+            android:text="中国广东省深圳市南山区粤海街道前海湾"
+            android:textColor="#ffff0000"/>                             
+    </fang.myViewGroup.MyViewGroup01>
+
+    <fang.myViewGroup.MyViewGroup02
+        android:id="@+id/myViewGroup2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+        <TextView 
+            style="@style/fang_style01"
+            android:background="@drawable/myground02"
+            android:text="c语言>>>oooo"
+            android:textColor="#ff000099"/>
+       <TextView 
+            style="@style/fang_style01"
+            android:background="@drawable/myground02"
+            android:text="c++"
+            android:textColor="#ff000099"/>
+        <TextView 
+            style="@style/fang_style01"
+            android:background="@drawable/myground02"
+            android:text="Java is bababa"
+            android:textColor="#ff000099"/>
+       <TextView 
+            style="@style/fang_style01"
+            android:background="@drawable/myground02"
+            android:text="javaScrip is ssssss"
+            android:textColor="#ff000099"/>
+        <TextView 
+            style="@style/fang_style01"
+            android:background="@drawable/myground02"
+            android:text="python"
+            android:textColor="#ff000099"/>
+        <TextView 
+            style="@style/fang_style01"
+            android:background="@drawable/myground02"
+            android:text="C# to shit shit shit shit"
+            android:textColor="#ff000099"/>
+        <TextView 
+            style="@style/fang_style01"
+            android:background="@drawable/myground02"
+            android:text="php kkkkk hhh kkk llll"
+            android:textColor="#ff000099"/>
+        <TextView 
+            style="@style/fang_style01"
+            android:background="@drawable/myground02"
+            android:text="人生苦短，事态无常"
+            android:textColor="#ff000099"/> 
+        <TextView 
+            style="@style/fang_style01"
+            android:background="@drawable/myground02"
+            android:text="中国广东省深圳市南山区"
+            android:textColor="#ff000099"/>    
+        <TextView 
+            style="@style/fang_style01"
+            android:background="@drawable/myground02"
+            android:text="中国广东省深圳市南山区粤海街道前海湾"
+            android:textColor="#ff000099"/> 
+        <TextView 
+            style="@style/fang_style01"
+            android:background="@drawable/myground02"
+            android:text="中国广东省深圳市福田区"
+            android:textColor="#ff000099"/> 
+         <TextView 
+            style="@style/fang_style01"
+            android:background="@drawable/myground02"
+            android:text="中国广东省深圳市罗湖区"
+            android:textColor="#ff000099"/>  
+         <TextView 
+            style="@style/fang_style01"
+            android:background="@drawable/myground02"
+            android:text="中国广东省深圳市保安区"
+            android:textColor="#ff000099"/>                                         
+    </fang.myViewGroup.MyViewGroup02>
+
+</LinearLayout>

@@ -1,0 +1,86 @@
+android 多线程机制
+
+1.Thread---（Handler机制）handle消息机制-消息调度方式：  1.post  2.sendMessages
+2.定时器Timer-Timertask
+3.AsyncTask
+
+新建子线程new Thread();--实现线程内容方法可以有：
+  1.重写Thread.run()
+  2.new Runnable{重写.run()}
+  3.new Handler().post(new Runable());
+
+
+###.handler.post(Runnable) //注意handler 是否在UI线程new的，如果是就非新线程
+###.view.post(Runable)     //并非新开的线程。运行在ui Thread
+post是把整个Runnable发送如消息队列MessageQuece里,然后looper读取出Runnable再去执行其里面内容。
+
+
+Thread 线程：
+使用方法：
+1.重写Runnable接口
+new Thread(new Runable(){
+	public void run() {
+           //执行耗时操作
+        }
+}).start();
+
+2.继承thread父类
+public Class myThread extends Thread{
+    public void run() {
+           //执行耗时操作
+        }
+}
+
+3.继承接口
+ private class myRunnable implements Runnable {
+        @Override
+        public void run() {
+            //执行耗时操作
+        }
+}
+
+
+线程中的通信，常采用Handler机制，
+每个线程当new Handler时就会绑定一个Looper. new Handler(Looper)当没有参数时默认绑定当前线程的looper.
+但除了主线程ui Thread其他子线程是不会自动新建每个线程的自身Looper的，所以使用到的线程Looper要提前创建。
+当创建looper时，也会一并自动创建该线程的MessageQuece.每个线程最多一个Looper和一个MessageQuece.
+注意线程Handler若绑定非主线程Looper,不能刷新UI。
+
+Handler机制：由Handler作为消息收发器，MessageQuece作为消息存放管理器，遵循先入先出原则，
+             Looper实现循环遍历读取MessageQuece， 将获取的message交给Handler处理，将Handler发送的message放入MessageQuece
+
+
+主线程中：
+private Handler myHandler1 = new Handler(){
+		public void handleMessage(Message msg){
+			switch(msg.what){
+			case 1:
+				textView.setText("myHandler1>>get msg-1");
+				Log.i("myHandler1", "get msg-1");
+				break;
+			default: break;
+			}
+		}
+	};
+子线程中：
+// Handler实例化  不带参数， 表示获取当前线程的looper (如果子线程中没有创建looper会报错！)
+//当前线程looper为该线程的Looper
+//子线程 如果没指定现有looper就是默认该线程looper ，如果looper不存在会报错
+Looper.prepare(); //创建 该线程的looper和message.    //Looper myLooper = Looper.myLooper();
+myhandler5 = new Handler(){  //传入该线程looper 非ui线程  不能刷新ui
+	public void handleMessage(Message msg){
+		Log.i("myHandler5", "xxxxxxxx");
+		switch(msg.what){
+			case 1:
+				Log.i("myHandler5", "get msg-1");
+//			textView.setText("myHandler5>>get msg-1");  子线程不能刷新 ui
+			break;
+			default: break;
+			}
+		}
+	};
+    //   myhandler5.sendEmptyMessage(1);			
+	Looper.loop();  //此处应该阻塞了        开始 消息循环   退出消息循环可以Looper.quit()
+//不会执行Looper.loop()  后面的程序了
+
+

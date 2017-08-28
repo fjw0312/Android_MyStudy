@@ -1,0 +1,13 @@
+volley的特性：
+
+JSON，图像等的异步下载；
+网络请求的排序（scheduling）
+网络请求的优先级处理
+缓存
+多级别取消请求
+和Activity和生命周期的联动（Activity结束时同时取消所有网络请求）
+取消指定的请求。（给每个请求任务设置tag，比如给同一个Activity中的请求任务设置同一个tag，在Activity的onDestroy（）方法中取消tag对应的所有的请求任务）
+
+使用：listView加载图片时建议使用NetWorkImageView
+
+创建RequestQueue对象，和前面讲的一样一般都是在Application中做，尽量一个应用一个RequestQueue对象

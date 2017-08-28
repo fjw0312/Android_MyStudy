@@ -1,0 +1,57 @@
+面向对象：什么是面向对象：可以将世界上的任何事物抽象化为一个整体，用代码就是概念化为一个类，有构造、成员、方法。
+三大特性： 继承、封装、多态。
+
+   继承：子类继承父类extends 继承其行为、属性（成员、方法）
+   封装：将事物的属性和行为结合为一个整体，并尽量隐藏其捏不到饿实现细节
+   多态：不同类对同一消息采取不同的行为方式。重写、重载。
+
+   public 全局
+   protected  同一包
+   default 子类
+   private 同类
+
+
+设计模式：
+单例模式：
+   饿汉模式 -------------线程安全
+   饱汉模式（懒汉模式）--------线程安全/线程非安全
+//饿汉模式  线程安全
+public class single{
+
+	private single(){
+	}
+	private static final single si = new single();
+	
+	public static single getSingle(){
+		return si;
+	}
+}
+
+//饱汉(懒汉)模式  非线程安全 ------想线程安全可以加同步保护synchronized
+public class single{
+
+	private single(){ 
+	}
+	private static  single si;
+	
+	public static single getSingle(){
+		if(si == null){
+			si = new single();
+		}
+		return si;
+	}
+}
+//饱汉(懒汉)模式  线程安全 
+public class single{
+
+	private single(){
+	}
+	private static  single si;
+	
+	public static synchronized single getSingle(){
+		if(si == null){
+			si = new single();
+		}
+		return si;
+	}
+}

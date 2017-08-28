@@ -1,0 +1,24 @@
+Mediaplayer 播放音频：
+
+
+使用步骤：
+1.实例化MediaPlayer:     mediaPlayer01 = new MediaPlayer();
+2.设置相关参数：
+		mediaPlayer01.reset();  //为使重用MediaPlayer
+		mediaPlayer01.setAudioStreamType(AudioManager.STREAM_MUSIC);  //设置声音类型
+		mediaPlayer01.setDataSource(mp3_src);   //设置播放资源
+		mediaPlayer01.prepare();      //异步  缓冲加载资源
+3.设置缓冲监听：
+//监听 缓冲结束
+mediaPlayer01.setOnPreparedListener(new OnPreparedListener() {
+     public void onPrepared(MediaPlayer arg0) {
+     }
+}
+
+4.启动播放/停止播放
+mediaPlayer01.start();
+mediaPlayer01.pause();
+mediaPlayer01.stop();
+
+
+5. 记得Activity退出要释放资源。mediaPlayer01.release();

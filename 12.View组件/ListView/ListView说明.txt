@@ -1,0 +1,12 @@
+ListView说明：
+
+	 * 更新listView adapter 数据有3重方式  ：
+	 *  1.重新setAdapter 2.调用adapter.notifydatasetchanged() 3.在Adapter里面调用更新接口
+
+ 1.重新setAdapter
+  性能最差。
+
+2.调用adapter.notifydatasetchanged()
+如果适配器的内容改变，notifyDataSetChanged方法将会通过一个外部方法强制调用getView来刷新每个Item的内容。
+
+3.在Adapter里面调用更新接口

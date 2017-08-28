@@ -1,0 +1,42 @@
+service 说明：
+服务。
+
+android 4大组件之一。 
+使用同样要在AndroidMainfest.xml 做注册。
+
+生命周期：
+startService(intent)启动服务。
+oncreate()->onStartCommand()->onDestory()
+第一次进入service 会oncreate() 之后多次进入onStartCommand()->onDestory()
+
+杀死服务:stopService(intent);
+
+
+bindService(intent, serviceConnection, BIND_AUTO_CREATE);启动服务并绑定
+onCreate()->onBind()->onUnBind()->onDestory()
+多次进入绑定是无效的，如果已经oncreate()再bindService（）会直接进入onBind()
+
+杀死（解除绑定）服务：只能unbindService(serviceConnection);解除即杀死
+
+
+service与activty通信。（1.直接放回实例化的IBinder  2.通过Messenger(Handler）组件/进程通信  3.AIDL)
+binder:
+1.先在service中定义一个binder子类并定义方法API
+2.在Activity中定义一个ServiceConnection子类重写
+onServiceDisconnected
+onServiceConnected---获取到ibinder，操作其API
+3.bindService绑定启动Service
+4.解除绑定unbindService
+
+Messenger:
+1.先在Activity端，定义一个handler，再定义该端的Messager(handler)
+2.再定义ServiceConnection,重写里面的2个方法，并获取到Service的Messenger(Ibinder)
+3.将先在Activity端的Messenger.send(Message)，并可以携带Activity端的Messager给Service-Handler
+4.定义Service,定义一个handler，再定义该端的Messager(handler),并在onBinder返回Messager.getIBinder();
+5.在Service端的handler中接收到消息，可解析出Activity端的Messenger，又发送回报给Activity端。
+
+
+IBinder:接口  继承与Binder派生。
+是对跨进程的对象的接口。普通对象在当前进程可以访问，其他进程也可以访问。
+
+android中大部分的进程IPC都是基于Binder实现的。

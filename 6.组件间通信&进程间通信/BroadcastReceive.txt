@@ -1,0 +1,3 @@
+.Brocadcast/BroadcastReceiver 广播\广播接收器  ------- 也适用IPC
+不只能够跨组件信息传递，还能跨应用。
+无法传递复杂数据

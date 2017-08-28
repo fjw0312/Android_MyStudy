@@ -1,0 +1,19 @@
+Video视频播放器：
+
+videoView = (VideoView)findViewById(R.id.videoView);
+mediaController = new MediaController(NextActivity.this);   //定义自动 添加播放控制器  （去掉也能播放）点击视频能看到播放条
+videoView.setVideoPath(video_src);        //播放统一标识符地址  .setVideoURI(Uri.parse());
+videoView.setMediaController(mediaController);
+mediaController.setMediaPlayer(videoView);
+videoView.requestFocus();
+
+//开始播放 
+.start();
+//暂停
+.pause()
+//继续
+.resume()
+//停止
+.stopPlayback()
+
+

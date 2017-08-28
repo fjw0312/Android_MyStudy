@@ -1,0 +1,50 @@
+android 自定义控件
+
+创建自定义的控件 常用3种方式：
+1.继承现有控件来自定义：主要当实现的控件和已知的控件很多方面类似，通过对已有的控件的拓展满足需求。
+2.通过继承一个布局文件来自定义，一般来说可以做组合控件时可以实现。
+   此时不用OnDraw()方法，在构造广告中通过inflater加载自定义的控件布局，再addView，自定义控件就加载好了。
+3.通过继承View类/viewGroup类 来实现自定义控件，使用GDI绘制组件界面:一般上述2种方法都无法实现时。
+
+
+1.继承现有控件，对其控件进行拓展
+2.通过组合多个控件布局，进行自定义成一个控件。
+3.通过继承view/viewGroup 重写控件。
+
+
+//=====自定义控件要求=====//
+1.应当遵守Android标准规范（命名、可配置、事件处理等）
+2.在xml布局中可配置控件的属性
+3.对交互应当有适当的反馈，比如按下，点击等
+4.具有兼容性，广泛适用性。
+//=============================//
+-----------------------------------------------------------------------------------------------------
+
+---------------------------------控件组合布局 自定义控件---------------------------------------------
+ *   //主要 实现将layout 布局添加到 自定义的view 控件上
+ * 		LayoutInflater.from(context).inflate(R.layout.view_layout, this);
+		//获取控件
+		leftButton = (Button)findViewById(R.id.title_bar_left);
+		rightButton = (Button)findViewById(R.id.title_bar_right);
+		textView = (Button)findViewById(R.id.title_bar_title);
+		//设置监听
+		leftButton.setOnClickListener(l);
+		rightButton.setOnClickListener(l);
+----------------需要布局参数属性传入时，自定义一个/res/value/myattrs.xml 属性参数文件
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="myTitleView">
+        <attr name="backgroundColor" format="color"/>
+        <attr name="text" format="string"/>
+        <attr name="textColor" format="color"/>
+        <attr name="textDrawable" format="integer|reference"/>
+        <attr name="leftButtonVisible" format="boolean"/>
+        <attr name="rightButtonVisible" format="boolean"/>
+        <attr name="leftButton_text" format="string"/>
+        <attr name="leftButton_textColor" format="color"/>
+        <attr name="leftButton_Drawable" format="integer|reference"/>
+        <attr name="rightButton_text" format="string"/>
+        <attr name="rightButton_textColor" format="color"/>
+        <attr name="rightButton_Drawable" format="integer|reference"/>
+    </declare-styleable>
+</resources>

@@ -1,0 +1,92 @@
+1.进度对话框
+
+progressDialog2 = new ProgressDialog(MainActivity.this);//定义一个 ProgressDialog
+progressDialog2.setTitle("进度条");
+progressDialog2.setProgress(0);
+progressDialog2.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+progressDialog2.setMax(100);
+myThread.start();
+progressDialog2.show();
+
+
+AlertDailog:
+基本对话框：new AlertDialog.Builder(MainActivity.this).setTitle("标题").setMessage("内容...").show();	
+可以设置标题；内容（或一组选择框），还可以自定义布局；按钮（最多三个）
+
+
+	//选择内容dialog
+	private void myDialog(){
+		final String[] cities = {"shenzhen","guangzhou","shanghai","beijing","chongqing"};
+		new AlertDialog.Builder(MainActivity.this)
+		.setIcon(R.drawable.ic_launcher)
+		.setTitle("选择城市")
+		.setItems(cities, new DialogInterface.OnClickListener() {		
+			@Override
+			public void onClick(DialogInterface arg0, int arg1) {
+				// TODO Auto-generated method stub
+				Toast.makeText(MainActivity.this, cities[arg1], Toast.LENGTH_LONG).show();
+			}
+		})
+		.show();
+	}
+
+//单项选择Dialog
+	private void myDialog_1(){
+		final String[] Sexs = {"男","女","不男不女"};
+		new AlertDialog.Builder(MainActivity.this)
+		.setIcon(R.drawable.ic_launcher)
+		.setTitle("选择性别")  //0为默认选择第0个选择
+		.setSingleChoiceItems(Sexs, 0, new DialogInterface.OnClickListener() {			
+			@Override
+			public void onClick(DialogInterface arg0, int arg1) {
+				// TODO Auto-generated method stub
+				Toast.makeText(MainActivity.this, Sexs[arg1], Toast.LENGTH_LONG).show();
+			}
+		})
+		.show();
+	}
+
+
+//多项选择 Dialog
+	private void myDialog_2(){
+		final String[] changes = {"出生家庭","启蒙老师","高考大学","行业工作", "朋友同学","结婚对象","干爹干妈"};
+		new AlertDialog.Builder(MainActivity.this)
+		.setIcon(R.drawable.ic_launcher)
+		.setTitle("请选择人生有多少次机会")  //0为默认选择第0个选择
+		.setMultiChoiceItems(changes, null, new DialogInterface.OnMultiChoiceClickListener() {			
+			@Override
+			public void onClick(DialogInterface arg0, int arg1, boolean arg2) {
+				// TODO Auto-generated method stub
+				Toast.makeText(MainActivity.this, changes[arg1], Toast.LENGTH_LONG).show();
+			}
+		})
+		.show();
+	}
+
+//弹出 基本输入内容对话框
+	private void showDialog(){ //添加自定义的layout
+	    View view = View.inflate(MainActivity.this, R.layout.my_dailg, null);
+	//	view = LayoutInflater.from(getContext()).inflate(item_layout_id, null); 
+	//	view = View.inflate(getContext(), item_layout_id, null);//两种写法一样
+	    
+		new AlertDialog.Builder(MainActivity.this)
+		.setView(view)
+		.setTitle("标题2")
+		.setMessage("内容")  
+		.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface arg0, int arg1) {
+				// TODO Auto-generated method stub
+				Toast.makeText(MainActivity.this, "确定", Toast.LENGTH_LONG).show();
+			}
+		})
+		.setNegativeButton("取消", new DialogInterface.OnClickListener() {	
+			@Override
+			public void onClick(DialogInterface arg0, int arg1) {
+				// TODO Auto-generated method stub
+				Toast.makeText(MainActivity.this, "取消", Toast.LENGTH_LONG).show();
+			}
+		})
+		.create()
+		.show();
+	}

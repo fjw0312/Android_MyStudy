@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<set xmlns:android="http://schemas.android.com/apk/res/android" 
+    android:ordering="sequentially">
+    <!-- 可以设置 同时执行 还是分步ordering -->
+    <objectAnimator 
+        android:duration="1000"
+        android:propertyName="scaleX"
+        android:valueFrom="1"
+        android:valueTo="0.5">
+        
+    </objectAnimator>
+    
+     <objectAnimator 
+        android:duration="1000"
+        android:propertyName="scaleY"
+        android:valueFrom="1"
+        android:valueTo="2">
+        
+    </objectAnimator>
+
+</set>

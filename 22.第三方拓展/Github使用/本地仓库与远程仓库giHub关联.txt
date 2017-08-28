@@ -1,0 +1,38 @@
+将本地仓库与远程仓库gitHub关联有2种方式：
+
+前提先处理好ssh key
+ssh-keygen -t rsa -C "fjw0312@163.com"
+再在github上设置添加ssh-key  》 new SSH key
+再测试是否已连接到远程仓库
+ssh -T -i my_rsa git@github.com
+然后一直回车直到看到：
+Hi username! You’ve successfully authenticated, but GitHub does not provide shell access.
+
+在gitHub上 create a new repo
+一：将在gitHub建好空仓后，将本地仓库提交联结
+
+1.将本地仓库推送的远程仓gitHub
+git remote add origin https//:github.com/fjw0312/test.git
+
+2.将本地仓库推送到远程仓库github
+git push -u origin master
+
+之后就能正常提交git push origin master
+
+二：将在gitHub上的远程仓库（空仓也可以），直接克隆到本地仓库。
+1.克隆现有仓库
+git clone https//:github.com/fjw0312/test.git
+
+2.如果不想改克隆的远程仓，建立分支
+git checkout -b "分支名字"
+
+3.将分支切换到主路
+git merge "分支名字"
+
+4.删除分支
+git branch -d "分支名字"
+
+5.查看当前分支
+git branch
+
+

@@ -1,0 +1,117 @@
+android 自定义控件
+
+创建自定义的控件 常用3种方式：
+1.继承现有控件来自定义：主要当实现的控件和已知的控件很多方面类似，通过对已有的控件的拓展满足需求。
+2.通过继承一个布局文件来自定义，一般来说可以做组合控件时可以实现。
+   此时不用OnDraw()方法，在构造广告中通过inflater加载自定义的控件布局，再addView，自定义控件就加载好了。
+3.通过继承View类/viewGroup类 来实现自定义控件，使用GDI绘制组件界面:一般上述2种方法都无法实现时。
+
+1.继承现有控件，对其控件进行拓展
+2.通过组合多个控件布局，进行自定义成一个控件。
+3.通过继承view/viewGroup 重写控件。
+
+//=====自定义控件要求=====//
+1.应当遵守Android标准规范（命名、可配置、事件处理等）
+2.在xml布局中可配置控件的属性
+3.对交互应当有适当的反馈，比如按下，点击等
+4.具有兼容性，广泛适用性。
+//=============================//
+
+#########自定义控件view的步骤##############
+1.自定义View属性  （在/res/Values/下建立attrs.xml属性文件）（如果不需要布局传入参数，也可以不定义属性文件）
+2.在View的构造方法中获取我们自定义的属性
+3.重写onMeasure (当，不需要wrap_content布局时，只使用match和具体布局大小时 也不需重写)
+4.重写onDraw();
+
+
+运行顺序：onMeasure-1->onMeasure-2->onLayout-1->onLayout-2
+          ->onMeasure-1->onMeasure-2->onLayout-1->onLayout-2
+          ->onDraw-1->onDraw-2
+考虑Measure layout draw 顺序为：
+          Measure-1-》onMeasure-1->onMeasure-2-》Measure-2
+          ->Layout-1-》onLayout-1->onLayout-2-》Layout-2
+          ->Measure-1-》onMeasure-1->onMeasure-2-》Measure-2
+          ->Layout-1-》onLayout-1->onLayout-2-》Layout-2
+          ->Draw-1-》onDraw-1->onDraw-2-》Draw-2
+
+view 控件属性文件demo:
+1.定义attrs属性文件：
+<?xml version="1.0" encoding="utf-8"?>
+<resources >
+    <declare-styleable name="myView03">
+        <attr name="textColor" format="color"/>
+        <attr name="textSize" format="dimension"/>
+        <attr name="viewColor" format="color"/>
+        <attr name="groundColor" format="color"/>
+    </declare-styleable>
+    
+</resources>
+
+2.在layout.xml文件中添加一句：
+    xmlns:myattrs="http://schemas.android.com/apk/res-auto"
+  其中myattrs随便命名
+
+3.  添加控件 
+   <fang.view.MyView03
+        android:id="@+id/myView33"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="10dp"
+        myattrs:textSize="30sp"
+        myattrs:textColor="#ffffff00"
+        myattrs:viewColor="#ffff00ff" />
+
+4.在定义View的构造中获取布局参数
+3个构造函数：代码new view使用第一个构造  XML加载第2个
+TypedArray arr = context.obtainStyledAttributes(attrs, R.styleable.myView03);//获取  自定义 控件的属性
+if(arr != null){
+	textSize = arr.getDimension(R.styleable.myView03_textSize, textSize);
+	textColor = arr.getColor(R.styleable.myView03_textColor, textColor);
+	viewColor = arr.getColor(R.styleable.myView03_viewColor, viewColor);
+	arr.recycle();
+}
+
+5.自定义View类 onMeasure()
+protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+		// TODO Auto-generated method stub	//如果确定大小200dp  也能实现
+	super.onMeasure(widthMeasureSpec, heightMeasureSpec);//当 wrap or fill/match 时都是铺满
+		//所以 以下应该  处理wrap_content 这种属性的情况使用  方法   this.setMeasuredDimension(x, y);                                              
+	int widthMode = MeasureSpec.getMode(widthMeasureSpec);		
+	int heightMode = MeasureSpec.getMode(heightMeasureSpec);
+	int widthSize = MeasureSpec.getSize(widthMeasureSpec); 
+	int heightSize = MeasureSpec.getSize(heightMeasureSpec);
+			
+	//判断  布局模式  是否有wrap_content 控件默认尺寸
+		if(widthMode == MeasureSpec.AT_MOST && heightMode == MeasureSpec.AT_MOST){
+				setMeasuredDimension(DEFAULT_WIDTH, DEFAULT_HEIGHT);	
+		}else if(widthMode == MeasureSpec.AT_MOST){
+				setMeasuredDimension(DEFAULT_WIDTH, heightSize);	
+		}else if(heightMode == MeasureSpec.AT_MOST){
+		}	
+}
+6.重写onDraw() 注意控件实际尺寸 和默认尺寸。
+//************************************************************************//
+canvas.drawColor(Color.GRAY);                  //颜色背景
+		
+mPaint.setColor(Color.BLUE); //设置画笔颜色			
+mPaint.setStyle(Style.FILL);  //设置画笔为实心	
+mPaint.setStyle(Style.STROKE);  //设置画笔为空心
+mPaint.setTextSize(40); // 设置字体大小
+mPaint.setTextAlign(Paint.Align.CENTER); //设置画字体的基准点  为字体基准下划线中点。
+		
+RectF rect2 = new RectF(300, 300, 450, 550); //定义矩形类
+		
+canvas.drawText("画文本：", 50, 50,mPaint);    //画文本
+canvas.drawRect(100, 50, 200, 150, mPaint);    //画矩形 
+canvas.drawCircle(250, 100, 50, mPaint);       //画圆  左边位置 上边位置  半径
+canvas.drawOval(rect2, mPaint);                //画椭圆
+canvas.drawLine(350, 50, 450, 50, mPaint);     //画线  
+canvas.drawArc(rect, //弧线所使用的矩形区域大小  //画弧线 
+		            0,  //开始角度   
+		            90, //扫过的角度   
+		            true, //是否使用中心   
+		            mPaint); 
+canvas.drawBitmap(mImage1, 80, 80, mPaint);     //画底板图片
+drawChild(canvas, button, getDrawingTime());    //绘制子控件
+
+//************************************************************************//

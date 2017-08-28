@@ -1,0 +1,79 @@
+http:  超文本传输协议。（常基于TCP）
+属于网络应用层的面相对象协议。
+
+特点：
+1.支持客户端/服务器模式
+2.简单快捷：常用请求有GET  POST  HEAD。
+3.灵活：允许传递任意类型数据。
+4.无连接：应答式后断开连接。
+5.无状态：无状态协议。对事物处理没记忆能力。
+
+URI：统一资源标识符  （URI包含URL、URN）
+URL: 统一资源定位符
+URL = new URL(String)/ = new URL（String协议，String主机名,int端口,String文件）可直接获取资源
+URL 有三种连接方法： url.openStream  URLConnection   HttpURLConnection
+
+http URL格式：  http://host[":"port][abs_path]
+http表示通过http协议来定位网络资源；
+host表示Intent主机域名或ip地址
+port表示端口，如果缺省则默认80
+abs_path表示请求的资源URi.
+
+http请求内容  分三部分：请求行、消息报头、请求正文
+请求行格式：Method   Request-URI  HTTP-Version   CRLF(回车换行)
+请求方法Method有：
+GET   POST   HEAD   PUT   DELETE   TRACE   CONNECT  OPTIONS
+http与服务器交互常用4种方法：GET POST PUT DELETE  分别叫做：查 改  增 删
+
+http相应内容  分三部分：状态行、消息报头、相应正文
+状态行格式：HTTP-Version Status-Code Reason-Pharse CRLF
+
+http的回应response中status_line的Status-Code：
+200  : OK 找到资源一切正常
+304  : NOT MODIFIED 上次请求后无任何修改
+401  : 无权限访问该资源（一般需要用户&密码）
+403  : 客户端未授权  （该用户错误或未授权）
+404  : 指定路径不存在该资源
+
+
+
+//*********************************通信方法***************************************
+1.URL直接获取网络资源
+URL url = new URL（String协议，String主机名,int端口,String文件）;
+InputStream input = url.openStream() ;	// 打开输入流
+
+2.java中java.net   URLConnection通信
+URL url = new URL(String);                          //实例化url   
+URLConnection urlConnection = url.openConnection(); //获取UrlConnection
+urlConnection.connect();         //与服务器建立连接
+urlConnection.getInputStream();  //获取相应数据
+步骤：
+1.实例化URL
+2.获取URLConnection 
+3.对URLConnection设置通信参数（可省略）
+4.与服务器建立连接urlConnection.connect()；
+5.获取/发送 相应数据流接口urlConnection.getInputStream()/urlConnection.getOutputStream();
+
+3.java中java.net  HttpURLConnection通信继承于URLConnection  只用于Http   android支持。
+URL url = new URL(String);                          //实例化url   
+HttpURLConnection httpUrlConnection = url.openConnection(); //获取UrlConnection
+httpUrlConnection.setRequestMethod("GET");    //设置通信参数等 
+httpUrlConnection.getInputStream();          //获取相应数据
+步骤：
+1.实例化URL
+2.获取HttpURLConnection
+3.对HttpURLConnection.setRequestMethod("GET")设置请求方法 
+4.对HttpURLConnection..setConnectTimeout(8000);设置其他通信参数
+5.获取/发送 相应数据流接口urlConnection.getInputStream()/urlConnection.getOutputStream();
+
+4.android 6.0以下内嵌apach HttpClient
+1.实例化HttpClient
+2.实例化HttpGet /HttpPost
+3.执行接收HttpResponse = httpClient.execute(httpGet)；
+4.判断接收响应状态行状态码：httpResponse.getStatusLine().getStatusCode()==200  //可省略
+5.从响应中得到一个实体HttpEntity = httpResponse.getEntity();
+6.转化为所需要的数据格式EntityUtils.toString(httpEntity,"utf-8");
+
+
+
+

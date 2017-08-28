@@ -1,0 +1,60 @@
+动画animation
+
+主要类型：
+xml中：
+alph       渐变透明度动画效果
+scale      渐变尺寸伸缩动画效果
+translate  画面转换位置移动动画效果
+rotate     画面旋转动画效果
+
+java code中：
+AlphAnimation   渐变透明度动画效果
+ScaleAnimation  渐变尺寸伸缩动画效果
+TranslateAnimation  画面转换位置移动动画效果
+RotateAnimation    画面旋转动画效果
+
+动画主要模式：
+补间动画（渐变动画）：tweened animation   >>> alph   scale translate   rotate
+逐帧动画（画面装换动画）：frame byframe   >>>
+
+3.0以后是属性动画 Property animation(几乎已经取代 补间动画（渐变动画）)
+ValueAnimation
+创建该类：ValueAnimation.ofFloat(0f,1f);
+          ValueAnimation.ofFloat(0f,5f,3f,2f);
+          ValueAnimation.ofInt(0,100);
+	  ValueAnimation.ofObject(0,100);
+
+ObjectAnimation它继承于ValueAnimation
+eg:ObjectAnimation = ObjectAnimation.ofFloat(textView, "alpha", 1f,0f,1f);
+ObjectAnimation.setDuration(5000);
+ObjectAnimation.start();
+组合动画的使用AnimationSet  >  AnimationSet.play()返回Animation.build 包含方法：
+after(ObjectAnimation) after(long time) before(ObjectAnimation)  witch(ObjectAnimation)
+
+对动画过程监听：.addListener(){};
+
+
+使用动画方法：
+一、补间动画。view Animation
+使用xml定义动画。
+1.在res目录下新建anim文件夹。
+2.新建一个eg:my_anim.xml(动画文件)
+3.获取控件动画属性： Animator = AnimatiorInflater.loadAnimation(context, R.animator.my_anim);
+animator.setTarget(View);
+animator.start();
+或者：Animation = AnimationUtils.loadAnimation();   image.startAnimation(animation);
+
+
+二、逐帧动画 Drawable Animation
+使用xml定义动画。
+1.在drawable下创建一个xml文件
+2.获取动画：View.setBackgroundResource(R.drawable.scan);
+            animationDrawable = (AnimationDrawable)View.getBackgroud();
+            animationDrawable.start();  //animationDrawable.stop();
+
+
+
+三、属性动画  Property Animation
+eg:ObjectAnimation = ObjectAnimation.ofFloat(textView, "alpha", 1f,0f,1f);
+ObjectAnimation.setDuration(5000);
+ObjectAnimation.start();

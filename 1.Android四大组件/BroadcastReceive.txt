@@ -1,0 +1,30 @@
+BroadcastReceive
+广播接收器： android 4大组件之一
+
+分类：本地广播 、 有序广播
+
+广播接收器2种注册方式：
+1.AndroidMainfest.xml 静态注册：》 注册后代码定义MyBroadcastReceive(继承BroadcastReceive)
+2.纯代码实现  动态注册：》
+  步骤：    a.定义IntentFilter   b.添加addAction（） c.实例好广播接收器  d.申请注册registerReceiver
+
+        final IntentFilter filter = new IntentFilter();
+        filter.addAction(Intent.ACTION_SCREEN_ON); //亮屏广播   
+  	filter.addAction(Intent.ACTION_SCREEN_OFF); //灭屏广播  
+        BroadcastReceiver BroastcastScreenOn = new BroadcastReceiver(){
+			@Override
+			public void onReceive(Context arg0, Intent arg1) {
+				// TODO Auto-generated method stub
+				if(arg1.getAction().equals(Intent.ACTION_SCREEN_ON)){
+					Log.e("MGridActivity->BroastcastScreenOn","into Intent.ACTION_SCREEN_ON");
+				}
+			}
+        };
+        registerReceiver(BroastcastScreenOn, filter);
+
+
+	LocalBroadcastManager localBroadcastManager = LocalBroadcastManager.getInstance(this); //获取本地广播的管理类
+	IntentFilter intentFilter = new IntentFilter();
+	intentFilter.addAction("com.example.C013_Broadcast.LOCAL_BROADCAST");
+	localReceiver = new LocalReceiver(); //自定义一个广播接收器
+	localBroadcastManager.registerReceiver(localReceiver,intentFilter);//本地广播注册

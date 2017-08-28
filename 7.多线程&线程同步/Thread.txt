@@ -1,0 +1,29 @@
+Thread 线程：
+
+使用方法：
+1.重写Runnable接口,重写run()
+new Thread(new Runable(){
+	public void run() {
+           //执行耗时操作
+        }
+}).start();
+
+2.继承thread父类,重写run()
+public Class myThread extends Thread{
+    public void run() {
+           //执行耗时操作
+        }
+}
+
+3.定义Runnable类实现接口，重写run()
+ private class myRunnable implements Runnable {
+        @Override
+        public void run() {
+            //执行耗时操作
+        }
+}
+new Handler().post(new myRunnable());  //这里不会新建线程，只是线程的一种实现方式，该内容运行的线程，看new Handler所在线程。
+
+总结使用Thread 的方法：1.继承Thread 重写Thread.run()    
+2.new Thread（传入Runnable重写Runnable.run） 
+3.new Thread(new Handler.post(Runnable()))

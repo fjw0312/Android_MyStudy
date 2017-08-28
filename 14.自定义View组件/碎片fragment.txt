@@ -1,0 +1,16 @@
+碎片的使用：
+使用方式和自定义布局控件 原理差不多。
+1.定义一个布局xml文件
+2.定义一个控件类 继承于fragment  ---只重写OnCreateView 里面获取布局控件。
+3.在主layout布局中使用<fragment>控件  --控件name=控件类名
+4.可以实现碎片的切换、变化。
+  FragmentManager manager = getFragmentManager();
+  FragmentTransaction transaction = manager.beginTransaction();
+  transaction.replace(R.id.right_layout1, frag);  //向frameLayout布局容器添加碎片
+  transaction.addToBackStack(null);  //将碎片放入栈中
+  transaction.commit();
+
+//个人理解：
+所谓的碎片 就是自定义的小Layout当成一片一片的碎片，然后将这种小布局碎片用碎片类定义。
+最后可以进行这些碎片的切换显示。
+

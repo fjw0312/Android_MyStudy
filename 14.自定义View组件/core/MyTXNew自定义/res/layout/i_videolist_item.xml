@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    
+    <FrameLayout 
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_margin="4dp">
+        <FrameLayout
+            android:id="@+id/frame_id"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <ImageView 
+                android:id="@+id/img_id"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_launcher"/>
+            <TextView 
+                android:id="@+id/Tx_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top"
+                android:layout_marginLeft="14dp"
+                android:layout_marginRight="14dp"
+                android:text="XXXXXXXXX"
+                android:textSize="18sp"
+                android:textColor="@android:color/white"
+                android:background="#66666666"/>
+             <TextView 
+                android:id="@+id/Tx_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|right"
+                android:layout_marginRight="15dp"
+                android:textColor="@android:color/white"
+                android:background="#66666666"/>        
+
+        </FrameLayout>
+        
+        <!-- 播放器暂时设置为不可见 -->
+        <VideoView 
+             android:id="@+id/Vd_videoId"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:layout_gravity="center"
+             android:visibility="gone"/>
+    </FrameLayout>
+    
+
+</LinearLayout>

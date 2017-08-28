@@ -1,0 +1,57 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="20sp"
+        android:text="Http Test" />
+    
+     <Button 
+         android:id="@+id/button01"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:text="按键01"
+         android:textSize="20sp"/>
+     
+    <Button 
+         android:id="@+id/button02"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:text="按键02"
+         android:textSize="20sp"/>
+    
+    <Button 
+         android:id="@+id/button03"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:text="按键03"
+         android:textSize="20sp"/>
+     
+    <Button 
+         android:id="@+id/button04"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:text="按键04"
+         android:textSize="20sp"/>
+    
+     <Button 
+         android:id="@+id/button05"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:layout_marginTop="10sp"
+         android:text="按键05"
+         android:textSize="20sp"/>  
+         
+    <Button 
+         android:id="@+id/button06"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:text="按键06"
+         android:textSize="20sp"/> 
+
+</LinearLayout>

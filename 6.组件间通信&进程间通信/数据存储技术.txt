@@ -1,0 +1,16 @@
+数据存储技术
+
+
+1.file 文件
+
+
+2.sharedPerfernce
+
+
+3.sqlite 数据库
+
+
+4.contentProvider 内容提供器  共享数据。
+
+
+5.网络socket \ http

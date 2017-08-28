@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal" >
+    
+    <LinearLayout 
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp">
+        <ImageView 
+	        android:id="@+id/Img_Itemlogo"
+	        android:layout_width="0dp"
+	        android:layout_height="match_parent"
+	        android:layout_weight="1"
+	        android:layout_gravity="left"
+	        android:src="@drawable/add"/>
+    
+	    <TextView 
+	        android:id="@+id/Tx_ItemTitle"
+	        android:layout_width="0dp"
+	        android:layout_height="match_parent"
+	        android:layout_weight="5"
+	        android:gravity="center_vertical|left"
+	        android:layout_marginLeft="4dp"
+	        android:textSize="18sp"
+	        android:text="ItemTitle"/>
+	    
+	    <TextView 
+	        android:id="@+id/Tx_ItemExtra"
+	        android:layout_width="0dp"
+	        android:layout_height="match_parent"
+	        android:layout_weight="5"
+	        android:gravity="center_vertical|right"
+	        android:layout_marginRight="4dp"
+	        android:textSize="15sp"
+	        android:text="ItemEtra"/>
+	    
+	    <ImageView 
+	        android:id="@+id/Img_smsLogo"
+	        android:layout_width="0dp"
+	        android:layout_height="match_parent"
+	        android:layout_weight="1"
+	        android:layout_gravity="left"
+	        android:src="@drawable/add"/>
+	    </LinearLayout>
+
+    
+</LinearLayout>

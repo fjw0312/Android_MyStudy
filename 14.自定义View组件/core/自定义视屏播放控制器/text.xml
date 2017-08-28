@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal" >
+   
+
+    <LinearLayout 
+        android:layout_width="400dp"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <TXNews.customView.MyMediaController
+	        android:id="@+id/MyMediaController1"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content">
+	        <VideoView 
+	            android:id="@+id/Video_id1"
+	            android:layout_width="400dp"
+	            android:layout_height="600dp"
+	            android:layout_gravity="center"/>
+    	</TXNews.customView.MyMediaController>
+		<LinearLayout 
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:orientation="horizontal">
+		        <Button 
+		            android:id="@+id/Bn_init1"
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		            android:text="初始化"/>
+		        <Button 
+		            android:id="@+id/Bn_play1"
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		            android:text="播放"/>
+		        <Button 
+		            android:id="@+id/Bn_pause1"
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		            android:text="暂停"/>
+		        <Button 
+		            android:id="@+id/Bn_stop1"
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		            android:text="停止"/>
+		        <Button 
+		            android:id="@+id/Bn_destory1"
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		            android:text="销毁"/>
+		</LinearLayout>
+    </LinearLayout>
+
+	 <LinearLayout 
+	        android:layout_marginLeft="100dp"
+	        android:layout_width="400dp"
+	        android:layout_height="match_parent"
+	        android:orientation="vertical">
+	        <TXNews.customView.MyMediaController
+		        android:id="@+id/MyMediaController2"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content">
+		        <VideoView 
+		            android:id="@+id/Video_id2"
+		            android:layout_width="400dp"
+		            android:layout_height="600dp"
+		            android:layout_gravity="center"/>
+	    	</TXNews.customView.MyMediaController>
+			<LinearLayout 
+			        android:layout_width="match_parent"
+			        android:layout_height="wrap_content"
+			        android:orientation="horizontal">
+			        <Button 
+			            android:id="@+id/Bn_init2"
+			            android:layout_width="wrap_content"
+			            android:layout_height="wrap_content"
+			            android:text="初始化"/>
+			        <Button 
+			            android:id="@+id/Bn_play2"
+			            android:layout_width="wrap_content"
+			            android:layout_height="wrap_content"
+			            android:text="播放"/>
+			        <Button 
+			            android:id="@+id/Bn_pause2"
+			            android:layout_width="wrap_content"
+			            android:layout_height="wrap_content"
+			            android:text="暂停"/>
+			        <Button 
+			            android:id="@+id/Bn_stop2"
+			            android:layout_width="wrap_content"
+			            android:layout_height="wrap_content"
+			            android:text="停止"/>
+			        <Button 
+			            android:id="@+id/Bn_destory2"
+			            android:layout_width="wrap_content"
+			            android:layout_height="wrap_content"
+			            android:text="销毁"/>
+			</LinearLayout>
+	    </LinearLayout>    
+
+
+  
+    
+
+</LinearLayout>

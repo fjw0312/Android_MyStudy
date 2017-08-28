@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<conf>
+	<basic debug_level="1" port_no="2" port_setting="19200,N,8,1" port_driver="SO/comm_std_serial.so" />
+	<rules>
+		<rule type="1" alarm_level="1" />
+		<rule type="2" alarm_level="1" />
+		<rule type="3" alarm_level="1" />
+		<rule type="4" alarm_level="1" />
+	</rules>
+	<users>
+		<user name="user1" tel_number="13726248138" enable="true" rule_type="1" />
+		<user name="user2" tel_number="13726248135" enable="true" rule_type="2" />
+		<user name="user3" tel_number="13726248138" enable="false" rule_type="3" />
+		<user name="user4" tel_number="13726248137" enable="false" rule_type="4" />
+	</users>
+</conf>

@@ -1,0 +1,20 @@
+微信支付 Android App支付，个人笔记：
+
+------------------------------------------------------------------
+1.需要先在微信开发平台申请APP_ID.
+
+2.应用工程添加 微信支付SDK （libammsdk.jar）
+
+3.// 将该app注册到微信
+   api.registerApp(Constants.APP_ID);    
+
+4.调用支付接口：
+   PayReq req= new PayReq();
+   req.appId =赋值相关参数。
+　 wxAPI.sendReq(req);
+
+5.添加WXPayEntryActivity类。可以对其内容适当修改。
+
+注： // 通过WXAPIFactory工厂，获取IWXAPI的实例
+    	api = WXAPIFactory.createWXAPI(this, Constants.APP_ID, false);
+-----------------------------------------------------------------------

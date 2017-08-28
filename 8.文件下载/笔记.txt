@@ -1,0 +1,10 @@
+1.使用android 下载类
+//创建下载任务
+DownloadManager.Request request = new DownloadManager.Request( Uri.parse(strUrl) );
+//指定下载路劲和下载文件名
+request.setDestinationInExternalPublicDir("/download", fileName);
+//获取下载管理器
+DownloadManager downloadManager = (DownloadManager)mContext.getSystenService(Context.DOWNLOAD_SERVICE);
+//将下载任务加入下载队列
+downloadManager.enqueue(request);
+-------------------------------------还有通知栏进度，下载完弹窗等，高级用法

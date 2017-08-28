@@ -1,0 +1,6 @@
+账户：1171391368.@qq.com
+
+应用签名：fang
+
+
+应用包名：fang.WXPlay.main

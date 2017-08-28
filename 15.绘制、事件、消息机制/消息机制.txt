@@ -1,0 +1,29 @@
+Android 消息机制：   常用Handler--Message--looper机制
+
+
+
+Handler机制：由Handler作为消息收发器，MessageQuece作为消息存放管理器，遵循先入先出原则，
+             通过Looper实现循环遍历读取MessageQuece， 
+            将获取的message交给Handler处理，将Handler发送的message放入MessageQuece
+
+
+Message: 消息，线程通信的数据单元。
+
+Handler：消息的收发器（消息的处理者）
+ myhandler5.sendEmptyMessage(1);
+ handleMessage(Message msg)
+
+
+MessageQuece：线程的消息存放器（消息队列） ，主线程会一开始自动创建，子线程需要代码手动创建。
+创建方式：
+当创建looper时，也会一并自动创建该线程的MessageQuece.每个线程最多一个Looper和一个MessageQuece.
+
+
+Looper :循环器（指针）
+MessageQuece 与 Handler 间的桥梁，从MessageQuece 取出Message交给Handler处理
+当创建looper时，也会一并自动创建该线程的MessageQuece.每个线程最多一个Looper和一个MessageQuece.
+Looper.prepare(); //创建 该线程的looper和message.    //Looper myLooper = Looper.myLooper();
+每个线程当new Handler时就会绑定一个Looper. new Handler(Looper)当没有参数时默认绑定当前线程的looper.
+
+
+--------------------------------------------------------------------------------------

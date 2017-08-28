@@ -1,0 +1,52 @@
+定时器实现有4种方式：
+一、timer - task
+private final Timer timer = new Timer();  
+private TimerTask task = new TimerTask() {  
+    @Override  
+    public void run() {  
+        // TODO Auto-generated method stub  
+        Message message = new Message();  
+        message.what = 1;  
+        handler.sendMessage(message);  
+    }  
+}; 
+启动定时器    timer.schedule(task, 2000, 2000);  
+停止计时器    timer.cancel();
+
+
+二、Thread-while
+采用Thread-while(sleep)实现
+
+
+
+三、handler.postDelayed(Runnable)
+用Thread-Runnable 设计定时器
+Handler handler=new Handler();  
+Runnable runnable=new Runnable() {  
+    @Override  
+    public void run() {  
+        //要做的事情  
+        handler.postDelayed(this, 2000);  
+    }  
+}; 
+启动计时器  handler.postDelayed(runnable, 2000);//每两秒执行一次runnable
+停止计时器  handler.removeCallbacks(runnable);
+
+
+
+四、AlarmManger
+采用AlarmManger实现长期精确的定时任务
+AlarmManager的常用方法有三个：
+set(int type，long startTime，PendingIntent pi)；//一次性
+setExact(int type, long triggerAtMillis, PendingIntent operation)//一次性的精确版
+setRepeating(int type，long startTime，long intervalTime，PendingIntent 
+pi)；//精确重复
+setInexactRepeating（int type，long startTime，long 
+intervalTime，PendingIntent pi）；//非精确，降低功耗
+type表示闹钟类型，startTime表示闹钟第一次执行时间，long intervalTime表示间隔时间，PendingIntent表示闹钟响应动作
+------eg:
+Intent intent2 = newIntent(ReadLogService.this,TestBroadcast.class); 
+PendingIntent pd =PendingIntent.getBroadcast(getApplicationContext(), 0, intent2,PendingIntent.FLAG_ONE_SHOT); 
+AlarmManager am = (AlarmManager)getSystemService(ALARM_SERVICE); 
+long triggerTime =SystemClock.elapsedRealtime() + 5*1000; 
+am.set(AlarmManager.ELAPSED_REALTIME,triggerTime, pd); 

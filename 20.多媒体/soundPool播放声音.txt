@@ -1,0 +1,9 @@
+ * SoundPool 播放系统声音。
+
+ * SoundPool:用于播放短时间音效，支持同时播放多种声音，最大1M大小空间
+ * 使用方法：
+ *    SoundPool soundPool = new SoundPool(10,Audiomanager.STREAM_MUSIC, 5);//参数1：最大声音数   参数3：品质等级
+ *    int source_id = soundPool.load(context,R.raw.move_sound, 1); //可以从apk　或　系统文件加载
+ *    soundPool.play(source_id, 2, 2, 0, 0, 1); //参数2.3:左右声道音量   参数4：优先级   参数5：循环次数     参数6：速率
+ *    参数5：循环次数    0:不循环     -1:无限循环              参数6：速率    1.0：为原始速率
+ *    

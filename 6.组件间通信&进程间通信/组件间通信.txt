@@ -1,0 +1,105 @@
+组件间通信&进程间通信：
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+进程间通信
+Binder:
+组成：Client\Server\ServerManager\BinderDriver
+android 大部分的IPC是基于Binder实现的。Binder为同步通信、高效，为系统IPC.
+Binder的用户空间为每个进程维护着一个现场池。工作模式：基于Service-Client
+
+
+1.Intent                       最后也是基于Binder机制  还有intent+Bundle
+2.Brocadcast/BroadcastReceiver 最后也是基于Binder机制
+3.IBinder                      更是基于Binder机制（3种方式）
+    继承Binder类、
+    使用Messenger类、 
+    使用AIDL。
+4.使用数据存储技术
+  file,sharedPerference,sqlite,contentProvider,网络socket.
+
+获取到IBinder接口进行IPC的方式有三种：继承Binder类，使用Messenger类，使用AIDL.
+Messenger--核心就是Message与Handler来进行线程间通信（ITC）只能串行通信
+AIDL   能并行通信。
+——————————————————————————————————————
+1.intent,常用于组件间启动调用，传递附加数据。eg:调用启动同个应用或不同应用的Activity。
+2.广播， 不在一个应用，常用于系统或不同应用间的信息传递。
+3.Ibinder 常用于IPC,是基于ServiceManager对象。
+4.使用数据存储技术。常用于数据量大，数据公开，速度要求不高。
+
+
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+组件间通信
+1.Intent                       最后也是基于Binder机制
+2.Brocadcast/BroadcastReceiver 最后也是基于Binder机制
+3.IBinder                      更是基于Binder机制（3种方式）
+    继承Binder类、
+    使用Messenger类、 
+    使用AIDL。
+4.使用数据存储技术
+  file,sharedPerference,sqlite,contentProvider,网络socket.
+5.EventBus  第三方开源库，发布-订阅事件模式。
+------------------------------------------------------------------------------
+1.intent,常用于组件间启动调用，传递附加数据。
+2.Broadcast, 常用于不同app 应用间，传递数据，还应用于事件触发性信息传递。
+3.IBinder,  常用于Service与Activity通信或IPC。
+4.使用数据存储技术   不常用于组件间通信。
+5.EventBus  第三方开源库,常用于组件间、线程间的 消息总线。
+  简化并统一了intent、handler、broadcast的操作
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+=============================================================================
+
+
+
+
+
+
+
+1.Intent  目的、意图  ------- 也适用IPC       调用其他应用三大组件
+作用：启动Activity  启动Service 发送BroadcastRevice
+传递基本数据：基本数据和Uri等常用数据（本质也是内部使用Bundle）
+传递Bundle：Bundle:主要用于传递数据，它保存的数据是以Key-value值形式存在的。
+       android三大组件activity\Service\broadcastReciver 都支持Intent 传递Bundle数据，
+       由于Bundle实现了Parcelable接口，所以可以IPC
+       (可以在一个进程中启动另一进程的三大组件，也就通过Intent将Bundle数据传递出去)
+       （当Bundle传递对象或对象数组时，必须实现Serialzable或Parcelable接口）
+
+
+
+2.Brocadcast/BroadcastReceiver 广播\广播接收器  ------- 也适用IPC
+不只能够跨组件信息传递，还能跨应用。
+无法传递复杂数据
+
+
+3.Message & Handler          ------- 也适用IPC
+ 适用于多线程，线程中通信、组件间通信、进程间通信
+
+
+4.IBinder (Activity与Service通信传值)
+
+
+5.使用数据存储技术：  ------- 也适用IPC 
+file,sharedPerference,sqlite,contentProvider,网络等
+
+
+6.使用接口     ------- 也适用IPC
+eg：ADIL 基于Binder机制 采用proxy-stub模式，
+需要在Client端对transact()\ Server端对onTransact()进行封装。
+即client需要先拿到Server端的远程代理。
+
+
+
+7.EventBus  第三方开源库，发布-订阅事件模式。
+EventBus在发送消息的时候，简化并统一了intent、handler、broadcast的操作；
+在接收消息的时候，又将如何进行事件处理的线程封装成四个方法提供使用
+事件的发布：告知观察者事件发生时通过EventBus.post函数实现，这个过程叫做事件的发布。
+EventBus的接收函数：
+EventBus总共有4个函数可以接收post过来的的消息：
+》》onEvent
+如果使用onEvent作为订阅函数，那么该事件在哪个线程发布出来的，onEvent就会在这个线程中运行，也就是说发布事件和接收事件线程在同一个线程。使用这个方法时，在onEvent方法中不能执行耗时操作，如果执行耗时操作容易导致事件分发延迟。
+》》onEventMainThread
+如果使用onEventMainThread作为订阅函数，那么不论事件是在哪个线程中发布出来的，onEventMainThread都会在UI线程中执行，接收事件就会在UI线程中运行，这个在Android中是非常有用的，因为在Android中只能在UI线程中跟新UI，所以在onEvnetMainThread方法中是不能执行耗时操作的。
+》》onEventBackgroundThread
+如果使用onEventBackgrond作为订阅函数，那么如果事件是在UI线程中发布出来的，那么onEventBackground就会新建一个子线程再运行onEventBackground，如果事件本来就是子线程中发布出来的，那么onEventBackground函数直接在该子线程中执行。
+》》onEventAsync
+使用这个函数作为订阅函数，那么无论事件在哪个线程发布，都会创建新的子线程在执行onEventAsync。

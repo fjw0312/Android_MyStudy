@@ -1,0 +1,75 @@
+1.初始化本地建立仓库---生成.git文件（管理仓库）
+git init
+
+2.修改添加本地仓库的工作区（对文件夹操作，增加、修改文件）
+
+3.将修改文件（或整个仓库）添加到暂缓区
+git add "file"   
+或者git add .  代表提交所有文件
+
+4.将缓冲区提交到本地仓库
+git commit -m "描述说明"
+
+---------可以不需远程提交，自己在本地玩--------------
+5.将本地仓库master分支提交到远程仓库gitHub
+git push origin master  
+
+
+6.查看本地仓库提交的日志更新
+git log
+
+7.可以查看本地仓库的状态
+git status
+
+8.查看本地文件与暂存区的差异(查看与之前提交的修改了什么)
+git diff
+如果要查看工作区修改的内容与本地仓库的差异
+git diff HEAD~n
+
+9.撤销工作区的修改/恢复（覆盖为）缓冲区内容
+git checkout --<file>
+
+10.撤销暂存区的提交内容
+git reset HEAD <file>
+
+11.撤销仓库的更新
+git rest HEAD^
+
+12.删除文件
+git rm <file>
+-------------------------------------------
+13克隆远程仓库
+git clone   <"url">
+
+14.更新本地仓库与远程仓库一致
+git pull
+-----------------------------------------------------------------
+
+
+
+个人实际使用案例：
+一、克隆现有gitHub上的仓库，到本地，修改后在上传更新：
+1.在一个空白文件夹下，克隆远程仓库：
+git clone https://github.com/fjw0312/android-app-linux-server.git
+2.进入仓库文件：cd  ./dir  对该工作区文件修改。
+3.提交暂缓区：git add .
+4.提交到本地仓库：git commit -m "提交说明"
+5.提交到远程仓库：git push origin master
+
+6.如果担心远程仓库更新，可以push 前执行更新：git pull
+7.如果远端仓库有更新了，要更新本地仓库和工作区：git pull  后在合并：git merge
+8.如果工作区修改要恢复缓冲区内容：git checkout
+
+--------------------------------------------------------------
+由于频繁的修改和多人协作，建议常建立分支进行操作，修改完后再切换回主分支。
+1.建立分支：
+git checkout -b dev (相当于2条命令：git branch dev ; git checkout dev)
+2.查看当前分支，可以在当前分支随意修改了
+git branch
+3.切换回主分支
+git checkout master
+4.合并分支，将建立操作的dev分支合并到主分支master上。
+git merge dev
+5.可以远程提交了。
+
+

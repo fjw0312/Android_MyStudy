@@ -1,0 +1,102 @@
+SQLite android内嵌数据库服务
+
+数据库类SQLiteDatabase.
+
+创建数据库 方法2种：
+1.
+直接创建数据库：
+SQLiteDatabase db1 = SQLiteDatabase.openOrCreateDatabase(path+file1, null); //可以多次执行
+
+2.通过继承SQLiteOpenHelper定义数据库类：
+public myDatabaseHelper extends SQLiteOpenHelper{
+      oncreate(); 实例化创建数据库方法，数据库建立后只会进入一次。可创建表
+      onUpgrade();版本更新时，实例化数据库会进入，可添加表或修改表。常用保护现有数据库文件
+}
+自定义数据库，new 后真正实例化创建 需getReadableDatabase（）或getWritableDatabase（）；
+其功能为 打开/创建 数据库 进行读写（2个api都可以获得读写）。第一次创建会进入oncreate();
+区别：getReadableDatabase（）在数据库满后只能读，不能写。
+      getWritableDatabase（) 在数据库满后 写 会报异常。
+
+二、创建表
+db.execSQL(CREATE_TABLE);
+SQL命令如下字符：
+		CREATE_TABLE = "create table myTable ("
+				+ "id integer primary key autoincrement,"
+				+ "author text, "
+				+ "price real, "
+				+ "pages integer, "
+				+ "name text)";
+
+三、删除 数据库  表
+删除表：
+db1.execSQL("drop table myTable01");   //删除表 或 db.execSQL("drop table if exists Book");
+删除数据库：
+db1.deleteDatabase(file);  //删除数据库 file="/data/data/c016.com.example/databases/mydb.db"
+
+四、数据库操作CRUD
+创建：db.execSQL(String);
+插入：db.insert(ContentValues);
+更新：db.update(ContentValues);
+删除：db.delete();
+查询：db.query();
+
+
+
+
+
+eg:
+
+ //直接创建数据库	                             测试OK
+db1 = SQLiteDatabase.openOrCreateDatabase(path+file1, null); //可以多次执行
+
+//新建一张表
+db1.execSQL(CREATE_TABLE);   //多次执行需要捕获异常
+
+
+//插入一行内容   插入内容 会追加在表后面  id会自动+1;   测试OK
+				ContentValues values = new ContentValues();
+				values.put("name", "fang");
+				values.put("author", "fjw"); 
+				values.put("pages", 454); 
+				values.put("price", 16.98);
+				db1.insert("myTable01", null, values);
+
+
+//更新 表内容                                                     测试OK
+				ContentValues values = new ContentValues();
+				values.put("name", "fang02");
+				values.put("author", "fjw-2"); 
+				values.put("pages", 555);
+				values.put("price", 99.88);
+				db1.update("myTable01", values, "id=?", new String[]{"2"});
+
+
+//查询表内容          id和author 的列  并只去id=2 的行                 测试OK
+				Cursor sursor = db1.query("myTable01", new String[]{"id","author"}, "id=?", new String[]{"2"}, null, null, null);
+				int count = sursor.getCount();
+				Log.e("count>>1",String.valueOf(count));
+				while(sursor.moveToNext()){
+				//	int id = sursor.getInt(0);
+				//	String str = sursor.getString(1);
+					int id = sursor.getInt(sursor.getColumnIndex("id"));
+					String str = sursor.getString(sursor.getColumnIndex("author"));
+					Log.e("count>>id",String.valueOf(id)+"  "+str);
+				}
+
+
+//删除       测试OK
+db1.delete("myTable01", "id=?", new String[]{"1"}); //删除某行数据
+
+
+
+
+
+
+
+
+
+ //自定义创建数据库
+MyDatabaseHelper dbHelper = new MyDatabaseHelper(MainActivity.this,file2,null,2);
+
+//新建一张表
+SQLiteDatabase db2 = dbHelper.getWritableDatabase();

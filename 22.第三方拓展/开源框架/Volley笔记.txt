@@ -1,0 +1,102 @@
+==================================Volley=================================
+volley:git clone https://android.googlesource.com/platform/frameworks/volley
+
+使用步骤：
+1.创建RequestQueue 对象
+2.创建Request对象
+3.将Request对象添加到RequestQueue里面
+
+
+直接解析获取数据： StringRequest JsonObjectRequest  JsonArrayRequest  ImageRequest  ImageLoader  NetworkImageView
+StringRequest 使用步骤：GET
+1. RequestQueue mQueue = Volley.newRequestQueue(context);
+
+2.StringRequest stringRequest = new StringRequest( "https://www.baidu.com",
+                               new Response.Listener<String>(){  public void onResponse(Srting response){} },
+                               new Response.ErrorListner(){ public void onErrorResponse(VolleryError error){} }, );
+
+3. mQueue.add(StringRequest);
+
+当要使用POST 时：
+第二条步骤改为：
+StringRequest stringRequest = new StringRequest(Method.POST,url,listener,errorListenenr);
+
+再重写StringRequest  的getParams（）方法
+StringRequest stringRequest = new StringRequest(Method.POST,url,listener,errorListenenr){
+    protected Map<String,String>getParams() throws AuthFailureError{
+            Map<String, String> map = new HashMap<String, String>();
+            map.put("params1","value1");
+	    map.put("params2","value2");
+            return map;
+    }
+}//注。当要请求后添加头部信息时，也是类似方法 重写getHeaders()
+----------------------------------------------------
+JsonObjectRequest解析获取数据
+1. RequestQueue mQueue = Volley.newRequestQueue(context);
+2.JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(url, null, 
+                               new Response.Listener<JsonObject>(){  public void onResponse(JsonObject response){} },
+                               new Response.ErrorListner(){ public void onErrorResponse(VolleryError error){} }, );
+3. mQueue.add(jsonObjectRequest);
+
+----------------------------------------------------
+JsonArrayRequest解析获取数据
+1. RequestQueue mQueue = Volley.newRequestQueue(context);
+2.JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(url, 
+                               new Response.Listener<JSONArray>(){  public void onResponse(JSONArray response){} },
+                               new Response.ErrorListner(){ public void onErrorResponse(VolleryError error){} }, );
+3. mQueue.add(jsonArrayRequest);
+-----------------------------------------------------
+
+ImageRequest解析获取数据
+1. RequestQueue mQueue = Volley.newRequestQueue(context);
+2.ImageRequest imageRequest = new JsonArrayRequest(url, 
+                               new Response.Listener<Bitmap>(){  public void onResponse(Bitmap response){} },
+                               0,0, Config.RGB_565,
+                               new Response.ErrorListner(){ public void onErrorResponse(VolleryError error){} }, );
+3. mQueue.add(imageRequest);
+说明：参数3.4表示图片最大的宽度、高度。如果图片实际宽、高大于这里的参数会对图片进行压缩，如果参数为0，就为实际大小。
+      参数5用于指定图片的颜色属性。
+----------------------------------------------------
+
+ImageLoader解析获取数据
+1.创建一个RequestQueue对象
+2.创建一个RequestLoader对象
+3.获取一个ImageListener对象
+4.调用ImageLoader的get()方法加载网络图片
+-----------
+1. RequestQueue mQueue = Volley.newRequestQueue(context);
+2. ImageLoader imageLoader = new ImageLoader(mQueue, new ImageCache(){
+                            public void putBitmap(String url, Bitmap bitmap){}
+                            public Bitmap getBitmap(String url){}
+                           });
+3.ImageListener listener = ImageLoader.getImageListener(imageView, R.drawable.is_image,R.drawable_failed_image);
+                            参数：1显示图片的控件  2.加载图片等的过程中显示的图片  3.加载图片失败时显示的图片
+4.imageLoader.get("http://image.ikk.679jkk.jpeg", listener);  / imageLoader.get("http://image.ikk.679jkk.jpeg", listener, 200,200);限制图片大小
+----------------------------------------------------------
+
+NetworkImageView解析获取数据（直接显示到控件）
+1.创建一个RequestQueue对象
+2.创建一个RequestLoader对象
+3.在布局文件中添加一个NetworkImageView控件
+4.获取该控件
+5.设置要加载的图片地址及其他参数
+-------------
+1. RequestQueue mQueue = Volley.newRequestQueue(context);
+2. ImageLoader imageLoader = new ImageLoader(mQueue, new ImageCache(){
+                            public void putBitmap(String url, Bitmap bitmap){}
+                            public Bitmap getBitmap(String url){}
+                           });
+前面第1.2步，可以换成ImageLoader imageLoader = AppController.getInstance().getImageLoader();
+3.在布局文件中添加一个NetworkImageView控件
+4.networkImageView = (NetworkImageView)findViewByid(R.id.network_iamge_view);
+5.networkImageView.setDefaultImageResId( R.drawable.is_image);
+  networkImageView.setErrorImageResId(R.drawable_failed_image);
+  networkImageView.setImageUrl("http://image.ikk.679jkk.jpeg", imageLoader);
+
+
+===================================================================================================
+
+===================================================================================================
+
+
+

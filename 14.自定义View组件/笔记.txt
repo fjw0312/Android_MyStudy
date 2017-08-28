@@ -1,0 +1,23 @@
+android中UI界面逻辑：
+
+Activity>PhoneWindow>DecorView>TitleView & ContentView
+phoneView将一个DecorView设置为整个应用窗口的根View.
+
+在setContentView之后ActivityManagerSerView会回调onResume.
+
+
+注意：
+如果View中，onMeasure() 直接setMeasureDimension 
+如果ViewGroup中， 需要遍历子View，执行子View.onMeasure(),最后再setMeasureDimension 
+   ViewGroup中，如果没有设置背景色，不会执行onDraw(),而是调用dispatchDraw().
+
+
+在onMeasure之后，进入 onDraw（）之前，会进入onSizeChanged()
+
+
+View的3个构造函数：
+在代码中直接new一个Custom View实例的时候,会调用第一个构造函数.这个没有任何争议.
+在xml布局文件中调用Custom View的时候,会调用第二个构造函数.这个也没有争议.
+在xml布局文件中调用Custom View,并且Custom View标签中还有自定义属性时,这里调用的还是第二个构造函数.
+也就是说,系统默认只会调用Custom View的前两个构造函数,
+至于第三个构造函数的调用,通常是我们自己在构造函数中主动调用的（很少会进入）（例如,在第二个构造函数中调用第三个构造函数）

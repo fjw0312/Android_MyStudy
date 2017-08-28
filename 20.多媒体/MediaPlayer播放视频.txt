@@ -1,0 +1,45 @@
+Mediaplayer 播放视频：
+
+使用步骤：
+1.实例化MediaPlayer:     mediaPlayer01 = new MediaPlayer();
+
+2.定义SurfaceView surfaceView 获取surfaceHolder
+SurfaceView surfaceView;
+surfaceHolder = surfaceView.getHolder();
+surfaceHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);		
+
+3.设置相关参数
+mediaPlayer02.reset();
+mediaPlayer02.setDisplay(surfaceHolder);
+mediaPlayer02.setAudioStreamType(AudioManager.STREAM_MUSIC);  //设置声音类型
+mediaPlayer02.setLooping(true); //设置 是否循环播放
+mediaPlayer02.setDataSource(video_src);   //设置播放资源
+mediaPlayer02.prepareAsync();      //异步  缓冲加载资源
+
+4.设置监听缓冲
+//监听 缓冲结束
+mediaPlayer02.setOnPreparedListener(new OnPreparedListener() {			
+		@Override
+	public void onPrepared(MediaPlayer arg0) {
+       }
+}
+5.设置播放结束监听
+//设置 播放结束 监听
+mediaPlayer02.setOnCompletionListener(new OnCompletionListener() {		
+	@Override
+	public void onCompletion(MediaPlayer arg0) {
+		// TODO Auto-generated method stub
+		Toast.makeText(MainActivity.this, "video播放结束", Toast.LENGTH_LONG).show();
+		//可以考虑 重置播放游标
+		timer02.cancel(); 
+		timer02 = null;
+	}
+});
+
+6.操作控制。启动播放/停止播放
+mediaPlayer02.start();
+mediaPlayer02.stop();
+
+
+7. 记得Activity退出要释放资源。mediaPlayer02.release();
+

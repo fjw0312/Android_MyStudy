@@ -1,0 +1,33 @@
+Glide笔记  Android图片加载项目
+
+包含： 基础功能  特色功能   2大部分
+======================================================================
+图片的基础使用：异步加载
+Glide.with(Context).load(url).into(ImageView);
+
+当要设置加载尺寸
+Glide.with(Context).load(Url).override(800,800).into(ImageView);
+//设置占位图片
+.placeholder(R.drawable.dd)
+//设置加载错误占位图
+.error(R.drawable.error)
+
+//设置加载动画
+Glide.with(context).animate(R.anima.xx).into(ImageView)
+
+//设置加载内容后进行一定合成。
+.into(
+new SimpleTarget<GliderDrawable>(){
+     public void onResourceReady(){
+     }
+});
+
+//略缩图支持
+.thumbnail(0.1f)
+
+
+//显示gif动态图片
+.asGif();
+
+//设置缓存策略
+.disCacheStrategy()

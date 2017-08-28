@@ -1,0 +1,86 @@
+AsyncTask
+轻量级异步类。可以在类中实现异步操作，并提供接口反馈当前异步执行的程度，最后反馈执行的结果给UI主线程。
+其本质是个线程池，派生出的子类可以实现不同的异步任务，这些任务都交给了线程池运行。
+
+1.AsyncTask是抽象类，AsyncTask定义了三种泛型类型 Params, Progress, Result;
+  Params, 启动任务时输入的参数，比如下载URL.
+  Progress,后台任务执行的百分比，比如下载进度
+  Result;  后台执行的任务最终返回的结果，比如下载结果。
+
+2.其继承可实现的函数
+onPreExecute()
+onProgressUpdate(Integer... values) 
+doInBackground(String[] params)
+onPostExecute(String result) 
+中途中止时还会调用：
+onCancelled() 
+onCancelled(String result)；
+
+
+
+eg:
+myAsyncTask asyncTask = new myAsyncTask();
+	//轻量级异步类    异步操作 extends AsyncTask<Params, Progress, Result>
+	private class myAsyncTask extends AsyncTask<String, Integer, String>{
+
+		@Override  //只有 异步任务终止   会进入在mainThread执行
+		protected void onCancelled() {
+			// TODO Auto-generated method stub
+			super.onCancelled();
+			String threadName = Thread.currentThread().getName();
+			Log.i("myAsyncTask》onCancelled","into "+threadName);
+		}
+
+		@Override  //只有 异步任务终止   会进入在mainThread执行
+		protected void onCancelled(String result) {
+			// TODO Auto-generated method stub
+			super.onCancelled(result);
+			String threadName = Thread.currentThread().getName();
+			Log.i("myAsyncTask》onCancelled(String)=="+result,"into "+threadName);
+		}
+
+		@Override //后台执行 结束  在mainThread执行
+		protected void onPostExecute(String result) {
+			// TODO Auto-generated method stub
+			super.onPostExecute(result);
+			String threadName = Thread.currentThread().getName();
+			Log.i("myAsyncTask》onPostExecute=="+result,"into  "+threadName);
+		}
+
+		@Override //前期执行   在mainThread执行
+		protected void onPreExecute() { 
+			// TODO Auto-generated method stub
+			super.onPreExecute();
+			String threadName = Thread.currentThread().getName();
+			Log.i("myAsyncTask》onPreExecute","into  "+threadName);
+		}
+
+		@Override //更新 后台进度
+		protected void onProgressUpdate(Integer... values) {
+			// TODO Auto-generated method stub
+			super.onProgressUpdate(values);
+			String threadName = Thread.currentThread().getName();
+			Log.i("myAsyncTask》onProgressUpdate","into"+threadName+""+"进度："+String.valueOf(values[0]));
+		}
+
+		@Override //后台执行   后台新线程执行
+		protected String doInBackground(String[] params) {
+			// TODO Auto-generated method stub
+			//获取参数
+			String url = params[0];
+			String threadName = Thread.currentThread().getName();
+			Log.i("myAsyncTask》doInBackground-"+url,"into"+threadName);
+			for(int i=0;i<50;i++){
+				if(isCancelled()) break;
+				publishProgress(i);
+				try {
+					Thread.sleep(1000*1);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			return "doInBackground-end";
+		}
+启动：asyncTask.execute("传入参数");
+中止：asyncTask.cancel(true);

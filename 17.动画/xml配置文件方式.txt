@@ -1,0 +1,103 @@
+animator 动画：
+
+已实现方式分为2大类：
+1.xml配置文件
+2.纯代码实现。
+
+特征分类3中：
+补间动画View animator
+帧动画  frame animator
+属性动画 property animator
+
+--------------------xml配置文件----------------------
+补间动画View animator -------建立文件/res/anim/***.xml
+帧动画  frame animator -------建立文件/res/drawable/***.xml
+属性动画 property animator-------建立文件/res/animator/***.xml
+-----------
+补间动画 文件格式：set节点下：4种变化方式
+    <alpha />      渐变透明度动画效果
+    <scale />      渐变尺寸伸缩动画效果
+    <translate />     画面转换位置移动动画效果
+    <rotate />       画面旋转动画效果
+  代码加载启动：
+	Animation animation = AnimationUtils.loadAnimation(MainActivity.this, R.anim.my_anim);
+	textView01.startAnimation(animation);
+
+帧动画 文件格式：  animation-list节点下
+ 	 <item />  //放置图片和显示时间
+	 <item />
+         <item />
+	 <item />
+ 代码加载启动：
+	textView01.setBackgroundResource(R.drawable.drawable_anim);
+	AnimationDrawable animationDrawable2 = (AnimationDrawable)textView01.getBackground();
+	animationDrawable2.start();  //animationDrawable.stop();
+
+补间动画 文件格式：set节点下：
+    <objectAnimator />  //设置变化属性
+    <objectAnimator />
+ 代码加载启动：
+ Animator ainmator = AnimatorInflater.loadAnimator(NextActivity.this, R.animator.my_animator2);
+ ainmator.setTarget(textView01);
+ ainmator.start();
+================================================================================================
+
+
+eg:
+<?xml version="1.0" encoding="utf-8"?>
+<set xmlns:android="http://schemas.android.com/apk/res/android">
+    <alpha />    
+    <scale 
+        android:fromXScale="1.0"
+        android:toXScale="0.0"
+        android:fromYScale="1.0"
+        android:toYScale="0.0"
+        android:pivotX="50%"
+        android:pivotY="50%"
+        android:duration="3000"
+        android:repeatCount="3"/>
+
+    <translate />
+    <rotate />
+    
+</set>
+------------------------------------------
+<?xml version="1.0" encoding="utf-8"?>
+<animation-list xmlns:android="http://schemas.android.com/apk/res/android" 
+    android:oneshot="true">
+    <item 
+		android:drawable="@drawable/p101" 
+		android:duration="200" />
+	<item 
+		android:drawable="@drawable/p102" 
+		android:duration="200" />
+	<item 
+		android:drawable="@drawable/p103" 
+		android:duration="200" />
+	<item 
+		android:drawable="@drawable/p104" 
+		android:duration="200" />
+
+</animation-list>
+-------------------------------------------
+<?xml version="1.0" encoding="utf-8"?>
+<set xmlns:android="http://schemas.android.com/apk/res/android" 
+    android:ordering="sequentially">
+    <objectAnimator 
+        android:duration="1000"
+        android:propertyName="scaleX"
+        android:valueFrom="1"
+        android:valueTo="0.5">
+        
+    </objectAnimator>
+    
+     <objectAnimator 
+        android:duration="1000"
+        android:propertyName="scaleY"
+        android:valueFrom="1"
+        android:valueTo="2">
+        
+    </objectAnimator>
+
+</set>
+

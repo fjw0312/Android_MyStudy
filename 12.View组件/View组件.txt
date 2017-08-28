@@ -1,0 +1,6 @@
+View组件的生命周期：
+
+    onVisibilityChanged -> onFinishInflate->onVisibilityChanged->onAttachedToWindow->onWindowVisibilityChanged->
+       onMeasure --> onSizeChanged --> onLayout --> onDraw --> onDetackedFromWindow->onWindowFocusChanged
+
+不同可见模式：gone,Visible,invisible 在后面的onMeasure --> onSizeChanged --> onLayout --> onDraw 不同

@@ -1,0 +1,121 @@
+android 自定义控件
+
+创建自定义的控件 常用3种方式：
+1.继承现有控件来自定义：主要当实现的控件和已知的控件很多方面类似，通过对已有的控件的拓展满足需求。
+2.通过继承一个布局文件来自定义，一般来说可以做组合控件时可以实现。
+   此时不用OnDraw()方法，在构造广告中通过inflater加载自定义的控件布局，再addView，自定义控件就加载好了。
+3.通过继承View类/viewGroup类 来实现自定义控件，使用GDI绘制组件界面:一般上述2种方法都无法实现时。
+
+
+当要自定义容器实现里面的子view 可拖动时，可严重考虑配合使用Draglayout/viewDragHelper
+----------------------------自定义控件viewGroup---------------------
+自定义viewGroup 与view 基本类似，但使用时需要布局添加子view.
+
+
+
+#########自定义控件viewGroup的步骤(不定义属性文件，不使用传入属性参数时)##############
+1.重写onlayout(){ 遍历子view.layout()}
+3.重写onMeasure (但要使用wrap布局时，比较复杂需要根据布局计算子view.measure)
+4.重写dispatchDraw(); 需要对此viewGroup进行绘制时，才需要重写，不需绘制，可以不重写。
+
+
+运行顺序：onMeasure-1->onMeasure-2->onLayout->onMeasure-1->onMeasure-2->onLayout
+          ->dispatchDraw-1->dispatchDraw-2
+
+
+
+布局使用添加小技巧：
+使用自定义布局风格类型，在/res/values/styles.xml 文件中添加
+    <!-- my fang add style -->
+    <style name="fang_style01">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:layout_margin">4dp</item>
+    </style>
+---------------
+使用自定义控件背景图形，在/res/drawable/新建xml文件（myground02.xml）。
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android" >
+    
+    <solid android:color="#ffff00ff"/>  
+    <corners android:radius="40dp"/>   
+    <stroke android:color="#c9c9c9" android:width="2dp"/>  
+    <padding android:top="2dp"
+             android:left="10dp"
+             android:right="10dp"
+             android:bottom="2dp"/>
+</shape>
+------------------
+布局使用时：
+       <TextView 
+            style="@style/fang_style01"
+            android:background="@drawable/myground02"
+            android:text="javaScrip is ssssss"
+            android:textColor="#ff000099"/>
+
+
+
+
+------------------------------------------------------------------------------
+demo:
+	protected void onLayout(boolean arg0, int l, int t, int r, int b) {
+		// TODO Auto-generated method stub
+		int preHeight = 0;
+		//遍历 子控件 
+		for(int i=0;i<getChildCount();i++){
+			View children = getChildAt(i);
+			int cHeight = children.getMeasuredHeight();
+			if(children.getVisibility() != View.GONE){
+				children.layout(l, preHeight, r, preHeight +=cHeight);//子view 布局 按高度叠
+			}
+		}
+	}
+---------------
+	protected void dispatchDraw(Canvas canvas) {
+		// TODO Auto-generated method stub
+		Log.i("MyViewGroup01>dispatchDraw", "into-1" );
+		canvas.drawColor(groundColor);  //绘制 底板  必须在super.dispatchDraw(canvas); 之前才不覆盖子view
+		super.dispatchDraw(canvas); //其内部自身 会对addView 添加的子view 绘制
+		
+		Log.i("MyViewGroup01>dispatchDraw", "into-2" );
+	}
+--------------
+	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+		// TODO Auto-generated method stub
+		super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+		//遍历 子控件 mesaure()
+		int childCount = getChildCount();
+		for(int i=0;i<childCount;i++){
+			View children = getChildAt(i);
+			measureChild(children, widthMeasureSpec, heightMeasureSpec);
+		}
+		
+		//判断 布局模式   支持wrap_content
+		int mMaxWidth = 0;
+		int mMaxHeight = 0;
+		int widthMode = MeasureSpec.getMode(widthMeasureSpec);		
+		int heightMode = MeasureSpec.getMode(heightMeasureSpec);
+		int widthSize = MeasureSpec.getSize(widthMeasureSpec); 
+		int heightSize = MeasureSpec.getSize(heightMeasureSpec);
+		if(widthMode == MeasureSpec.AT_MOST && heightMode == MeasureSpec.AT_MOST){
+			for(int i=0;i<childCount;i++){  //要参考布局方式 计算
+				View children = getChildAt(i);	
+				mMaxWidth = Math.max(mMaxWidth, children.getMeasuredWidth());
+				mMaxHeight += children.getMeasuredHeight();
+			}
+			setMeasuredDimension(mMaxWidth, mMaxHeight);	
+		}else if(widthMode == MeasureSpec.AT_MOST){
+			for(int i=0;i<childCount;i++){
+				View children = getChildAt(i);
+				mMaxWidth = Math.max(mMaxWidth, children.getMeasuredWidth());
+			}
+			setMeasuredDimension(mMaxWidth, heightSize);	
+		}else if(heightMode == MeasureSpec.AT_MOST){
+			for(int i=0;i<childCount;i++){
+				View children = getChildAt(i);
+				mMaxHeight += children.getMeasuredHeight();
+			}
+			setMeasuredDimension(widthSize, mMaxHeight);	
+		}
+	}
