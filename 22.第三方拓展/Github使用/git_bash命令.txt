@@ -1,3 +1,5 @@
+
+---------------------在本地git仓的操作 命令-------------------
 1.初始化本地建立仓库---生成.git文件（管理仓库）
 git init
 
@@ -10,31 +12,34 @@ git add "file"
 4.将缓冲区提交到本地仓库
 git commit -m "描述说明"
 
+5.查看 本地文件与修改状态
+git status
+6.查看 本地文件修改内容 
+git diff
+7.查看历史提交记录
+git log
+
+8.将本地文件 回到上个提交状态
+git reset --hard HEAD^     //或者 git reset --hard 版本号（git log可以出来）
+
 ---------可以不需远程提交，自己在本地玩--------------
 5.将本地仓库master分支提交到远程仓库gitHub
 git push origin master  
 
-
 6.查看本地仓库提交的日志更新
 git log
-
 7.可以查看本地仓库的状态
 git status
-
 8.查看本地文件与暂存区的差异(查看与之前提交的修改了什么)
 git diff
 如果要查看工作区修改的内容与本地仓库的差异
 git diff HEAD~n
-
 9.撤销工作区的修改/恢复（覆盖为）缓冲区内容
 git checkout --<file>
-
 10.撤销暂存区的提交内容
 git reset HEAD <file>
-
 11.撤销仓库的更新
 git rest HEAD^
-
 12.删除文件
 git rm <file>
 -------------------------------------------
@@ -56,10 +61,14 @@ git clone https://github.com/fjw0312/android-app-linux-server.git
 4.提交到本地仓库：git commit -m "提交说明"
 5.提交到远程仓库：git push origin master
 
-6.如果担心远程仓库更新，可以push 前执行更新：git pull
+6.如果担心远程仓库更新，可以push 前执行更新：git pull    （git commit后 git push前）
+  //本地仓和本地工作文件（没修改情况下）都会更新（为远程仓内容）
+   但，如果本地文件有修改 
+  1.如果是远程仓与本地仓不一样（本地修改已提交本地仓or远程仓较本地仓有修改）需要冲突处理
+  2.如果本地仓和远程仓一样。本地修改没被覆盖。
 7.如果远端仓库有更新了，要更新本地仓库和工作区：git pull  后在合并：git merge
 8.如果工作区修改要恢复缓冲区内容：git checkout
-
+9.查看分支情况 git branch
 --------------------------------------------------------------
 由于频繁的修改和多人协作，建议常建立分支进行操作，修改完后再切换回主分支。
 1.建立分支：
@@ -67,9 +76,21 @@ git checkout -b dev (相当于2条命令：git branch dev ; git checkout dev)
 2.查看当前分支，可以在当前分支随意修改了
 git branch
 3.切换回主分支
-git checkout master
+git checkout master 
+然后建议合并前git pull 更新一下。
 4.合并分支，将建立操作的dev分支合并到主分支master上。
 git merge dev
 5.可以远程提交了。
 
+---------------------------
+1.查看远程分支
+git remote -v
+2.获取远程最新版本到本地-新建temp分支
+git fetch origin matser:temp
+3.比较本地仓与下载仓不同
+git diff temp
+4.合并分支 注意所在分支
+git merge temp
+5.删除分支
+git branch -d temp
 

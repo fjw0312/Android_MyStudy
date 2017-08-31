@@ -6,3 +6,5 @@ android 6.0    API-23
 android 7.0    API-24
 android 7.1    API-25
 android 8.0    API-26
+
+注：eclipse开发中， android6.0 android7.0 需要JDK1.7 支持  android8.0 需要JDK1.8支持。
