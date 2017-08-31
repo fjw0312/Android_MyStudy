@@ -1,0 +1,8 @@
+android 4.2.2  API-17
+android 4.4    API-19
+android 5.0    API-21
+android 5.1    API-22
+android 6.0    API-23
+android 7.0    API-24
+android 7.1    API-25
+android 8.0    API-26
