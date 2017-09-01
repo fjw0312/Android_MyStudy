@@ -1,0 +1,16 @@
+
+android app 工程开发完后：
+
+eclipse签名》获得签名apk->上线平台加固or使用乐固工具加固》获得加固后apk(未签名)
+->对加固后的apk再签名》获得加固签名apk
+
+
+
+
+初步eclipse签名见图片
+
+
+对加固后apk 签名：方法： （当然可以使用 乐固 从加固到签名都完成）
+在apk编译的jdk 环境下，eg：jdk1.6 就最好到/jdk1.6/bin   cmd windos dos环境。
+输入命令：jarsigner -verbose -keystore <签名key文件> -signedjar <sign.apk> <unsign.apk> <签名key别名>
+注意路劲。 然后输入 passwork 后直接Enter就可以生产新的签名apk了。
