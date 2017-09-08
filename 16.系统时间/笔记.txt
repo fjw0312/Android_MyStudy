@@ -25,6 +25,11 @@
 		return time;
 	}
 -------------------------------------------------------------------------------------------------------
+修改数值小数点，有效位数
+float ff = 12.67589f;
+DecimalFormat decimalFloat = new DecimalFormat("0.0"); //float小数点精度处理
+String strValue= decimalFloat.format(ff);
+-------------------------------------------------------------------------------------------------------
 
 
 private Calendar calendar;
