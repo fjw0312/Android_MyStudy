@@ -56,7 +56,7 @@ alphaAnimation.setDuration(2000);
 alphaAnimation.setRepeatCount(0);
 alphaAnimation.setRepeatMode(ValueAnimator.REVERSE);
 alphaAnimation.setStartDelay(200);
- alphaAnimation.setInterpolator(new AccelerateDecelerateInterpolator());
+alphaAnimation.setInterpolator(new AccelerateDecelerateInterpolator());
 alphaAnimation.start();
 				
 //·½Ê½ ¶þ£º
