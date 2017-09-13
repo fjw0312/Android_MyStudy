@@ -1,0 +1,39 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <FrameLayout 
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+        <WebView 
+		    android:id="@+id/webView_id"
+		    android:layout_width="match_parent"
+		    android:layout_height="match_parent"/>
+        
+        <include 
+            layout="@layout/progressbar_page"
+            android:id="@+id/progressBar_page"/>
+           "
+    </FrameLayout>
+
+	
+	<LinearLayout 
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_marginLeft="20dp"
+	    android:layout_marginRight="20dp"
+	    android:layout_marginBottom="10dp"
+	    android:background="@drawable/my_navigationbar_shape">
+	    <my.customView.MyNavigationBar
+		    android:id="@+id/MyNavigationBar"
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content">
+		</my.customView.MyNavigationBar>
+	</LinearLayout>
+
+	 
+
+</LinearLayout>
