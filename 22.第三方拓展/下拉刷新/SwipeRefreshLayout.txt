@@ -1,0 +1,38 @@
+SwipeRefreshLayout
+
+Google：说明：
+在竖直滑动时想要刷新页面可以用SwipeRefreshLayout来实现。它通过设置OnRefreshListener来监听界面的滑动从而实现刷新。
+也可以通过一些方法来设置SwipeRefreshLayout是否可以刷新。如：setRefreshing(true)，展开刷新动画。
+setRefreshing(false)，取消刷新动画。setEnable(true)下拉刷新将不可用。
+
+使用这个布局要想达到刷新的目的，需要在这个布局里包裹可以滑动的子控件，如ListView等，并且只能有一个子控件。
+
+
+使用介绍：
+五个经常用到的方法：
+
+?isRefreshing()
+?判断当前的状态是否是刷新状态。
+
+
+?setColorSchemeResources(int... colorResIds)
+?设置下拉进度条的颜色主题，参数为可变参数，并且是资源id，可以设置多种不同的颜色，每转一圈就显示一种颜色。
+
+
+?setOnRefreshListener(SwipeRefreshLayout.OnRefreshListener listener)
+?设置监听，需要重写onRefresh()方法，顶部下拉时会调用这个方法，在里面实现请求数据的逻辑，设置下拉进度条消失等等。
+
+
+?setProgressBackgroundColorSchemeResource(int colorRes)
+?设置下拉进度条的背景颜色，默认白色。
+
+
+?setRefreshing(boolean refreshing)
+?设置刷新状态，true表示正在刷新，false表示取消刷新。
+
+
+
+作者：PingerOne
+链接：http://www.jianshu.com/p/d23b42b6360b
+來源：简书
+著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。

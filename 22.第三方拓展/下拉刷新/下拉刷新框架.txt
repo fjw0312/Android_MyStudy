@@ -1,7 +1,8 @@
 常用下拉框架有：
-Android-PullToRefresh
+Android-PullToRefresh     项目地址：https://github.com/chrisbanes/Android-PullToRefresh
+（不更新了。）
 
-android-UItra-Pull-To-Refresh
+android-UItra-Pull-To-Refresh   项目地址：https://github.com/liaohuqiu/android-Ultra-Pull-To-Refresh
 
 
 SwipeRefreshLayout  (Google的)
