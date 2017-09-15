@@ -1,0 +1,99 @@
+UItra-Pull-To-Refresh 笔记说明：
+
+其主要实现在控件类PtrClassicFrameLayout 中
+配置参数：
+xml:
+    cube_ptr:ptr_resistance="1.7"                       阻尼系数  感觉下拉时越吃力
+    cube_ptr:ptr_ratio_of_header_height_to_refresh="1.2"  触发刷新时移动的位置比例
+    cube_ptr:ptr_duration_to_close="300"                     回弹延时
+    cube_ptr:ptr_duration_to_close_header="2000"          头部回弹时间
+    cube_ptr:ptr_keep_header_when_refresh="true"         刷新是保持头部
+    cube_ptr:ptr_pull_to_fresh="false"                  下拉刷新 / 释放刷新
+code:
+	mPtrFrame.setResistance(1.7f);
+	mPtrFrame.setRatioOfHeaderHeightToRefresh(1.2f);
+	mPtrFrame.setDurationToClose(200);
+	mPtrFrame.setDurationToCloseHeader(1000);
+	// default is true
+	mPtrFrame.setKeepHeaderWhenRefresh(true);
+	// default is false
+	mPtrFrame.setPullToRefresh(false);
+
+
+自定义刷新头 控件 应用步骤：
+1.先自定义表头表头View(implements PtrUIHandler){5个刷新接口函数}
+2.自定义刷新控件extends PtrFrameLayout{
+   new 表头View(implements PtrUIHandler)
+   setHeaderView(表头View);
+   addPtrUIHandler(表头View);
+  }
+3.可以implements PtrHandler{ //判断 包裹内容是否可以刷新，开始刷新
+    public void onRefreshBegin(final PtrFrameLayout frame)  
+    public boolean checkCanDoRefresh(final PtrFrameLayout frame, final View content, final View header)  
+}
+
+就基本可以使用了，可以借鉴demo  PtrClassicFrameLayout
+
+
+ptrFrame.addtPtrUIHandler(new PtrUIHandler()):数据刷新的接口回调。new PtrHandler包含几个方法：
+	onUIRefreshPrepare：开始下拉之前的接口回调。
+	onUIRefreshBegin：开始刷新的接口回调。
+	onUIRefreshComplete:刷新完成的接口回调。
+	onUIReset：刷新完成之后，UI消失之后的接口回调。
+	onUIPositionChange：下拉滑动的接口回调，多次调用。 
+		isUnderTouch ：手指是否触摸
+		status：状态值
+		ptrIndicator：滑动偏移量等值的封装
+
+
+onUIPositionChange：函数内可获取的数值
+ 3         int headerHeight = ptrIndicator.getHeaderHeight();//头部的高度
+ 4         int lastPosY = ptrIndicator.getLastPosY();//上一次滑动的Y偏移值
+ 5         int offsetToRefresh = ptrIndicator.getOffsetToRefresh();//刷新需要滑动的偏移量
+ 6         float offsetY = ptrIndicator.getOffsetY();//当前与上一次滑动处理的偏移值
+ 7         int currentPosY = ptrIndicator.getCurrentPosY();//当前系统偏移
+
+
+
+---------------------------------------------------------------
+使用demo:
+         PtrClassicFrameLayout ptrFrame;
+6         //下拉刷新的阻力，下拉时，下拉距离和显示头部的距离比例，值越大，则越不容易滑动
+17         ptrFrame.setRatioOfHeaderHeightToRefresh(1.2f);
+18 
+19         ptrFrame.setDurationToClose(200);//返回到刷新的位置（暂未找到）
+20 
+21         ptrFrame.setDurationToCloseHeader(1000);//关闭头部的时间 // default is false
+22 
+23         ptrFrame.setPullToRefresh(false);//当下拉到一定距离时，自动刷新（true），显示释放以刷新（false）
+24 
+25         ptrFrame.setKeepHeaderWhenRefresh(true);//见名只意
+26 
+27         ptrFrame.setPtrHandler(new PtrHandler() {
+28             @Override
+29             public boolean checkCanDoRefresh(PtrFrameLayout frame,
+30                                              View content, View header) {
+31                 return PtrDefaultHandler.checkContentCanBePulledDown(frame,
+32                         content, header);
+33             }
+34 
+35             @Override
+36             public void onRefreshBegin(PtrFrameLayout frame) {
+37 
+38                 //数据刷新的回调
+39 
+40                 ptrFrame.postDelayed(new Runnable() {
+41                     @Override
+42                     public void run() {
+43                         ptrFrame.refreshComplete();
+44                     }
+45                 }, 1500);
+46             }
+47         });
+48     }
+    注意：ptrFrame.setPtrHandler(new PtrHandler(){public boolean checkCanDoRefresh 返回值boolean}
+          判断是否可以下拉刷新。 UltraPTR 的 Content 可以包含任何内容，用户在这里判断决定是否可以下拉。
+	例如，如果 Content 是 TextView，则可以直接返回 true，表示可以下拉刷新。
+	如果 Content 是 ListView，当第一条在顶部时返回 true，表示可以下拉刷新。
+	如果 Content 是 ScrollView，当滑动到顶部时返回 true，表示可以刷新。
+---------------------------------------------------------------------------------------------------------

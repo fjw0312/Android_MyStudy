@@ -32,6 +32,9 @@ animator 动画：
 	textView01.setBackgroundResource(R.drawable.drawable_anim);
 	AnimationDrawable animationDrawable2 = (AnimationDrawable)textView01.getBackground();
 	animationDrawable2.start();  //animationDrawable.stop();
+	注意;如果动画绑定对象为ImageView，时 就不要xml配置SRC资源图片，因为动画在Background看不到。
+         启动动画start()不能再onCreate();
+
 
 补间动画 文件格式：set节点下：
     <objectAnimator />  //设置变化属性
