@@ -1,0 +1,32 @@
+android studio导入 jar 或 module等：
+
+一、导入 Jar 文件
+     1.先和eclipse一样在libs/下放入jar包,右击选择Add As Library.
+     2.在该build.gradle文件中 dependecies{} 添加如下代码：
+         单个文件时：  compile file("lib/name.jar");
+         多个文件时：  compile fileTree(dir: 'libs', include: ['*.jar'])
+    
+
+二、导入Maven中的库（jar\arr）一般github开源库  大部分都是这做法
+      在该build.gradle文件中 dependecies{} 添加如下代码：
+	compile 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.3'
+
+
+三、导入开源库 module (gradle构建的开源库)   （导入Android studio 的module）
+       1.首先下载文件，将我们需要的这个库的 module 文件夹拷贝到我们的项目的目录下面
+       2.然后在setting.gradle 文件中增加文件夹名称  
+         eg:include ':app', ':refresh-layout', ':refresh-header', ':refresh-footer'
+       3.然后在我们需要依赖这个模块的 module 中的 build.gradle 文件dependecies{}中加入如下代码：
+         eg:
+   		 compile project(':refresh-footer')
+   
+ 		 compile project(':refresh-header')
+    
+		 compile project(':refresh-layout')
+
+
+四、导入基于 Eclipse 构建的开源库             (导入Eclipse app项目为依赖modbule)
+       1.首先下载文件，将我们需要的这个库的 module 文件夹拷贝到我们的项目的目录下面
+       2.然后在setting.gradle 文件中增加文件夹名称  
+         eg:include ':app', 'myApp2'
+       3.然后在要使用的 module 中的 build.gradle 文件中引入依赖，由于没有 build.gradle 文件，所以我们需要自己新建一个放到 module 下面，下面是一个模版：

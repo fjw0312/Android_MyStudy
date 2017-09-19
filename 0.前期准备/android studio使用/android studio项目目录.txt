@@ -1,0 +1,59 @@
+android studio 项目目录
+
+1.先新建工程，如果新建 工程后  报错：Error:Unable to tunnel through proxy. Proxy returns "HTTP/1.1 400 Bad Reques
+解决：File->settings->build,Execution,deployment->Gradle->选择使用Use local gradle distribution
+ 然后选择文件gradle-3.3,最后应用 -》OK
+
+.gradle--|
+         |3.3-|taskArtifacts
+         |    |tasks
+
+.idea----|copyright
+         |libraries
+         |......
+
+         （android App项目）
+app------|build
+         |
+         |libs
+         |
+         |src---------------------|  androidTest--java-项目名--ExampleInstrumentedTest
+         |                        |  test  ----  java-项目名--ExampleUnitTest
+         |.gitigonre              |  main----|java--包名--java文件
+         |build.gradle                       |res-....
+         |proguard-rules.pro                 |AndroidMainifest.xml
+
+build----|android-profile
+         |
+         |generated
+
+
+gradle---|
+         |wrapper--|gradle-wrapper.jar
+         |         |gradle-wrapper.properties
+
+.gitigonre
+build.gradle
+gradle.properties
+gradlew
+gradlew.bat
+local.properties
+settings.gradle
+----------------------------------------------------------------------------
+
+
+
+.gradle	gradle项目产生文件夹（自动编译工具产生的文件）
+.idea	IDEA项目文件夹（开发工具产生的文件）
+app	module模块
+build	构建时生成文件的地方
+captures	捕获系统信息的日志目录
+gradle	gradle环境支持文件夹
+.gitignore	git源码管理文件
+build.gradle	gradle项目自动编译的配置文件
+gradle.properties	gradle运行环境配置文件
+gradlew	自动完成 gradle 环境的linux mac 脚本，配合gradle 文件夹使用
+gradlew.bat	自动完成 gradle 环境的windows 脚本，配合gradle 文件夹使用
+local.properties	Android SDK NDK 环境路径配置
+setting.gradle	gradle 项目的子项目包含文件
+Test.iml	IDEA 项目文件
