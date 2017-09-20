@@ -57,3 +57,6 @@ gradlew.bat	自动完成 gradle 环境的windows 脚本，配合gradle 文件夹使用
 local.properties	Android SDK NDK 环境路径配置
 setting.gradle	gradle 项目的子项目包含文件
 Test.iml	IDEA 项目文件
+
+
+android studio 使用快捷键 http://blog.csdn.net/my_truelove/article/details/52165964
