@@ -1,0 +1,27 @@
+1.添加jar 
+  方式1：
+File->Project structure->
+  先添加进来，点击左上角“+” 
+  然后点击对应需要依赖的module(app)添加依赖app->Dependencies->点击右边的“+”,然后选择jar
+
+  方式2：   
+     1.先和eclipse一样在libs/下放入jar包,右击选择Add As Library. （有可能自动执行下面2）
+     2.在该build.gradle文件中 dependecies{} 添加如下代码：
+         单个文件时：  compile file("lib/name.jar");
+         多个文件时：  compile fileTree(dir: 'libs', include: ['*.jar'])
+
+
+
+2.添加eclipse 工程
+  File->Project structure->
+  先添加进来，点击左上角“+” 
+  然后点击对应需要依赖的module(app)添加依赖app->Dependencies->点击右边的“+”,然后选择module
+
+  如果不是要将该导进的工程当成app工程，需要修改为modbule:
+  1.修改build.gradle 文件：apply plugin: 'com.android.application'->apply plugin: 'com.android.library'
+     注释掉//    applicationId "com.my"
+     看sdk 是否符合 是否也修改  看支持包V4/V7/V11是否一致支持
+  2.修改AndroidMainifest.xml 文件
+     删除<uses-sdk>
+     删除所有<activity>等 删除android:icon="@drawable/ic_launcher"
+    

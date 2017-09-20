@@ -1,0 +1,7 @@
+jar 包为 java 的纯java文件压缩包
+arr 包为 android 的文件/资源压缩包 使用于android studio
+
+由于很多第三方框架 库 工程都包含 了android 的资源，所以即使打包也是aar 无法压成jar.
+故要将这些aar直接导入Eclipse是无法做到，只有先解压-》修改为lib工程-》导入工程引用。
+
+所以，需尽早将开发工具，从eclipse->android studio

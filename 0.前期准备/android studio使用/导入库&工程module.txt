@@ -7,7 +7,7 @@ android studio导入 jar 或 module等：
          多个文件时：  compile fileTree(dir: 'libs', include: ['*.jar'])
     
 
-二、导入Maven中的库（jar\arr）一般github开源库  大部分都是这做法
+二、导入Maven中的库（jar\aar）一般github开源库  大部分都是这做法
       在该build.gradle文件中 dependecies{} 添加如下代码：
 	compile 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.3'
 
@@ -30,3 +30,12 @@ android studio导入 jar 或 module等：
        2.然后在setting.gradle 文件中增加文件夹名称  
          eg:include ':app', 'myApp2'
        3.然后在要使用的 module 中的 build.gradle 文件中引入依赖，由于没有 build.gradle 文件，所以我们需要自己新建一个放到 module 下面，下面是一个模版：
+
+
+----------------------------------------------------------------------------------------
+添加 依赖 module/Project/jar/aar 图形操作方法：
+File->Project structure->
+  先添加进来，点击左上角“+” 
+  然后点击对应需要依赖的module(app)添加依赖app->Dependencies->点击右边的“+”,然后选择  module/Project/jar/arr
+
+如果要删除module/Project/jar/aar  File->Project structure->点击“-”再出去右击“delete”
