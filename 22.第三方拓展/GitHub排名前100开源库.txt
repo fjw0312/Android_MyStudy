@@ -68,3 +68,6 @@ MPAndroidChart 是一款强大的 Android 图表库, 支持各种各样图表显示,
 
 一些炫酷框架：http://blog.csdn.net/fancylovejava/article/details/45787729
 优秀的分类开源帖子：http://www.cnblogs.com/yangguangfu/p/4429355.html
+优秀框架：https://github.com/BolexLiu/DevNote
+http://blog.csdn.net/tyk9999tyk/article/details/55050002
+http://www.cnblogs.com/dubo-/p/5649198.html
