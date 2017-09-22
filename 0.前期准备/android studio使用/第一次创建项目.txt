@@ -1,0 +1,6 @@
+第一次创建项目时：
+
+
+出现错误：Gradle sync failed: Unable to tunnel through proxy. Proxy returns "HTTP/1.1 400 Bad Request"
+解决方案是，选择本地的Gradle：
+设置：settings->Build,Execution,Deploymnet->Gradle  选择本地Gradle路劲即可
