@@ -43,7 +43,9 @@ google开源gson解析器
 1.添加google gson.jar包
 2.实例化Gson = new Gson();
 3.根据json单组数据定义一个class类。
-4.将单组json数据自动解析实例化class类 eg:Person = gson.form(jsonData,person.class);
-5.若是json数组： List<Person> people = gson.form(jsonData,new TypeToken< List<Person>>(){}.getType());
+4.将单组json数据自动解析实例化class类 eg:Person = gson.formJson(jsonData,person.class);
+5.若是json数组： List<Person> people = gson.formJson(jsonData,new TypeToken< List<Person>>(){}.getType());
+
+jsonData 可以是String JsonElement(JsonObject JsonArray)
 
 

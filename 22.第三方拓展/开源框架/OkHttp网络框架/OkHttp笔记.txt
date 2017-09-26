@@ -1,0 +1,29 @@
+OkHttp 网络请求的开源框架：
+
+====================================================================
+地址：https://github.com/hongyangAndroid/okhttp-utils
+
+http://www.jcodecraeer.com/a/anzhuokaifa/androidkaifa/2015/0106/2275.html
+http://blog.csdn.net/lmj623565791/article/details/47911083
+
+功能：
+      一般get请求
+      一般post请求
+      基于http上传文件
+      加载图片
+      支持请求回调  直接返回对象   对象集合
+------------------------------------------------------
+
+get请求：
+//创建OkhttpClient对象
+OkHttpClient mOkHttpClient = new OkHttpClient();
+//创建一个Request
+final Request request = new Request.Builder().url("").build();
+//new call
+Call call = mOkHttpClient.newCall(request);
+//请求加入调度
+call.enqueue(new Callback(){
+       public void onFailure(){}
+       public void onResponse(){  String htmlStr=response.body.string(); }
+
+})
