@@ -28,7 +28,10 @@ dependencies {
     })
     compile 'com.android.support:appcompat-v7:25.3.1'
     compile 'com.android.support.constraint:constraint-layout:1.0.0-alpha7'
+
+    compile 'com.squareup.okhttp3:okhttp:3.9.0'
+    compile 'com.squareup.okio:okio:1.7.0'
+
     testCompile 'junit:junit:4.12'
-    compile files('libs/gson-2.7.jar')
-    compile files('libs/volley.jar')
+
 }
