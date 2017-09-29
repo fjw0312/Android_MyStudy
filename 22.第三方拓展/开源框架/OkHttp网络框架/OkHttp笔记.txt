@@ -1,8 +1,15 @@
 OkHttp 网络请求的开源框架：
 
+
+依赖：
+    compile 'com.squareup.okhttp3:okhttp:3.9.0'
+    compile 'com.squareup.okio:okio:1.7.0'   //内部依赖okio 所以也不能少这个
+
 ====================================================================
 地址：https://github.com/hongyangAndroid/okhttp-utils
 
+
+http://blog.csdn.net/xx326664162/article/details/77714126
 http://www.jcodecraeer.com/a/anzhuokaifa/androidkaifa/2015/0106/2275.html
 http://blog.csdn.net/lmj623565791/article/details/47911083
 
@@ -13,6 +20,44 @@ http://blog.csdn.net/lmj623565791/article/details/47911083
       加载图片
       支持请求回调  直接返回对象   对象集合
 ------------------------------------------------------
+GET:步骤
+1.创建OkhttpClient对象
+    OkHttpClient mOkHttpClient = new OkHttpClient();
+2.创建一个Request
+   Request request = new Request.Builder().url("").build();
+3.创建Call加入调度                              mOkHttpClient.newCall(request).excute();
+   Call call = mOkHttpClient.newCall(request);
+   Response response = call.excute();                   --- 同步网络获取
+   或者：call.enqueue(new Callback(重新方法){});        --- 异步网咯获取
+
+POST：步骤
+1.//创建RequetBody对象
+   a.提交json数据  模式
+    	MediaType mediaType = MediaType.parse("application/json; charset=utf-8"); //post类型
+	RequestBody requestBody = RequestBody.create(mediaType, YOURJSONSTRING);
+    b.提交参数   模式
+	RequestBody requestBody = new FormBody.Builder()
+   				 .add("key1", "value1")
+    				 .add("key2", "value2")
+    				 .build();
+    c.上传文件   模式
+    	MediaType mediaType = MediaType.parse("text/x-markdown; charset=utf-8"); //""text/plain"
+	RequestBody requestBody = RequestBody.create(mediaType, file);
+    d.上传Multipart文件(提交文件与数据)
+	MediaType mediaType = MediaType.parse("image/png");  ......
+2.创建OkhttpClient对象
+   	OkHttpClient mOkHttpClient = new OkHttpClient();
+3.创建一个Request
+   	Request request = new Request.Builder().url("").post(requestBody).build();
+4.创建Call 加入调度                              mOkHttpClient.newCall(request).excute();
+   Call call = mOkHttpClient.newCall(request);
+   Response response = call.excute();                   --- 同步网络获取
+   或者：call.enqueue(new Callback(重新方法){});        --- 异步网咯获取
+
+
+注意：使用网络缓存Cache cache = new Cache(cacheDirectory, cacheSize);
+                  new OkHttpClient.Builder() .cache(cache)
+       
 
 get请求：
 //创建OkhttpClient对象
@@ -27,3 +72,64 @@ call.enqueue(new Callback(){
        public void onResponse(){  String htmlStr=response.body.string(); }
 
 })
+
+post 图片与参数
+ OkHttpClient mOkHttpClient = new OkHttpClient();
+ RequestBody requestBody = new MultipartBody.Builder()
+        .setType(MultipartBody.FORM)
+        .addFormDataPart("title", "Square Logo")
+        .addFormDataPart("image", "logo-square.png",
+            RequestBody.createMediaType.parse("image/png"),new File("website/static/logo-            square.png")))
+        .build();
+
+    Request request = new Request.Builder()
+        .header("Authorization", "Client-ID " + IMGUR_CLIENT_ID)
+        .url("https://api.imgur.com/3/image")
+        .post(requestBody)
+        .build();
+
+    Response response = client.newCall(request).execute();
+
+
+
+  /**
+     * 上传多个文件和参数
+     */
+    public void upLoadMultiFiles(String url, File[] files, Map<String, String> map) {
+        MultipartBody.Builder builder = new MultipartBody.Builder().setType(MultipartBody.FORM);
+        //添加文件
+        if (files.length != 0) {
+            for (int i = 0; i < files.length; i++) {
+                RequestBody fileBody = RequestBody.create(
+                        MediaType.parse(getMediaType(files[i].getName())), files[i]);
+                builder.addFormDataPart("uploadfile", files[i].getName(), fileBody);
+            }
+        }
+        //添加参数
+        if (map != null) {
+            for (Map.Entry<String, String> entry : map.entrySet()) {
+                builder.addFormDataPart(entry.getKey(), entry.getValue());
+            }
+        }
+        Request request = new Request.Builder().url(url).post(builder.build()).build();
+        okHttpClient.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                Log.i(TAG, "onFailure: ");
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                Log.i(TAG, "onResponse: " + response.body().string());
+            }
+        });
+    }
++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+http 协议内容：
+POST /meme.php/home/user/login HTTP/1.1                  协议行
+Host: 114.215.86.90                                      协议头 
+Cache-Control: no-cache                                  协议头 
+Postman-Token: bd243d6b-da03-902f-0a2c-8e9377f6f6ed      协议头 
+Content-Type: application/x-www-form-urlencoded          协议头 
+
+tel=13637829200&password=123456                          协议体
