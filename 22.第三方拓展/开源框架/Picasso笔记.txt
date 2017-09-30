@@ -4,7 +4,11 @@ Picasso 图片加载缓冲框架
 地址：http://square.github.io/picasso/
 
 Picasso不仅实现了图片的异步加载，还解决了android加载图片时需要解决的常见问题。
+  1.在adapter中需要取消已经不在视野范围的ImageView图片资源的加载，否则会导致图片错位，Picasso已	经解决了这个问题。
 
+   2.使用复杂的图片压缩转换来尽可能的减少内存消耗
+
+   3.自带内存和硬盘二级缓存功能
 
 使用方法:(常就1句话)
 //加载资源图片
@@ -24,3 +28,9 @@ Picasso.with(Context).load(Url).into(ImageView);
 .placeholder(R.drawable.yy)
 //加载错误占位图
 .error(R.drawable.error)
+
+
+//暂停加载  
+with.pauseTag(tag);  
+//恢复加载  
+with.resumeTag(tag);
