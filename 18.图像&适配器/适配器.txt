@@ -4,7 +4,7 @@ android:适配器
 
 适配器：将数据变成界面风格形式。
 
-常提供给使用的组件：ListView、GridView、Spinner、 Gallery、ViewPage、ViewFilter
+常提供给使用的组件：ListView、GridView、Spinner、 Gallery、ViewPager、ViewFilter
 画廊Gallery已被官方抛弃！
 
 一、ArrayAdapter 数组适配器

@@ -14,3 +14,18 @@
 所谓的碎片 就是自定义的小Layout当成一片一片的碎片，然后将这种小布局碎片用碎片类定义。
 最后可以进行这些碎片的切换显示。
 
+碎片的生命周期：
+OnAttach            Fragment和Activity建立关联的时候调用
+OnCreate
+OnCreateView        为Fragment加载布局时调用
+
+OnActivityCreated   当Activity中的onCreate方法执行完后调用   使用getActivity()进行碎片间通信
+
+OnStart
+OnResume
+OnPause
+OnStop
+
+OnDestoryView         Fragment中的布局被移除时调用
+OnDestory
+OnDetach              Fragment和Activity解除关联的时候调用

@@ -11,3 +11,7 @@ Activity
 Service
 BroadcastReceiver
 ContentProvider
+
+
+android sdk apiÖĞÎÄÎÄµµ£º
+http://www.zhdoc.net/android/reference/android/widget/Switch.html

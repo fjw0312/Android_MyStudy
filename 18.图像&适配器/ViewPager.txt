@@ -1,0 +1,89 @@
+ViewPager  左右图片滑动 or 左右视图页面滑动。
+
+
+/*   ====不建议使用====
+还可以增加子View   PagerTitleStrip  只需要适配器定义中重写方法
+public CharSequence getPageTitle(int position) {  
+                return titleList.get(position);  
+ } 
+或者增加子View   PagerTabStrip  只是比PagerTitleStrip 多了条下滑线
+*/
+
+
+https://github.com/ongakuer/CircleIndicator   可配合使用下标页面圆点
+http://www.jianshu.com/p/e5abbda4a71c
+
+常用适配器：PagerAdapter  FragmentPagerAdapter  FragmentStatePagerAdapter
+这几个适配器需要去继承重定义一下，再使用。
+FragmentPagerAdapter适用于页面比较少的情况，
+FragmentStatePagerAdapter适用于页面比较多的情况  省内存
+
+//界面点击Tab切换页面方法
+myViewPager.setCurrentItem(0); 
+myViewPager.setCurrentItem(1); 
+myViewPager.setCurrentItem(2); 
+
+//监听 页面切换  修改Tab  set这个过时了，使用add
+viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {}
+
+
+
+       View view = View.inflate(this, R.layout.item_pagerview,null);
+       lst_view.add(view);
+       adapterViewpager = new AdapterViewpager(lst_view);
+       viewPager.setAdapter(adapterViewpager);
+//===============================PagerAdapter =================
+public class AdapterViewpager extends PagerAdapter {
+
+    private List<View> mViewList;
+    public AdapterViewpager(List<View> mViewList) {
+        this.mViewList = mViewList;
+    }
+
+    @Override
+    public int getCount() {
+        return mViewList.size();
+
+    }
+
+    @Override
+    public boolean isViewFromObject(View view, Object object) {
+        return view == object;
+    }
+
+
+    @Override
+    public Object instantiateItem(ViewGroup container, int position) {
+        container.addView(mViewList.get(position));
+        return mViewList.get(position);
+    //    return super.instantiateItem(container, position);
+    }
+
+    @Override
+    public void destroyItem(ViewGroup container, int position, Object object) {
+        container.removeView(mViewList.get(position));
+    //    super.destroyItem(container, position, object);
+    }
+}
+//=======================FragmentPagerAdapter ========================
+public class AdapterPagerFragment extends FragmentPagerAdapter {
+
+    private List<Fragment> mFragments;
+
+    public AdapterPagerFragment(FragmentManager fm, List<Fragment> mFragments) {
+        super(fm);
+        this.mFragments = mFragments;
+    }
+
+    @Override
+    public android.support.v4.app.Fragment getItem(int position) {
+        return mFragments.get(position);
+    }
+
+    @Override
+    public int getCount() {
+        return  mFragments.size();
+    }
+
+
+}
