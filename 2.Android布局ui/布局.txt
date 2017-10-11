@@ -32,34 +32,11 @@ DrawerLayout 抽屉布局：
     android:layout_height="match_parent" >
 
     //主要内容显示部分 主要常用于配合显示碎片
-    <FrameLayout
-        android:id="@+id/frame_content"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" >
-    </FrameLayout>
+    <FrameLayout/>
 
     <!-- android:layout_gravity="start" -->
-
     //正真抽屉部分
-    <LinearLayout
-        android:id="@+id/menuLayout"
-        android:layout_width="200dp"
-        android:layout_height="match_parent"
-        android:layout_gravity="start"
-        android:background="@color/menu_layout_bg"
-        android:clickable="false"
-        android:orientation="vertical"
-        android:padding="10dp" >
-            <TextView
-                android:id="@+id/userName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignTop="@id/userImg"
-                android:layout_margin="10dp"
-                android:layout_toRightOf="@id/userImg"
-                android:text="@string/unLogin"
-                android:textSize="20sp" />
-        </LinearLayout>
+    </LinearLayout>
 </android.support.v4.widget.DrawerLayout>
 
 

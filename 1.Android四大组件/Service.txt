@@ -4,6 +4,7 @@ service 说明：
 android 4大组件之一。 
 使用同样要在AndroidMainfest.xml 做注册。
 
+￥￥￥￥￥￥
 生命周期：
 startService(intent)启动服务。
 oncreate()->onStartCommand()->onDestory()

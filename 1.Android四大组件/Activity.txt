@@ -5,6 +5,7 @@ Activity 知识说明：
 多个窗口活动，每个activity 需要在AndroidMainfest.xml文件注册每个activity.
 然后定义每个XXactivity.对应定义每个页面Layout .放入：setContentView(R.layout.activity_main);
 
+￥￥￥￥￥￥￥
 生命周期：
 oncreate(); 创建
 onstart();  可见
@@ -14,6 +15,14 @@ onStop();    不可见
 ondestory(); 销毁
 onrestart(); 重新可见
 
+￥￥￥￥￥￥￥
+activity   4种启动模式            按不同的启动模式将Activity存放到的activity栈中
+standrad    默认标准模式，每次启动该Activity时系统都会为创建一个新的实例, 按Back键会task 释放。
+singleTop   要启动的Activity在当前任务中已经存在处于栈顶，那么系统就不会再去创建一个该Activity的实例。
+singleTask  要启动的Activity在当前任务中已经存在栈中，那么系统就不会再去创建一个该Activity的实例。
+singleInstance
+
+#singleTask这种启动模式表示，如果现有任务当中已经存在一个该Activity的实例了，那么系统就不会再创建一次它的实例，并会清除这个activity在stack里上面的其他Activity.（所以首页不能用这模式),而且此时不走oncreate，走onNewIntent()。
 
 
 启动activity:
@@ -39,6 +48,23 @@ onCreate(Bundle savedInstanceState){
 	}
 }
 
+activity布局加载流程：
+oncreate()-setContentView()
+               ->PhoneWidow->setContentView()->LayoutInflater.inflate()
+
 ===================================================================
 负责activity生命周期是由AMS(ActivityManagerServices)控制。
 android  进程zygote.受精卵。  启动一个app 等于fork 一个zygote.
+zygote会fork创建出Dalvik、AndroidRuntime进程,其中虚拟机VM就包含了ApplicationThread  ActiivtyThread.线程，
+其中就有ApplicationThread线程会返回通知AMS 发育结束。AMS就通知ActivityThread加载Activity类启动活动。
+
+￥￥￥￥￥
+app启动流程
+由Launcher(startActivity)开始->启动AMS-》创建zygote受精卵进程-》(fork)ActivityThread(Dalvik)--->返回通知AMS进程已启动->进入activity;
+Activity的管理采用binder机制，管理Activity的接口是IActivityManager
+ActivityManagerService实现了Activity管理功能,位于system_server进程
+
+详细：
+startActivity->AMS--startActivitymayWait->ActivityStack--schedulePauseActivity->ApplicationThread--activitypaused->
+AMS-startProcessLocked-schedulelauchActivity->ApplicationThread-performLauchActivity->ActivityThread-ClassLoader导入相应的Activity类
+

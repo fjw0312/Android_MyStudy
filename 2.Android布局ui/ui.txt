@@ -1,6 +1,6 @@
 android ui
 
-
+￥￥￥￥￥￥
 常用的5大布局：
 LinearLayout 线性布局
 RelativeLayout  相对布局
@@ -12,6 +12,12 @@ ui使用大小单位：
 老的单位            新单位
 px 像素             dp(dip)密度 （1dp=每英寸160px）
 pt 字体磅数         sp      字体可伸缩像素
+drawable-ldpi 320*240    120dpi     1dp=0.75px
+drawable-mdpi 480*320    160dpi     1dp=1px             1sp =1px    48px
+drawable-hdpi 480*800    240dpi     1dp=1.5px                       72px                  
+drawable-xhdpi 720*1280   320dpi    1dp=2px                         96px
+drawable-xxhdpi 1080*1920  480dpi   1dp=3px                         144px
+drawable-xxxhdpi 1080+
 
 //获取屏幕分辨率 像素：
 float xPx = this.getResources().getDisplayMetrics().widthPixels;

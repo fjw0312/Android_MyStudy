@@ -10,9 +10,28 @@ android 8.0    API-26
 注：eclipse开发中， android6.0 android7.0 需要JDK1.7 支持  android8.0 需要JDK1.8支持。
 
 
+
+android系统架构分层：
+应用层  app
+应用框架层  frameWork
+系统运行库+虚拟机层  lib+Dalivk(Running Time)
+内核层   linux kernel
+
+
+android应用四大组件
+Activity
+Service
+BroadcastReceiver
+ContentProvider
+
+
+
 源码查看：
 http://androidxref.com/
 
 或者 https://github.com/android
 
 或者 下载android sdk 源码。
+
+android sdk api中文文档：
+http://www.zhdoc.net/android/reference/android/widget/Switch.html
