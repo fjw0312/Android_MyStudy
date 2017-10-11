@@ -1,0 +1,20 @@
+ 使用DrawerLayout  布局，最好作为根布局
+
+ 然后xml不居中  定义3块布局（也可以2块）
+ 左边侧滑页面布局   中间布局    右边侧滑布局
+ 常用ListView       FrameLayout  其他布局    
+  
+  常配合碎片fragment使用 》FrameLayout
+   //切换碎片  将碎片添加到FrameLayout不修改原有的元素 只替换Fragment
+   FragmentManager fragmentManager = getSupportFragmentManager();
+   fragmentManager.beginTransaction().replace(R.id.frameLayout_id, fragment ).commit();
+
+控制打开/关闭 侧滑页
+  drawerLayout.openDrawer(Gravity.LEFT); //显示左边侧滑页
+  drawerLayout.openDrawer(Gravity.RIGHT); //显示右边侧滑页
+drawerLayout.closeDrawers();//关闭所有抽屉
+
+
+设置监听抽屉滑动
+ //抽屉监听  也可以用简易监听类SimpleDrawerListener
+        drawerLayout.addDrawerListener(new DrawerLayout.DrawerListener() {}；

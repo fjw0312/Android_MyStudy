@@ -1,0 +1,120 @@
+
+方法步骤：
+  //1.找到java代码native方法所在的字节码文件  
+    //jclass (*FindClass)(JNIEnv*, const char*);
+
+   //2.找到class里面对应的方法  
+    // jmethodID (*GetMethodID)(JNIEnv*, jclass, const char*, const char*); 
+
+    //3.调用方法  
+    //jint (*CallIntMethod)(JNIEnv*, jobject, jmethodID, ...); 
+
+注调用java静态方法又有点不同
+//+++++++++++++++++++++++++++++++++++++java代码++++++++++++++++++++++++++++++++++
+public class DataProvider {  
+    /** 
+     * C调用java空方法 
+     */  
+    public void nullMethod() {  
+        System.out.println("hello from java");  
+    }  
+    /** 
+     * C调用java中的带两个int参数的方法 
+     *  
+     * @param x 
+     * @param y 
+     * @return 
+     */  
+    public int Add(int x, int y) {  
+        int result = x + y;  
+        System.out.println("result in java " + result);  
+        return result;  
+    }  
+    /** 
+     * C调用java中参数为String的方法 
+     *  
+     * @param s 
+     */  
+    public void printString(String s) {  
+        System.out.println("java " + s);  
+    }  
+  
+    // 本地方法  
+    public native void callMethod1();  
+    public native void callMethod2();  
+    public native void callMethod3();  
+  
+}  
+//++++++++++++++++++++++++++++++++C回调代码++++++++++++++++++++++++++++++++++++
+JNIEXPORT void JNICALL Java_com_example_ndkcallback_DataProvider_callMethod1  
+(JNIEnv * env, jobject obj){  
+    //在C语言中调用Java的空方法  
+    //1.找到java代码native方法所在的字节码文件  
+    //jclass (*FindClass)(JNIEnv*, const char*);  
+    jclass clazz = (*env)->FindClass(env, "com/example/ndkcallback/DataProvider");  
+    if(clazz == 0){  
+        LOGD("find class error");  
+        return;  
+    }  
+    LOGD("find class");  
+    //2.找到class里面对应的方法  
+    // jmethodID (*GetMethodID)(JNIEnv*, jclass, const char*, const char*);  
+    jmethodID method1 = (*env)->GetMethodID(env,clazz,"nullMethod","()V");  
+    if(method1 == 0){  
+        LOGD("find method1 error");  
+        return;  
+    }  
+    LOGD("find method1");  
+    //3.调用方法  
+    //void (*CallVoidMethod)(JNIEnv*, jobject, jmethodID, ...);  
+    (*env)->CallVoidMethod(env, obj, method1);  
+    LOGD("method1 called");  
+}  
+  
+JNIEXPORT void JNICALL Java_com_example_ndkcallback_DataProvider_callMethod2  
+    (JNIEnv * env, jobject obj) {  
+    //1.找到java代码native方法所在的字节码文件  
+    //jclass (*FindClass)(JNIEnv*, const char*);  
+    jclass clazz = (*env)->FindClass(env, "com/example/ndkcallback/DataProvider");  
+    if(clazz == 0){  
+        LOGD("find class error");  
+        return;  
+    }  
+    LOGD("find class");  
+    //2.找到class里面对应的方法  
+    // jmethodID (*GetMethodID)(JNIEnv*, jclass, const char*, const char*);  
+    jmethodID method2 = (*env)->GetMethodID(env,clazz,"Add","(II)I");  
+    if(method2 == 0){  
+        LOGD("find method2 error");  
+        return;  
+    }  
+    LOGD("find method2");  
+    //3.调用方法  
+    //jint (*CallIntMethod)(JNIEnv*, jobject, jmethodID, ...);  
+    int result = (*env)->CallIntMethod(env, obj, method2, 3,5);  
+    LOGD("result in C = %d", result);  
+}  
+  
+JNIEXPORT void JNICALL Java_com_example_ndkcallback_DataProvider_callMethod3  
+(JNIEnv * env, jobject obj) {  
+    //1.找到java代码native方法所在的字节码文件  
+    //jclass (*FindClass)(JNIEnv*, const char*);  
+    jclass clazz = (*env)->FindClass(env, "com/example/ndkcallback/DataProvider");  
+    if(clazz == 0){  
+        LOGD("find class error");  
+        return;  
+    }  
+    LOGD("find class");  
+    //2.找到class里面对应的方法  
+    // jmethodID (*GetMethodID)(JNIEnv*, jclass, const char*, const char*);  
+    jmethodID method3 = (*env)->GetMethodID(env,clazz,"printString","(Ljava/lang/String;)V");  
+    if(method3 == 0){  
+        LOGD("find method3 error");  
+        return;  
+    }  
+    LOGD("find method3");  
+    //3.调用方法  
+    //void (*CallVoidMethod)(JNIEnv*, jobject, jmethodID, ...);  
+    (*env)->CallVoidMethod(env, obj, method3,(*env)->NewStringUTF(env,"haha in C ."));  
+    LOGD("method3 called");  
+}  

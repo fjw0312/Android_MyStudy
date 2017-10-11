@@ -25,3 +25,9 @@ Styles.xml 文件修改：
     </style>
 
 </resources>
+
+android 5.0以上修改actionBar    Activity extends AppCompatActivity
+1.在Styles.xml 设置应用主题NoActionBar
+2.定义一个ToolBar的layout xml
+3.在页面layout 中include<ToolBar.xml>
+4.代码中 setSupportActionBar(toolbar);

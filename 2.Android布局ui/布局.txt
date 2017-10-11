@@ -69,3 +69,6 @@ ActionBar actionBar = getActionBar();
 actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);//使能自定义
 actionBar.setCustomView(R.layout.actionbar_layout);       //设置自定义布局
 actionBar.setDisplayShowCustomEnabled(true);
+
+api23之后推荐使用Activity extends AppCompatActivity 
+其是来取代ActionBarActivity 更方便引入使用ToolBar.

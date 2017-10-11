@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/drawerLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <FrameLayout
+        android:id="@+id/frameLayout_id"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center"
+            android:text="首页"
+            android:textSize="28sp"/>
+        <Button
+            android:id="@+id/Bn_id01"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:text="Button01"/>
+        <Button
+            android:id="@+id/Bn_id02"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="100dp"
+            android:text="Button02"/>
+    </FrameLayout>
+
+    <ListView
+        android:id="@+id/lstView_id"
+        android:layout_width="200dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:choiceMode="singleChoice"
+        android:background="#999988">
+
+    </ListView>
+
+    <LinearLayout
+        android:id="@+id/ly_id"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="#229988"
+        android:layout_gravity="end">
+        <TextView
+            android:id="@+id/Tx_id"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="右侧页面"
+            android:textSize="25sp"
+            android:layout_gravity="center"
+            android:gravity="center"/>
+    </LinearLayout>
+
+</android.support.v4.widget.DrawerLayout>
