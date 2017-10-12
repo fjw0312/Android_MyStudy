@@ -5,12 +5,12 @@ animator 动画：
 2.纯代码实现。
 
 特征分类3中：
-补间动画View animator
-帧动画  frame animator
-属性动画 property animator
+补间动画View animator             --Animation
+帧动画  frame animator       --AnimationDrawable
+属性动画 property animator       --Animator
 
 --------------------纯代码实现----------------------
-补间动画View animator
+补间动画View 
 //透明度
 		AlphaAnimation alphanimation = new AlphaAnimation(1.0f, 0.0f);
 		alphanimation.setDuration(2000);

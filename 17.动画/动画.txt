@@ -1,5 +1,7 @@
 动画animation
 
+补间动画  帧动画  属性动画
+
 主要类型：
 xml中：
 alph       渐变透明度动画效果
@@ -13,11 +15,20 @@ ScaleAnimation  渐变尺寸伸缩动画效果
 TranslateAnimation  画面转换位置移动动画效果
 RotateAnimation    画面旋转动画效果
 
+￥￥￥￥￥￥￥
 动画主要模式：
 补间动画（渐变动画）：tweened animation   >>> alph   scale translate   rotate
 逐帧动画（画面装换动画）：frame byframe   >>>
+这2种模式缺陷：
+ 1.作用局限于view  2.没改变属性，只变视觉效果 3.动画单一。
 
 3.0以后是属性动画 Property animation(几乎已经取代 补间动画（渐变动画）)
+特点可以使view的某个属性变化，如颜色。
+属性动画，会循环慢慢地改变属性值，然后调用Invalidate()刷新视图（OnDraw）重新绘制  直到动画结束。
+
+
+
+属性动画使用方式
 ValueAnimation
 创建该类：ValueAnimation.ofFloat(0f,1f);
           ValueAnimation.ofFloat(0f,5f,3f,2f);
@@ -28,6 +39,7 @@ ObjectAnimation它继承于ValueAnimation
 eg:ObjectAnimation = ObjectAnimation.ofFloat(textView, "alpha", 1f,0f,1f);
 ObjectAnimation.setDuration(5000);
 ObjectAnimation.start();
+
 组合动画的使用AnimationSet  >  AnimationSet.play()返回Animation.build 包含方法：
 after(ObjectAnimation) after(long time) before(ObjectAnimation)  witch(ObjectAnimation)
 

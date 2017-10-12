@@ -12,6 +12,10 @@ OOM  outofMemoryError 内存溢出。
 6.Context泄漏。
 7.static关键字等  如果static Context 会容易出问题
 8.注意优化ListView Adapter.getView()
+9.handler的释放。
+--------------
+1.单列  2.静态变量  3.匿名内部类  4.资源使用后未释放
+http://blog.csdn.net/tuke_tuke/article/details/52316285
 
 使用bitmap  1.及时回收  2.注意大小分辨率
 
@@ -30,7 +34,7 @@ OOM  outofMemoryError 内存溢出。
    2、尝试使用Context-Application来替代Context-Activity 
    3、如果你不想控制内部类的生命周期，应避免在Activity中使用非静态的内部类，而应该使用静态的内部类，并在其中创建一个对Activity的弱引用。
       这种情况的解决办法是使用一个静态的内部类，其中拥有对外部类的WeakReference。
-2-3，Thread 引用其他对象也容易出现对象泄露。
+2-3，Activity 中 Thread 引用其他对象也容易出现对象泄露。
 2-4，onReceive方法里执行了太多的操作
 
 #3.内存压力过大

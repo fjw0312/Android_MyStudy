@@ -1,0 +1,19 @@
+图片加载问题：优化方案
+
+1.图片加载最好还是用第三方框架。
+2.拿到图片或网络图片 不要直接就加载到界面上。
+3.图片先压缩，根据界面显示大小压缩。   （流接收，位图工厂加工合适大小）
+  压缩方法：
+  1.  new BitmapFactory.Options 大小
+  2.  然后 BitmapFactory.decodeStream\BitmapFactory.decodeFile 创建出合适大小BitMap.
+    (网络图片先用字节流接收)。
+  3.ImageView.setImageBitmap()把位图资源加载到界面上
+  尽量不要使用setImageBitmap或setImageResource或BitmapFactory.decodeResource来设置一张大图
+
+4.及时回收位图资源 bitmap.Recycle();
+5.考虑多图oom和加载性能，要考虑缓存策略。多线程异步加载策略。
+6.列表加载考虑错位问题（由于列表子item加载复用策略） 加载时添加 Tag 就不会了。
+
+
+
+三级缓存：内存-本地-网络   LruCache DisLruCache.
