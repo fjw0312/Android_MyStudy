@@ -14,7 +14,10 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
-
+/**
+ * 上下拉刷新  框架 SmartRefreshLayout  +  ClassicsHeader（经典）、 Header
+ *
+ * */
 public class Page2Activity extends AppCompatActivity {
 
     Button  Bn_pre;
@@ -32,7 +35,8 @@ public class Page2Activity extends AppCompatActivity {
                 Intent intent = new Intent(Page2Activity.this, MainActivity.class);
                 startActivity(intent);
             }else if(v==Bn_next){
-                Page2Activity.this.finish();
+                Intent intent = new Intent(Page2Activity.this, Page3Activity.class);
+                startActivity(intent);
             }
         }
     };
@@ -48,6 +52,7 @@ public class Page2Activity extends AppCompatActivity {
         Bn_next.setOnClickListener(l);
         smartRefreshLayout = (SmartRefreshLayout)findViewById(R.id.refreshLayout);
         smartRefreshLayout.setPrimaryColors(Color.BLUE);  //设置 主题颜色
+        smartRefreshLayout.setHeaderHeight(50);
 
         listView = (ListView)findViewById(R.id.lv);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,str_s);

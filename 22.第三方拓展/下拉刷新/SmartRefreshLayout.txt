@@ -2,4 +2,13 @@
 SmartRefreshLayout  （新开源的 更强大更智能 上下拉框架）  
 项目地址:https://github.com/scwang90/SmartRefreshLayout
 使用笔记见 其github RENAME.md
-使用方式见： https://segmentfault.com/a/1190000010066071
+使用方式见： https://segmentfault.com/a/1190000010066071   参数使用说明
+
+自定义 刷新头 控件最简单直接  插入布局
+
+变换方式
+Translate 平行移动 特点: 最常见，HeaderView高度不会改变，
+Scale 拉伸形变 特点：在下拉和上弹（HeaderView高度改变）时候，会自动触发OnDraw事件
+FixedFront 固定在前面 特点：不会上下移动，HeaderView高度不会改变
+FixedBehind 固定在后面 特点：不会上下移动，HeaderView高度不会改变（类似微信浏览器效果）
+Screen 全屏幕 特点：固定在前面，尺寸充满整个布局

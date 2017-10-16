@@ -1,5 +1,13 @@
 UItra-Pull-To-Refresh 笔记说明：
 
+有三种表头样式 或自定义：
+
+PtrClassicFrameLayout 
+PtrFrameLayout + MaterialHeader
+PtrFrameLayout + StoreHouseHeader
+自定义
+
+
 其主要实现在控件类PtrClassicFrameLayout 中
 配置参数：
 xml:

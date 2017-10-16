@@ -17,6 +17,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".Page2Activity"/>
+        <activity android:name=".Page3Activity"
+            android:exported="true"/>
+        <activity android:name=".Page4Activity"/>
     </application>
 
 </manifest>
