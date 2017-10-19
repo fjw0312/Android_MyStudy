@@ -1,0 +1,50 @@
+状态栏处理：
+
+方法1：设置颜色  styles.xml 修改颜色，但只有5.0以上版本方可。
+
+方法2：代码    但这种处理是完全隐藏，不是沉浸式
+ View decorView = getWindow().getDecorView();
+ int option = View.SYSTEM_UI_FLAG_FULLSCREEN;
+ decorView.setSystemUiVisibility(option);
+
+方法3：   做透明状态栏效果（沉浸式） 但只能5.0以上版本
+if (Build.VERSION.SDK_INT >= 21) {
+    View decorView = getWindow().getDecorView();
+    int option = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+            | View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
+    decorView.setSystemUiVisibility(option);
+    getWindow().setStatusBarColor(Color.TRANSPARENT);
+}
+
+SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN和SYSTEM_UI_FLAG_LAYOUT_STABLE
+这2个参数组合启用，表示会让应用的主体内容占用系统状态栏的空间，又重新设置。
+
+
+----------------------------------------------------------
+设置状态栏沉浸 标题栏隐藏  导航栏透明
+方法1：
+if (Build.VERSION.SDK_INT >= 21) {
+    View decorView = getWindow().getDecorView();
+    int option = View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+            | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+            | View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
+    decorView.setSystemUiVisibility(option);
+    getWindow().setNavigationBarColor(Color.TRANSPARENT);
+    getWindow().setStatusBarColor(Color.TRANSPARENT);
+}
+ActionBar actionBar = getSupportActionBar();
+actionBar.hide();
+
+方法2：不透明显示，半隐藏了
+重写Activity的onWindowFocusChanged()方法，加入如下：
+if (hasFocus && Build.VERSION.SDK_INT >= 19) {
+            View decorView = getWindow().getDecorView();
+            decorView.setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                | View.SYSTEM_UI_FLAG_FULLSCREEN
+                | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
+}
+

@@ -1,0 +1,41 @@
+修改 隐藏标题栏：
+
+http://www.androidchina.net/3520.html
+http://m.blog.csdn.net/xuaho0907/article/details/72832304
+http://www.jianshu.com/p/dc20e98b9a90
+
+
+方法1：
+ActionBar actionBar = getActionBar();
+or: ActionBar actionBar = getSupportActionBar();
+actionBar.hide();
+
+方法2：requestWindowFeature(Window.FEATURE_NO_TITLE);//去掉标题拦
+or:  supportRequestWindowFeature(Window.FEATURENOTITLE)  
+//继承AppCompatActivity时使用
+
+
+5.0以后修改状态栏颜色：
+Styles.xml 文件修改：
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorMystatus</item>
+        <item name="colorPrimaryDark">@color/colorMystatusDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+</resources>
+或者用代码实现：activity.getWindow().setStatusBarColor(statusColor);
+
+
+最后最好办法还是借助一个代码类APi综合处理4.4和5.0以上设置标题栏颜色。
+
+
+android 5.0以上修改actionBar    Activity extends AppCompatActivity
+1.在Styles.xml 设置应用主题NoActionBar
+2.定义一个ToolBar的layout xml
+3.在页面layout 中include<ToolBar.xml>
+4.代码中 setSupportActionBar(toolbar);

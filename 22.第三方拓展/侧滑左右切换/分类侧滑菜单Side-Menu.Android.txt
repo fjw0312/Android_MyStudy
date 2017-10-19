@@ -3,3 +3,6 @@ https://github.com/Yalantis/Side-Menu.Android
 
 
 http://blog.csdn.net/fancylovejava/article/details/45787729
+
+
+图片切页ViewPager 配合小圆点指示符 框架CirclePageIndicator
