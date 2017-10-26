@@ -1,0 +1,22 @@
+linux终端下运行Java程序，需要安装JDK。
+这里先介绍如何安装JDK，然后介绍如何安装Java程序。
+
+首先，打开终端，快捷键ctrl+alt+t;
+安装JDK，sudo apt-get install openjdk-7-jdk( 注意，这里需要输入密码）；
+切换到java程序所在的目录；
+编译以.java结尾的程序，可以使用javac *.java编译当前目录下所有的java源程序，并生成相应的class文件；
+假如含有主程序的类文件是MP3.java,则使用java MP3运行该java程序。
+
+
+windows/Linux 运行：先将工程导出成XXXX.jar包
+在dos命令下：java -jar  XXXX
+
+
+linux  下载安装jdk:  http://blog.csdn.net/leeo1010/article/details/77683093
+
+
+部署运行 java servlet :   http://www.linuxde.net/2011/10/1401.html
+1.需要linux  安装好jdk. 配置jdk环境。
+2.下载apache-tomcat 解压。 运行启动。在其/bin/>  sh  ./startup.sh
+3.将servlet工程压缩为.War 包，放入tomcat/webapps/目录下即可。
+4.点击网页可以访问了。启动服务sh  ./startup.sh
