@@ -20,3 +20,7 @@ linux  下载安装jdk:  http://blog.csdn.net/leeo1010/article/details/77683093
 2.下载apache-tomcat 解压。 运行启动。在其/bin/>  sh  ./startup.sh
 3.将servlet工程压缩为.War 包，放入tomcat/webapps/目录下即可。
 4.点击网页可以访问了。启动服务sh  ./startup.sh
+
+
+linux下安装数据库mySql： https://www.2cto.com/database/201401/273423.html
+linux进入数据库命令mysql -uroot -p

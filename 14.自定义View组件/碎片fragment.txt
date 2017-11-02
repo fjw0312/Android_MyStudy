@@ -1,3 +1,4 @@
+http://blog.csdn.net/lmj623565791/article/details/37970961/
 碎片的使用：
 使用方式和自定义布局控件 原理差不多。
 1.定义一个布局xml文件
@@ -7,7 +8,7 @@
   FragmentManager manager = getFragmentManager();
   FragmentTransaction transaction = manager.beginTransaction();
   transaction.replace(R.id.right_layout1, frag);  //向frameLayout布局容器添加碎片
-  transaction.addToBackStack(null);  //将碎片放入栈中
+  transaction.addToBackStack(null);  //将碎片放入栈中  返回black按钮时可返回
   transaction.commit();
 
 //个人理解：
@@ -29,3 +30,41 @@ OnStop
 OnDestoryView         Fragment中的布局被移除时调用
 OnDestory
 OnDetach              Fragment和Activity解除关联的时候调用
+
+
+
+碎片使用：
+1.先定义布局文件。
+2.可以直接静态布局xml. 还可以动态布局。
+可以使用replace 更换碎片 也可以add\hide\show切换保存碎片
+
+
+
+a、比如：我在FragmentA中的EditText填了一些数据，当切换到FragmentB时，如果希望会到A还能看到数据，则适合你的就是hide和show；也就是说，希望保留用户操作的面板，你可以使用hide和show，当然了不要使劲在那new实例，进行下非null判断。
+b、再比如：我不希望保留用户操作，你可以使用remove()，然后add()；或者使用replace()这个和remove,add是相同的效果。
+c、remove和detach有一点细微的区别，在不考虑回退栈的情况下，remove会销毁整个Fragment实例，而detach则只是销毁其视图结构，实例并不会被销毁。那么二者怎么取舍使用呢？如果你的当前Activity一直存在，那么在不希望保留用户操作的时候，你可以优先使用detach。
+/**
+  * 使用show() hide()切换页面
+  * 显示fragment
+  */
+ private void showFragment(Fragment fg){
+
+     FragmentTransaction transaction = fragmentManager.beginTransaction();
+
+     //如果之前没有添加过
+     if(!fg.isAdded()){
+         transaction
+                 .hide(currentFragment)
+                 .add(R.id.content,fg,fg.getClass().getName());
+     }else{
+         transaction
+                 .hide(currentFragment)
+                 .show(fg);
+     }
+
+    //全局变量，记录当前显示的fragment
+     currentFragment = fg;
+
+     transaction.commit();
+
+ }

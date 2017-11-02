@@ -19,6 +19,9 @@ drawable-xhdpi 720*1280   320dpi    1dp=2px                         96px
 drawable-xxhdpi 1080*1920  480dpi   1dp=3px                         144px
 drawable-xxxhdpi 1080+
 
+图标栏宽度48dp  图标大小  xh-32px  xxh-48px
+间距：8dp-10dp-16dp-32dp
+
 //获取屏幕分辨率 像素：
 float xPx = this.getResources().getDisplayMetrics().widthPixels;
 float yPx = this.getResources().getDisplayMetrics().heightPixels;
