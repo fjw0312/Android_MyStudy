@@ -1,0 +1,44 @@
+碎片fragment  
+
+1.碎片生命周期中，只有oncreateView 才适合inflate布局 ，故对控件获取及操作要在 该步骤之后。
+onAttach-oncreate-oncreateView-onActivityCreated-onstart-onResume-OnPause-Onstop
+-OnDestoryView-onDestory-onDetach
+
+2.fragment重叠问题。
+ 由于activity 种，内存重启SaveInstanceState 会自动保存fragmentManager,
+故内存重启时，要处理不再重复添加fragment碎片。
+if(savedInstanceState != null){  //内存重启  不用添加碎片页面了
+
+3.fragment嵌套fragment 时，应：fragmentManager=getChildFragmentManager()；
+  activity 使用fragment时， fragmentManager=getSupportFragmentManager()；
+
+4.fragment 实例化与传参数。
+ctivity 在一些特殊状况下会发生 destroy 并重新 create 的情形，比如屏幕旋转、内存吃紧时；对应的，依附于 Activity 存在的 Fragment 也会发生类似的状况。而一旦重新 create 时，Fragment 便会调用默认的无参构造函数，导致无法执行有参构造函数进行初始化工作。
+public static OneFragment newInstance(int args){
+    OneFragment oneFragment = new OneFragment();
+
+    Bundle bundle = new Bundle();
+    bundle.putInt("someArgs", args);
+
+    oneFragment.setArguments(bundle);
+    return oneFragment;
+}
+
+@Override
+public void onCreate(@Nullable Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+
+    Bundle bundle = getArguments();
+    int args = bundle.getInt("someArgs");
+}
+
+5viewPager 的缓存机制，默认情况下，进入当前fragment会缓存下一个fragment页面。
+ 故页面左右切换时就会很流畅，但若点击Tab 直接代码（setCurrentItem(id)）跳转到非下一个fragment时，
+ 就没缓存变得不流畅了，解决方案可以：
+  1.修改缓存机制（如多页面缓存），但首次进入viewPager会缓存过多页面时间会长
+  2.不切换fragment，只更新数据。无法滑动切页，无利用viewpager机制。
+  3.也可以根据缓存机制，设置缓存进入下一页碎片时，缓存临近页面，代码不加载处理数据。
+
+6.viewpager碎片缓存数据加载问题：
+  当切换页面时，该页和左右页面都会setUserVisibleHint().当前可见页传入true,不可见传入false.
+  并会对一下页未初始化（或已被释放destoryView）初始化oncreateView() -> OnActivityCreated();
