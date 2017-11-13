@@ -39,18 +39,24 @@ android查找适配屏幕密度图片资源：
 2.如果对应文件夹查找不到时，会向高密度文件夹查找  eg: 160dpi ->mdpi->hdpi->xhdpi
 3.查找到最高密度还查找不到时，会查找nodpi文件夹，然后又向低密度查找。
 
-//组件控件摆放参数：
+线性布局LinearLayout中：常用布局参数：
+layout_gravity
+gravity
+alyout_weight
+layout_marginLeft
+
+相对布局RelativeLayout，常用布局参数
 相对父layout位置 layout_alignParentRight="true"
 		 layout_alignParentLeft="true"
 		 layout_alignParentTop="true"
 		 layout_alignParentButtom="true"
 
-与其他View对其   layout_alignRight="true"
-		 layout_alignLeft="true"
-		 layout_alignTop="true"
-		 layout_alignButtom="true"
+与其他View对齐   layout_alignRight="@+id/Tx_barItem"
+		 layout_alignLeft="@+id/Tx_barItem"
+		 layout_alignTop="@+id/Tx_barItem"
+		 layout_alignButtom="@+id/Tx_barItem"
 
-相对于其他View位置方位：layout_above=""
+相对于其他View位置方位：layout_above="@+id/Tx_barItem"
  (在某view的什么位置)   layout_below=""
                         layout_toLeftOf=""
                         layout_toRightOf=""

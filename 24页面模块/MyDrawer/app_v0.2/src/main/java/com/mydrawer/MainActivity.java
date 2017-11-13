@@ -24,7 +24,7 @@ import com.utils.FullScreenUI;
  * 该项目 为简单的页面切换框架。
  * MainActivity 为Drawerlayout 切换页面方案
  * TabActivity  为Tablayout 可上下标题的页面切换方案
- *  目前 存在bug: 页面切换过程中有些fragment会被回收，导致空指针异常抛出！
+ *  
  * */
 public class MainActivity extends AppCompatActivity {
 

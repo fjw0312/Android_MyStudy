@@ -4,3 +4,17 @@
 出现错误：Gradle sync failed: Unable to tunnel through proxy. Proxy returns "HTTP/1.1 400 Bad Request"
 解决方案是，选择本地的Gradle：
 设置：settings->Build,Execution,Deploymnet->Gradle  选择本地Gradle路劲即可
+
+
+下载Gradle；http://downloads.gradle.org/distributions/gradle-3.3-all.zip
+
+
+
+当要导入别人的Android studio工程时。
+1.先删除 .gradle  .idea  build 文件夹
+2.修改 根目录下build.gradle文件里面的 gradle:2.2.2 这个编号（改为自己的gradle编号）
+3.修改 gradle-wrapper.properties文件里面的gradle-3.3-all.zip 这个编号（改为自己的gradle版本编号）
+4. setting->gradle 选择本地的gradle包。然后try aync 看看能编译么。
+5.如果代理还有问题修改根目录下gradle.properties文件里面的 org.gradle.jvmargs
+  可以修改为这句：org.gradle.jvmargs=-Xmx512m -XX:MaxPermSize=512m
+6.剩下的编译android sdk版本问题再修改一下就可以了。
