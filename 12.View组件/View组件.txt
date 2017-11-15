@@ -4,3 +4,27 @@ View组件的生命周期：
        onMeasure --> onSizeChanged --> onLayout --> onDraw --> onDetackedFromWindow->onWindowFocusChanged
 
 不同可见模式：gone,Visible,invisible 在后面的onMeasure --> onSizeChanged --> onLayout --> onDraw 不同
+
+view 自定义绘制流程为：OnMeasure->OnLayout->OnMeasure->OnLayout->OnDraw();
+ViewGroup自定义绘制流程为：OnMeasure->OnLayout->OnMeasure->OnLayout->dispatchDraw();
+view 的执行流程，一般  view 都依附在ViewGroup上。故除了实例化，其真正的启动
+是由父view->调子View.onMeasure()开始的。
+1.自定义ViewGroup 时，重写OnMeasure() OnLayout() dispatchDraw().
+OnMeasure()--要{
+	//遍历 子控件 mesaure()
+		int childCount = getChildCount();
+		for(int i=0;i<childCount;i++){
+			View children = getChildAt(i);
+			measureChild(children, widthMeasureSpec, heightMeasureSpec);
+		}
+}
+OnLayout()--要{ //根据实际布局
+//遍历 子控件   //如果只有一个view  view.layout(left, top, right, bottom); 
+	for(int i=0;i<getChildCount();i++){
+		View children = getChildAt(i);			
+		if(children.getVisibility() != View.GONE){
+		children.layout(l, preHeight, r, preHeight +=cHeight);//子
+	}
+		
+}
+dispatchDraw(). 根据实际情况 是否要绘制内容。绘制子view在super.dispatchDraw(canvas);入口
