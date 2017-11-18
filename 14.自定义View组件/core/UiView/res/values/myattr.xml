@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    
+    <attr name="groundColor" format="color"/>    
+    <attr name="textSize" format= "dimension"/>
+    <attr name="IsShowText" format= "boolean"/>
+    
+     <attr name="ringGroundColor" format="color"/>
+     <attr name="viewColor" format="color"/>
+     <attr name="textColor" format="color"/>      
+     <attr name="ringWith" format= "dimension"/>      
+     <attr name="per" format= "float"/>
+     
+    <declare-styleable name="RingPerView">	
+        <attr name="groundColor" />
+		<attr name="textSize" />
+		<attr name="IsShowText" />	 	
+        <attr name="ringGroundColor" />
+        <attr name="viewColor" />
+        <attr name="textColor" />      
+        <attr name="ringWith" />      
+        <attr name="per" />
+    </declare-styleable>
+    
+    <declare-styleable name="RingPerBarView">	
+        <attr name="groundColor" />
+		<attr name="textSize" />
+		<attr name="IsShowText" />	 	
+        <attr name="ringGroundColor" />
+        <attr name="viewColor" />
+        <attr name="textColor" />      
+        <attr name="ringWith" />      
+    </declare-styleable>
+    
+   <declare-styleable name="ArchPerView">	
+        <attr name="groundColor" />
+		<attr name="textSize" />
+		<attr name="IsShowText" />	 	
+        <attr name="ringGroundColor" />
+        <attr name="viewColor" />
+        <attr name="textColor" />      
+        <attr name="ringWith" />      
+        <attr name="per" />
+        <attr name="allAngle" format= "float"/>
+    </declare-styleable>
+    
+ 	<attr name="lineTextSize" format= "dimension"/>
+	<attr name="lineColor" format="color"/>
+    <attr name="xNumber" format= "integer"/>
+    <attr name="yNumber" format= "integer"/>
+    <attr name="yMaxValue" format= "float"/>
+    <attr name="xMaxValue" format= "float"/>
+   
+    <declare-styleable name="BarGraghView"> 
+        <attr name="groundColor" />      
+        <attr name="textSize" />
+        <attr name="IsShowText" /> 
+	 	<attr name="lineTextSize" />
+		<attr name="lineColor" />
+        <attr name="xNumber" />
+        <attr name="yNumber" />
+        <attr name="yMaxValue" />
+        <attr name="xMaxValue" />
+    </declare-styleable>
+    
+    <declare-styleable name="HorizontalBarView"> 
+        <attr name="groundColor" />      
+        <attr name="textSize" />
+        <attr name="IsShowText" /> 
+	 	<attr name="lineTextSize" />
+		<attr name="lineColor" />
+        <attr name="xMaxValue" />
+    </declare-styleable>
+    
+    <declare-styleable name="CurveView"> 
+        <attr name="groundColor" />      
+        <attr name="textSize" />
+        <attr name="IsShowText" /> 
+	 	<attr name="lineTextSize" />
+		<attr name="lineColor" />
+        <attr name="xNumber" />
+        <attr name="yNumber" />
+        <attr name="yMaxValue" />
+        <attr name="xMaxValue" />
+        <attr name="dotColor" format="color"/>
+        <attr name="fillColor" format="color"/>
+        <attr name="fillendColor" format="color"/>
+        <attr name="IsFillShadow" format= "boolean"/>
+    </declare-styleable>
+    
+        <declare-styleable name="MultiCurveView"> 
+        <attr name="groundColor" />      
+        <attr name="textSize" />
+        <attr name="IsShowText" /> 
+	 	<attr name="lineTextSize" />
+		<attr name="lineColor" />
+        <attr name="xNumber" />
+        <attr name="yNumber" />
+        <attr name="yMaxValue" />
+        <attr name="xMaxValue" />
+    </declare-styleable>
+ 
+</resources>
