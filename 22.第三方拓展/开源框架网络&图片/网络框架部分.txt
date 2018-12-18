@@ -1,9 +1,27 @@
-³£ÓÃµÄÓĞ£º
+å¸¸ç”¨çš„æœ‰ï¼š
 
 Volley   okHttp     Retrofit
 
 
-volleyÊÇÒ»¸ö¼òµ¥µÄÒì²½http¿â£¬½ö´Ë¶øÒÑ¡£È±µãÊÇ²»Ö§³ÖÍ¬²½£¬Õâµã»áÏŞÖÆ¿ª·¢Ä£Ê½£»²»ÄÜpost´óÊı¾İ£¬ËùÒÔ²»ÊÊºÏÓÃÀ´ÉÏ´«ÎÄ¼ş
-android-async-http¡£ÓëvolleyÒ»ÑùÊÇÒì²½ÍøÂç¿â£¬µ«volleyÊÇ·â×°µÄhttpUrlConnection£¬ËüÊÇ·â×°µÄhttpClient£¬¶øandroidÆ½Ì¨²»ÍÆ¼öÓÃHttpClientÁË£¬ËùÒÔÕâ¸ö¿âÒÑ¾­²»ÊÊºÏandroidÆ½Ì¨ÁË¡£
-okhttpÊÇ¸ßĞÔÄÜµÄhttp¿â£¬Ö§³ÖÍ¬²½¡¢Òì²½£¬¶øÇÒÊµÏÖÁËspdy¡¢http2¡¢websocketĞ­Òé£¬apiºÜ¼ò½àÒ×ÓÃ£¬ºÍvolleyÒ»ÑùÊµÏÖÁËhttpĞ­ÒéµÄ»º´æ
+volleyæ˜¯ä¸€ä¸ªç®€å•çš„å¼‚æ­¥httpåº“ï¼Œä»…æ­¤è€Œå·²ã€‚ç¼ºç‚¹æ˜¯ä¸æ”¯æŒåŒæ­¥ï¼Œè¿™ç‚¹ä¼šé™åˆ¶å¼€å‘æ¨¡å¼ï¼›ä¸èƒ½postå¤§æ•°æ®ï¼Œæ‰€ä»¥ä¸é€‚åˆç”¨æ¥ä¸Šä¼ æ–‡ä»¶
+android-async-httpã€‚ä¸volleyä¸€æ ·æ˜¯å¼‚æ­¥ç½‘ç»œåº“ï¼Œä½†volleyæ˜¯å°è£…çš„httpUrlConnectionï¼Œå®ƒæ˜¯å°è£…çš„httpClientï¼Œè€Œandroidå¹³å°ä¸æ¨èç”¨HttpClientäº†ï¼Œæ‰€ä»¥è¿™ä¸ªåº“å·²ç»ä¸é€‚åˆandroidå¹³å°äº†ã€‚
+okhttpæ˜¯é«˜æ€§èƒ½çš„httpåº“ï¼Œæ”¯æŒåŒæ­¥ã€å¼‚æ­¥ï¼Œè€Œä¸”å®ç°äº†spdyã€http2ã€websocketåè®®ï¼Œapiå¾ˆç®€æ´æ˜“ç”¨ï¼Œå’Œvolleyä¸€æ ·å®ç°äº†httpåè®®çš„ç¼“å­˜
 
+ç½‘å’¯è§†é¢‘ç¼“å­˜æ¡†æ¶VideoCache:
+ *  ä½¿ç”¨ è§†é¢‘ ç¼“å­˜æ¡†æ¶AndroidVideoCache
+ *  ä½¿ç”¨å‰ï¼š
+ *  1.
+ *  dependencies {
+        compile 'com.danikula:videocache:2.7.1'
+    }
+ 2. Application å®ä¾‹åŒ–ï¼š
+         //è§†é¢‘ç¼“å­˜æœ¬åœ° ä»£ç†
+         private HttpProxyCacheServer proxy;
+         public static HttpProxyCacheServer getProxy(Context context) {
+            MyApplication app = (MyApplication) context.getApplicationContext();
+             return app.proxy == null ? (app.proxy = app.newProxy()) : app.proxy;
+         }
+         private HttpProxyCacheServer newProxy() {
+            return new HttpProxyCacheServer(this);
+         }
+ 3. è°ƒç”¨getVideoUrl(), è·å¾—è·¯åŠ²  æ”¾å…¥VideoView æˆ–MediaPlayeræ’­æ”¾
