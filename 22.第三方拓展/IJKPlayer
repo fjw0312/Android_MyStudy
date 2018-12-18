@@ -1,0 +1,81 @@
+IJkPlayer  视频播放器
+https://github.com/Bilibili/ijkplayer
+
+1.首先 准备linux 环境 JDK NDK git 环境配置好
+2.git clone https://github.com/Bilibili/ijkplayer.git
+
+3.初始化代码 初始化，会从网上自动拉代码  ./init-android.sh
+
+4.如果视频播放需要支持Https协议，需要执行如下命令
+  ./init-android-openssl.sh
+  //编译 各个平台的编译openssl
+  cd android/contrib
+./compile-openssl.sh clean
+./compile-openssl.sh all
+
+5.编译 ffmpeg
+cd android/contrib
+./compile-ffmpeg.sh clean
+./compile-ffmpeg.sh all
+（当然可以选择编译解码的配置及编译库大小见 官方说明Before Build 哪里，此处可直接编译all即好）
+
+6.编译ijkplayer生成CPU架构的so
+cd ..
+./compile-ijk.sh all
+
+7.导出ijkPlayer项目进入Android studio 注意修改gradle版本配置
+ 编译之后导出ijkPlayer-java-release.aar,以及相关的so库
+ 
+ 8.将aar及so 放入使用的项目工程：
+ //配置加入的so路劲
+   sourceSets {
+        main {
+            jniLibs.srcDirs = ['src/main/jniLibs']
+        }
+    }
+    //配置加入 aar 路劲
+    repositories {
+        flatDir {
+            dirs 'libs'
+        }
+    }
+    //添加 ijkPlayer工程依赖
+    compile(name: 'ijkplayer-java-release', ext: 'aar')   ////ijkPlayer
+  
+  
+  9.代码 简单使用  ---基本和MediaPlayer一致
+   public void initMediaPlay() {
+        relaseMediaPlay();
+        IjkMediaPlayer.loadLibrariesOnce(null);     // 注意此处加载
+        IjkMediaPlayer.native_profileBegin("libijkplayer.so");   // 注意此处加载
+        mPlayer = new IjkMediaPlayer();
+        mPlayer.reset();
+        surfaceHolder = surfaceView.getHolder();
+        surfaceHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
+        mPlayer.setDisplay(surfaceHolder);
+        mPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC); //设置声音类型
+        mPlayer.setLooping(false); //设置 是否循环播放
+        mPlayer.setVolume(0f,0f);
+
+        try {
+
+               String url = "http://fs.mv.android.kugou.com/201810311802/fe626a5b60ffb1585d830c815862d7bf/G140/M04/1E/10/bJQEAFuwaCKAEduiB-lvCu5IdLc390.mkv";
+           // mPlayer.setDataSource("/mnt/sdcard/fjw/XX.mp4");   //设置播放资源
+           //    mPlayer.setDataSource(url);   //设置播放资源
+            mPlayer.setDataSource(mvHash.mp4url);   //设置播放资源
+            mPlayer.prepareAsync();       //异步  缓冲加载资源
+
+        } catch（Exception e）{
+        
+        }
+    }
+    
+    //释放
+    public void relaseMediaPlay(){
+        if(mPlayer!= null){
+            mPlayer.stop();
+            mPlayer.release();
+        }
+      IjkMediaPlayer.native_profileEnd();  //// 注意此处释放加载
+
+    }
