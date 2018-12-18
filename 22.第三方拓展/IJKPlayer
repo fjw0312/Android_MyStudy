@@ -79,3 +79,6 @@ cd ..
       IjkMediaPlayer.native_profileEnd();  //// 注意此处释放加载
 
     }
+
+
+https://blog.csdn.net/DyncKathline/article/details/78223972
