@@ -7,7 +7,7 @@ volley是一个简单的异步http库，仅此而已。缺点是不支持同步�
 android-async-http。与volley一样是异步网络库，但volley是封装的httpUrlConnection，它是封装的httpClient，而android平台不推荐用HttpClient了，所以这个库已经不适合android平台了。
 okhttp是高性能的http库，支持同步、异步，而且实现了spdy、http2、websocket协议，api很简洁易用，和volley一样实现了http协议的缓存
 
-网咯视频缓存框架VideoCache:
+网咯视频缓存框架VideoCache:---notice:目前存在网络请求不太好，无法断电续传。
  *  使用 视频 缓存框架AndroidVideoCache
  *  使用前：
  *  1.
