@@ -1,12 +1,20 @@
-ListViewËµÃ÷£º
+ListViewè¯´æ˜ï¼š
 
-	 * ¸üĞÂlistView adapter Êı¾İÓĞ3ÖØ·½Ê½  £º
-	 *  1.ÖØĞÂsetAdapter 2.µ÷ÓÃadapter.notifydatasetchanged() 3.ÔÚAdapterÀïÃæµ÷ÓÃ¸üĞÂ½Ó¿Ú
+	 * æ›´æ–°listView adapter æ•°æ®æœ‰3é‡æ–¹å¼  ï¼š
+	 *  1.é‡æ–°setAdapter 2.è°ƒç”¨adapter.notifydatasetchanged() 3.åœ¨Adapteré‡Œé¢è°ƒç”¨æ›´æ–°æ¥å£
 
- 1.ÖØĞÂsetAdapter
-  ĞÔÄÜ×î²î¡£
+ 1.é‡æ–°setAdapter
+  æ€§èƒ½æœ€å·®ã€‚
 
-2.µ÷ÓÃadapter.notifydatasetchanged()
-Èç¹ûÊÊÅäÆ÷µÄÄÚÈİ¸Ä±ä£¬notifyDataSetChanged·½·¨½«»áÍ¨¹ıÒ»¸öÍâ²¿·½·¨Ç¿ÖÆµ÷ÓÃgetViewÀ´Ë¢ĞÂÃ¿¸öItemµÄÄÚÈİ¡£
+2.è°ƒç”¨adapter.notifydatasetchanged()
+å¦‚æœé€‚é…å™¨çš„å†…å®¹æ”¹å˜ï¼ŒnotifyDataSetChangedæ–¹æ³•å°†ä¼šé€šè¿‡ä¸€ä¸ªå¤–éƒ¨æ–¹æ³•å¼ºåˆ¶è°ƒç”¨getViewæ¥åˆ·æ–°æ¯ä¸ªItemçš„å†…å®¹ã€‚
 
-3.ÔÚAdapterÀïÃæµ÷ÓÃ¸üĞÂ½Ó¿Ú
+3.åœ¨Adapteré‡Œé¢è°ƒç”¨æ›´æ–°æ¥å£
+
+
+4.ä¿æŒæ»‘åŠ¨æ¡ ä¸€ç›´å­˜åœ¨
+                    android:scrollbarFadeDuration="0"
+                    android:fadeScrollbars="false"
+5.è®¾ç½® æ»‘åŠ¨æ¡æ–¹å‘   android:scrollbars="vertical"
+6.è®¾ç½®æ»‘åŠ¨æ¡ä¸æ˜¾ç¤º  android:scrollbars="none"
+7.æ»‘åŠ¨æ¡è®¾ç½®    https://www.cnblogs.com/xgjblog/p/8110070.html
