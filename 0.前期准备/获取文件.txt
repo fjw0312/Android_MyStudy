@@ -1,36 +1,37 @@
-android ÏîÄ¿¿ª·¢ÖĞ£º
+android é¡¹ç›®å¼€å‘ä¸­ï¼š
 
-»ñÈ¡ÏµÍ³/sdcard¿¨ÎÄ¼ş¡£
-		//»ñÈ¡ÏµÍ³ÎÄ¼ş  Â·¾¶
+è·å–ç³»ç»Ÿ/sdcardå¡æ–‡ä»¶ã€‚
+		//è·å–ç³»ç»Ÿæ–‡ä»¶  è·¯å¾„
 		String system_Path = Environment.getRootDirectory().getAbsolutePath(); // /system
 		String data_Path = Environment.getDataDirectory().getAbsolutePath(); // /data
 		String cache_Path = Environment.getDownloadCacheDirectory().getAbsolutePath();// /cache
 		String sdcard_Path = Environment.getExternalStorageDirectory().getAbsolutePath(); // /storage/emulated/0/...
-//		String outSdcardPath = System.getenv("SECONDARY_STORAGE");  //ÍâÖÃ sdcard Ã»ÓĞÍâÖÃsdcardµÄÏµÍ³»á±¨´í
+//		String outSdcardPath = System.getenv("SECONDARY_STORAGE");  //å¤–ç½® sdcard æ²¡æœ‰å¤–ç½®sdcardçš„ç³»ç»Ÿä¼šæŠ¥é”™
 
-		//»ñÈ¡app Ïà¹ØÂ·¾¶
-		String app_cache_Path = this.getCacheDir().getAbsolutePath(); //»ñÈ¡appµÄcacheÄ¿Â¼
-		String app_sdcardCache_Path = this.getExternalCacheDir().getAbsolutePath(); //»ñÈ¡appµÄsdcardÏÂcacheÄ¿Â¼
-		String app_files_Path = this.getFilesDir().getAbsolutePath(); //»ñÈ¡app filesÄ¿Â¼
-		String app_package_Path = this.getPackageName();  //»ñÈ¡appËùÔÚ°ü Ä¿Â¼     com.example.apptest
-		String app_apk_Path = this.getPackageCodePath();  //»ñÈ¡appËù¶ÔÓ¦apk Ä¿Â¼
+		//è·å–app ç›¸å…³è·¯å¾„
+		String app_cache_Path = this.getCacheDir().getAbsolutePath(); //è·å–appçš„cacheç›®å½•
+		String app_sdcardCache_Path = this.getExternalCacheDir().getAbsolutePath(); //è·å–appçš„sdcardä¸‹cacheç›®å½•
+		String app_files_Path = this.getFilesDir().getAbsolutePath(); //è·å–app filesç›®å½•
+		String app_package_Path = this.getPackageName();  //è·å–appæ‰€åœ¨åŒ… ç›®å½•     com.example.apptest
+		String app_apk_Path = this.getPackageCodePath();  //è·å–appæ‰€å¯¹åº”apk ç›®å½•
 
 
-//»ñÈ¡appÏîÄ¿¹¤³ÌÎÄ¼ş¡£
-1.»ñÈ¡assetÄ¿Â¼ÏÂÎÄ¼ş¡££¨Ò²³ÆÔ­ÉúÎÄ¼ş£©¡£apk´ò°ü²»»á±»Ñ¹Ëõ¡¢±àÒë£¬Ò²²»»á×Ô¶¯Éú³ÉRÎÄ¼şµÄid.  ÎÄ¼ş²»ÄÜ³¬1M Ö»ÄÜ¶Á
+//è·å–appé¡¹ç›®å·¥ç¨‹æ–‡ä»¶ã€‚
+1.è·å–assetç›®å½•ä¸‹æ–‡ä»¶ã€‚ï¼ˆä¹Ÿç§°åŸç”Ÿæ–‡ä»¶ï¼‰ã€‚apkæ‰“åŒ…ä¸ä¼šè¢«å‹ç¼©ã€ç¼–è¯‘ï¼Œä¹Ÿä¸ä¼šè‡ªåŠ¨ç”ŸæˆRæ–‡ä»¶çš„id.  æœ‰äº›æ–‡ä»¶ä¸èƒ½è¶…1M åªèƒ½è¯»
 AssetManager am = this.getResources().getAsset()  / AssetManager am = this.getAssets();
 InputStream in = am.open("text.xml");
 
-2.»ñÈ¡resÄ¿Â¼ÏÂÎÄ¼ş¡£  apk´ò°ü²»»á±àÒë³É¶ş½øÖÆ¡¢»áÒ»¶¨Ñ¹ËõÓÅ»¯£¬»á×Ô¶¯Éú³ÉÉú³ÉRÎÄ¼şµÄidÓ³Éä¡£ ÄÜ¶ÁĞ´
-a.//res/rawÄ¿Â¼ÏÂÎÄ¼ş
+2.è·å–resç›®å½•ä¸‹æ–‡ä»¶ã€‚  apkæ‰“åŒ…ä¸ä¼šç¼–è¯‘æˆäºŒè¿›åˆ¶ã€ä¼šä¸€å®šå‹ç¼©ä¼˜åŒ–ï¼Œä¼šè‡ªåŠ¨ç”Ÿæˆç”ŸæˆRæ–‡ä»¶çš„idæ˜ å°„ã€‚ èƒ½è¯»å†™
+Uri.parse("android.resource://"+mContext.getPackageName()+"/raw/xx")  //è·å–url èµ„æºæ–‡ä»¶
+a.//res/rawç›®å½•ä¸‹æ–‡ä»¶
 InputStream in1 = this.getResources().openRawResource(R.raw.cc);
-b.//res/drawableÄ¿Â¼ÏÂÎÄ¼ş
+b.//res/drawableç›®å½•ä¸‹æ–‡ä»¶
 BitmapDrawable a = (BitmapDrawable)this.getResources().getDrawable(R.drawable.ic_launcher);
 Bitmap bitmap = a.getBitmap();
-c.//res/xmlÄ¿Â¼ÏÂÎÄ¼ş
+c.//res/xmlç›®å½•ä¸‹æ–‡ä»¶
 XmlResourceParser xmlResourceParser = this.getResources().getXml(R.xml.test);
 
-3.»ñÈ¡srcÄ¿Â¼ÏÂÎÄ¼ş
+3.è·å–srcç›®å½•ä¸‹æ–‡ä»¶
 InputStream inn = getClass().getClassLoader().getResourceAsStream("xxx.xml");
 	    
 
