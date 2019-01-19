@@ -6,27 +6,37 @@ https://github.com/Bilibili/ijkplayer
 
 3.初始化代码 初始化，会从网上自动拉代码  ./init-android.sh
 
-4.如果视频播放需要支持Https协议，需要执行如下命令
+4.修改config/module.sh添加你要支持的编码格式
+另外官方给我们提供了三个模板给我们使用：
+module-default.sh：默认，如果你喜欢更多类型可以用这个； 
+module-lite-hevc.sh：如果您更喜欢较小的二进制大小的编解码器/格式（包括hevc功能） 
+module-lite.sh：如果您更喜欢较小的二进制大小的编解码器/格式（默认情况下）
+可以使用最小支持度最小的 
+rm module.sh
+ln -s module-lite.sh module.sh
+source module.sh
+
+5.如果视频播放需要支持Https协议，需要执行如下命令
   ./init-android-openssl.sh
   //编译 各个平台的编译openssl
   cd android/contrib
 ./compile-openssl.sh clean
 ./compile-openssl.sh all
 
-5.编译 ffmpeg
+6.编译 ffmpeg
 cd android/contrib
 ./compile-ffmpeg.sh clean
 ./compile-ffmpeg.sh all
 （当然可以选择编译解码的配置及编译库大小见 官方说明Before Build 哪里，此处可直接编译all即好）
 
-6.编译ijkplayer生成CPU架构的so
+7.编译ijkplayer生成CPU架构的so
 cd ..
 ./compile-ijk.sh all
 
-7.导出ijkPlayer项目进入Android studio 注意修改gradle版本配置
+8.导出ijkPlayer项目进入Android studio 注意修改gradle版本配置
  编译之后导出ijkPlayer-java-release.aar,以及相关的so库
  
- 8.将aar及so 放入使用的项目工程：
+9.将aar及so 放入使用的项目工程：
  //配置加入的so路劲
    sourceSets {
         main {
@@ -43,7 +53,7 @@ cd ..
     compile(name: 'ijkplayer-java-release', ext: 'aar')   ////ijkPlayer
   
   
-  9.代码 简单使用  ---基本和MediaPlayer一致
+  10.代码 简单使用  ---基本和MediaPlayer一致
    public void initMediaPlay() {
         relaseMediaPlay();
         IjkMediaPlayer.loadLibrariesOnce(null);     // 注意此处加载
