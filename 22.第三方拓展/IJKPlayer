@@ -3,6 +3,7 @@ https://github.com/Bilibili/ijkplayer
 
 1.首先 准备linux 环境 JDK NDK git 环境配置好
 2.git clone https://github.com/Bilibili/ijkplayer.git
+  接着建立分支git checkout -B latest k0.8.8
 
 3.初始化代码 初始化，会从网上自动拉代码  ./init-android.sh
 
