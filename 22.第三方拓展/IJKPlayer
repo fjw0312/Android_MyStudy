@@ -93,3 +93,8 @@ cd ..
 
 
 https://blog.csdn.net/DyncKathline/article/details/78223972
+
+注意：使用最新的IJKPlayer编译全量解码包module-default.sh，可能会报 内核引用的头文件找不到需要修改下：
+对文件脚本module-default.sh 最后添加一句：
+export COMMON_FF_CFG_FLAGS="$COMMON_FF_CFG_FLAGS --disable-linux-perf"
+即可通过编译
