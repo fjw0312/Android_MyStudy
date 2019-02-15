@@ -1,7 +1,86 @@
-android 热更新   知识模块
+android 热更新   知识模块    （Tinker）
 
 Tinker 分为2部分功能  1.热修复（补丁） 2.热更新apk
 
 资料参考：https://www.jianshu.com/p/d649fc014919
 
-一、添加gradle依懒
+（一） 热修复 使用  步骤
+ 一、在项目中添加 Tinker 依赖 （记得是工程的 build.gradle 文件）
+  添加依赖：  //tinker依懒          
+        classpath "com.tencent.tinker:tinker-patch-gradle-plugin:${TINKER_VERSION}"
+        //注${TINKER_VERSION} 可用于管理依赖框架的版本管理  在 gradle.properties文件 添加一句： TINKER_VERSION=1.7.7 即可
+ 
+ 二、在app模块添加 Tinker annotation、lib 依赖 （记得是app 模块里的 build.gradle 文件）
+   添加依赖：   
+       provided("com.tencent.tinker:tinker-android-anno:${TINKER_VERSION}")  //help to generate the final application 用于生成application类 （可选，但最好还是使用）
+       compile("com.tencent.tinker:tinker-android-lib:${TINKER_VERSION}")     //tinker's main Android lib
+       compile "com.android.support:multidex:1.0.1"
+
+三、配置app模块的build.gradle 的jdk编译版本、签名、Thinker gradle文件引入
+  1.配置Java编译版本
+      //配置Java编译的版本  
+      compileOptions {     //（android{*}内）
+          sourceCompatibility JavaVersion.VERSION_1_7
+          targetCompatibility JavaVersion.VERSION_1_7
+       }
+  2.配置项目工程签名
+     //配置 签名   --- 只配置relase也够了，debug 也使用该签名  
+     signingConfigs {    //（android{*}内）
+        release { 
+            keyAlias 'key'
+            keyPassword 'fjw0312'
+            storeFile file('F:/My_save_signed/K9_KTest/KTest_signed.jks')    //签名文件的本地目录
+            storePassword 'fjw0312'
+        }
+     }
+     //添加  //（ android{ buildTypes{ debug{*}&relase{*}  } }  内 ）
+     signingConfig signingConfigs.release
+     
+  3. 开启Multidex
+    //（ android{ defaultConfig{*} }  内 ）
+     multiDexEnabled true   //开启Multidex
+     
+  4.添加Thinker生产补丁包的gradle    //在app模块的 build.gradle 文件 最后一行 或第二行添加   （其实这里是在build.gradle添加内容，文件分拆而已）
+    apply from: 'buildTinker.gradle'   //一个要编译Thinker 补丁包的自定义编译文件
+    
+ 三、新建buildTinker.gradle文件并 配置内容 （新建的文件位于和app模块build.gradle文件相同目录）
+ 文件内容：略
+ 
+ 以上配置好，先编译后再做下面的步骤
+ 四、初始化工程代码
+    定义一个继承ApplicationLike的 中间类 CustomTinkerLike  
+    （为什么说是中间类，因为其继承Tinker 的ApplicationLike初始化加载 Tinker功能后，又自动被 MyThinkerApplication 继承）
+  MyThinkerApplication 为自动生成的类，不用自己手动创建。
+  1.用于AndroidManifest.xml     
+  <application
+       android:name=".MyTinkerApplication"  /application>   //工程最后的final Application 声明入口
+       
+   2.用于buildTinker.gradle 的声明 （修改buildTinker.gradle改文件以下这句）
+      loader = ["com.test.MyTinkerApplication"] //指定加载patch文件时用到的类
+       
+   3.自定义创建该中间类的实现 记得该注解    
+    @DefaultLifeCycle(application = ".MyTinkerApplication", flags = ShareConstants.TINKER_ENABLE_ALL, loadVerifyFlag = false)
+  public class CustomTinkerLike extends ApplicationLike {
+
+    public CustomTinkerLike(Application application, int tinkerFlags, boolean tinkerLoadVerifyFlag, long applicationStartElapsedTime, long applicationStartMillisTime, Intent tinkerResultIntent) {
+        super(application, tinkerFlags, tinkerLoadVerifyFlag, applicationStartElapsedTime, applicationStartMillisTime, tinkerResultIntent);
+    }
+
+    @Override
+    public void onBaseContextAttached(Context base) {
+        super.onBaseContextAttached(base);
+
+        MultiDex.install(base);
+        TinkerManager.installTinker(this);  //其实就是这句  TinkerInstaller.install(mAppLike); TinkerManager是进一步自己封装的
+    }
+  }
+  
+   4.代码热更新触发 
+    (设置自己的代码去执行去触发以下代码实现热修复，前提自己发布的补丁包已在机子系统里面了)
+    eg:补丁包的路劲path = "/mnt/sdcard/fjw/patch_signed.apk" //自己测试时 可以讲补丁包文件预置放入系统目录
+    if (Tinker.isTinkerInstalled()) {
+            TinkerInstaller.onReceiveUpgradePatch(getApplicationContext(), path);  //补丁包的决定路劲
+    }
+    
+  
+  
