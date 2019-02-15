@@ -4,13 +4,17 @@ def bakPath = file("${buildDir}/bakApk/")
 ext {
     //开启Tinker
     tinkerEnable = true
-    //旧的apk位置，需要我们手动指定
-    tinkerOldApkPath = "${bakPath}/app-release-2019-02-15-14-53-48.apk"
     //旧的混淆映射位置，如果开启了混淆，则需要我们手动指定
     tinkerApplyMappingPath = "${bakPath}/"
+    //旧的apk位置，需要我们手动指定
+    tinkerOldApkPath = "${bakPath}/app-release-2019-02-15-18-35-09.apk"
     //旧的resource位置，需要我们手动指定
-    tinkerApplyResourcePath = "${bakPath}/app-release-2019-02-15-14-53-48-R.tx"
+    tinkerApplyResourcePath = "${bakPath}/app-release-2019-02-15-18-35-09-R.txt"
+    //指定加载patch文件时用到的Application类
+    tinkerApplication = "com.test.MyTinkerApplication"
+
     tinkerID = "1.0"
+    
 }
 
 def buildWithTinker() {
@@ -33,10 +37,14 @@ def getTinkerIdValue(){
     return ext.tinkerID
 }
 
+def getTinkerApplication(){
+    return ext.tinkerApplication
+}
+
 if (buildWithTinker()) {
     apply plugin: 'com.tencent.tinker.patch'
 
-    tinkerPatch {
+      tinkerPatch {
         oldApk = getOldApkPath() //指定old apk文件路径
         ignoreWarning = false //不忽略tinker警告，出现警告则中止patch文件生成
         useSign = true //patch文件必须是签名后的
@@ -50,7 +58,7 @@ if (buildWithTinker()) {
         dex {
             dexMode = "jar" //jar、raw
             pattern = ["classes*.dex", "assets/secondary-dex-?.jar"] //指定dex文件目录
-            loader = ["com.test.MyTinkerApplication"] //指定加载patch文件时用到的类
+            loader = [getTinkerApplication()] //指定加载patch文件时用到的类
         }
         lib {
             pattern = ["libs/*/*.so"] //指定so文件目录
@@ -62,9 +70,13 @@ if (buildWithTinker()) {
         }
         packageConfig {
             configField("patchMessage", "fix the 1.0 version's bugs")
+            configField("platform", "all")
             configField("patchVersion", "1.0")
-            configField("TINKER_ID", "tinker_id_1.0")
+           // configField("TINKER_ID", "tinker_id_1.0")  // //写这个为了修复一个bug,详见github issue #22
         }
+       // sevenZip{  //会报错误
+       //     zipArtifact = "com.tencent.mm:SevenZip:1.1.10"
+       // }
     }
 
     /**
