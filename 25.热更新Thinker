@@ -2,6 +2,8 @@ android 热更新   知识模块    （Tinker）
 
 Tinker 分为2部分功能  1.热修复（补丁） 2.热更新apk
 
+#平时项目工程配置好Thinker热修复功能。每次打包发布apk 备份保存好apk和R文件。待出现问题需要打补丁 再拿出该已发布的apk和R文件制作补丁！！！
+（将2个文件放入bakApk目录下）
 资料参考：https://www.jianshu.com/p/d649fc014919
 
 （一） 热修复 使用  步骤
