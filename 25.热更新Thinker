@@ -43,11 +43,11 @@ Tinker 分为2部分功能  1.热修复（补丁） 2.热更新apk
   4.添加Thinker生产补丁包的gradle    //在app模块的 build.gradle 文件 最后一行 或第二行添加   （其实这里是在build.gradle添加内容，文件分拆而已）
     apply from: 'buildTinker.gradle'   //一个要编译Thinker 补丁包的自定义编译文件
     
- 三、新建buildTinker.gradle文件并 配置内容 （新建的文件位于和app模块build.gradle文件相同目录）
+ 四、新建buildTinker.gradle文件并 配置内容 （新建的文件位于和app模块build.gradle文件相同目录）
  文件内容：略
  
  以上配置好，先编译后再做下面的步骤
- 四、初始化工程代码
+ 五、初始化工程代码
     定义一个继承ApplicationLike的 中间类 CustomTinkerLike  
     （为什么说是中间类，因为其继承Tinker 的ApplicationLike初始化加载 Tinker功能后，又自动被 MyThinkerApplication 继承）
   MyThinkerApplication 为自动生成的类，不用自己手动创建。
@@ -79,8 +79,36 @@ Tinker 分为2部分功能  1.热修复（补丁） 2.热更新apk
     (设置自己的代码去执行去触发以下代码实现热修复，前提自己发布的补丁包已在机子系统里面了)
     eg:补丁包的路劲path = "/mnt/sdcard/fjw/patch_signed.apk" //自己测试时 可以讲补丁包文件预置放入系统目录
     if (Tinker.isTinkerInstalled()) {
-            TinkerInstaller.onReceiveUpgradePatch(getApplicationContext(), path);  //补丁包的决定路劲
+            TinkerInstaller.onReceiveUpgradePatch(getApplicationContext(), path);  /path/补丁包的决定路劲
     }
     
+    
+  五、生成我们正常的bug apk包及 补丁包apk
+  1.生成发布的bug apk 包。
+    可以正常的生成relase包（已配置自动签名）--查看代码工程app/build/bakApk/目录下生成的release.apk & .R文件保留保存。
+    接着将该release.apk 包发布出去。---接着发现有重大bug，需要在线热修复。现在就修改代码后--利用保留的release.apk & .R文件 来生成补丁包了。
+    ----------------------------------------------------------------------------------------------------------------------------
+    生成relase/debug包 可以 最好 双击 gradle projects工程下的/Taskes/build/assembleRelease、assembleDebug文件就会自动打包编译了。
+    
+ 2.生成补丁包。
+    a.修改我们要修改的bug 代码
+    b.修改buildTinker.gradle文件中的 要打补丁目标apk文件名称
+            //旧的apk位置，需要我们手动指定
+         tinkerOldApkPath = "${bakPath}/app-release-2019-02-15-14-53-48.apk"  //要打补丁目标apk文件名称
+            //旧的混淆映射位置，如果开启了混淆，则需要我们手动指定 (无混淆则不用管)
+         tinkerApplyMappingPath = "${bakPath}/"
+            //旧的resource位置，需要我们手动指定
+         tinkerApplyResourcePath = "${bakPath}/app-release-2019-02-15-14-53-48-R.tx"  //要打补丁目标apk R文件名称
+         
+    c.接着编译打包出补丁包。 （编译出来的补丁在工程/app/build/outputs/tinkerPatch/relase/patch_singed.apk）
+       双击 gradle projects工程下的/Taskes/tinker/thinkerPatchRelease、thinkerPatchDebug //补丁 文件就会自动打包编译好了。
+       
+  3.将补丁文件发布，让自己的代码下载到系统路劲上就可以了。
+    （自己测试阶段，可以自己将补丁包放入 系统目录）
+  
+  六.触发热修复代码--执行热修复
+     只要代码热补丁包已下载，并触发到 TinkerInstaller.onReceiveUpgradePatch(getApplicationContext(), path);  就实现修复
+     
+  七.注意修复后会自动杀死进程。   
   
   
