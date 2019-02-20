@@ -74,6 +74,7 @@ Tinker 分为2部分功能  1.热修复（补丁） 2.热更新apk
 
         MultiDex.install(base);
         TinkerManager.installTinker(this);  //其实就是这句  TinkerInstaller.install(mAppLike); TinkerManager是进一步自己封装的
+        //如果使用 bugly 下发热修复 热更新  需替换为 Beta.installTinker(); 
     }
   }
   
