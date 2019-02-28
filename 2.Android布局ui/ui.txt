@@ -1,17 +1,23 @@
 android ui
 
-£¤£¤£¤£¤£¤£¤
-³£ÓÃµÄ5´ó²¼¾Ö£º
-LinearLayout ÏßĞÔ²¼¾Ö
-RelativeLayout  Ïà¶Ô²¼¾Ö
-AbosulteLayout   ¾ø¶Ô²¼¾Ö
-FrameLayout     Ö¡²¼¾Ö
-TableLayout    ±í¸ñ²¼¾Ö  TableRowÅäºÏÊ¹ÓÃ
+ï¿¥ï¿¥ï¿¥ï¿¥ï¿¥ï¿¥
+å¸¸ç”¨çš„5å¤§å¸ƒå±€ï¼š
+LinearLayout çº¿æ€§å¸ƒå±€
+RelativeLayout  ç›¸å¯¹å¸ƒå±€
+AbosulteLayout   ç»å¯¹å¸ƒå±€
+FrameLayout     å¸§å¸ƒå±€
+TableLayout    è¡¨æ ¼å¸ƒå±€  TableRowé…åˆä½¿ç”¨
 
-uiÊ¹ÓÃ´óĞ¡µ¥Î»£º
-ÀÏµÄµ¥Î»            ĞÂµ¥Î»
-px ÏñËØ             dp(dip)ÃÜ¶È £¨1dp=Ã¿Ó¢´ç160px£©
-pt ×ÖÌå°õÊı         sp      ×ÖÌå¿ÉÉìËõÏñËØ
+é¦–å…ˆç†è§£  dpiï¼ˆåƒç´ å¯†åº¦ï¼‰çš„å«ä¹‰  ï¼š  æ¯è‹±å¯¸è·ç¦»çš„åƒç´ ä¸ªæ•°ã€‚   160 dpi å°±è¡¨ç¤º æ¯è‹±å¯¸æœ‰ 160px
+         è€Œdp æ˜¯ç”± dpi æ›´å°è½¬åŒ–æ¥çš„ï¼Œ å¯ä»¥ä»£è¡¨ å®é™…è‚‰çœ¼è§†è§‰å¤§å°ã€‚ eg: åœ¨åƒç´ ç‚¹ä¸€æ ·å¤§çš„æ‰‹æœºä¸Šï¼Œä¸ç®¡ä»€ä¹ˆåˆ†è¾¨ç‡æ‰‹æœº 100dp è§†è§‰éƒ½æ˜¯ä¸€æ ·å¤§å°ã€‚
+	 dp å…·ä½“è®¡ç®—  1dp = density*1 px 
+	 
+	 
+
+uiä½¿ç”¨å¤§å°å•ä½ï¼š
+è€çš„å•ä½            æ–°å•ä½
+px åƒç´              dp(dip)å¯†åº¦ ï¼ˆ1dp=160px/æ¯è‹±å¯¸ï¼‰
+pt å­—ä½“ç£…æ•°         sp      å­—ä½“å¯ä¼¸ç¼©åƒç´ 
 drawable-ldpi 320*240    120dpi     1dp=0.75px
 drawable-mdpi 480*320    160dpi     1dp=1px             1sp =1px    48px
 drawable-hdpi 480*800    240dpi     1dp=1.5px                       72px                  
@@ -19,61 +25,61 @@ drawable-xhdpi 720*1280   320dpi    1dp=2px                         96px
 drawable-xxhdpi 1080*1920  480dpi   1dp=3px                         144px
 drawable-xxxhdpi 1080+
 
-Í¼±êÀ¸¿í¶È48dp  Í¼±ê´óĞ¡  xh-32px  xxh-48px
-¼ä¾à£º8dp-10dp-16dp-32dp
+å›¾æ ‡æ å®½åº¦48dp  å›¾æ ‡å¤§å°  xh-32px  xxh-48px
+é—´è·ï¼š8dp-10dp-16dp-32dp
 
-//»ñÈ¡ÆÁÄ»·Ö±æÂÊ ÏñËØ£º
+//è·å–å±å¹•åˆ†è¾¨ç‡ åƒç´ ï¼š
 float xPx = this.getResources().getDisplayMetrics().widthPixels;
 float yPx = this.getResources().getDisplayMetrics().heightPixels;
-//»ñÈ¡ÆÁÄ»ÃÜ¶È
+//è·å–å±å¹•å¯†åº¦
 float xdpi = this.getResources().getDisplayMetrics().xdpi;
 float ydpi = this.getResources().getDisplayMetrics().ydpi;
-//ÃÜ¶È±ÈÖµ
+//å¯†åº¦æ¯”å€¼
 float density = this.getResources().getDisplayMetrics().density;
 float densityDpi = this.getResources().getDisplayMetrics().densityDpi;
 
 
 
-android²éÕÒÊÊÅäÆÁÄ»ÃÜ¶ÈÍ¼Æ¬×ÊÔ´£º
-1.ÏÈ¸ù¾İÊÖ»úÆÁÄ»ÃÜ¶È²é¿´¶ÔÓ¦µÄÎÄ¼ş¼Ğ£ºeg:420dpi -¡· xxhdpi
-2.Èç¹û¶ÔÓ¦ÎÄ¼ş¼Ğ²éÕÒ²»µ½Ê±£¬»áÏò¸ßÃÜ¶ÈÎÄ¼ş¼Ğ²éÕÒ  eg: 160dpi ->mdpi->hdpi->xhdpi
-3.²éÕÒµ½×î¸ßÃÜ¶È»¹²éÕÒ²»µ½Ê±£¬»á²éÕÒnodpiÎÄ¼ş¼Ğ£¬È»ºóÓÖÏòµÍÃÜ¶È²éÕÒ¡£
+androidæŸ¥æ‰¾é€‚é…å±å¹•å¯†åº¦å›¾ç‰‡èµ„æºï¼š
+1.å…ˆæ ¹æ®æ‰‹æœºå±å¹•å¯†åº¦æŸ¥çœ‹å¯¹åº”çš„æ–‡ä»¶å¤¹ï¼šeg:420dpi -ã€‹ xxhdpi
+2.å¦‚æœå¯¹åº”æ–‡ä»¶å¤¹æŸ¥æ‰¾ä¸åˆ°æ—¶ï¼Œä¼šå‘é«˜å¯†åº¦æ–‡ä»¶å¤¹æŸ¥æ‰¾  eg: 160dpi ->mdpi->hdpi->xhdpi
+3.æŸ¥æ‰¾åˆ°æœ€é«˜å¯†åº¦è¿˜æŸ¥æ‰¾ä¸åˆ°æ—¶ï¼Œä¼šæŸ¥æ‰¾nodpiæ–‡ä»¶å¤¹ï¼Œç„¶ååˆå‘ä½å¯†åº¦æŸ¥æ‰¾ã€‚
 
-ÏßĞÔ²¼¾ÖLinearLayoutÖĞ£º³£ÓÃ²¼¾Ö²ÎÊı£º
+çº¿æ€§å¸ƒå±€LinearLayoutä¸­ï¼šå¸¸ç”¨å¸ƒå±€å‚æ•°ï¼š
 layout_gravity
 gravity
 alyout_weight
 layout_marginLeft
 
-Ïà¶Ô²¼¾ÖRelativeLayout£¬³£ÓÃ²¼¾Ö²ÎÊı
-Ïà¶Ô¸¸layoutÎ»ÖÃ layout_alignParentRight="true"
+ç›¸å¯¹å¸ƒå±€RelativeLayoutï¼Œå¸¸ç”¨å¸ƒå±€å‚æ•°
+ç›¸å¯¹çˆ¶layoutä½ç½® layout_alignParentRight="true"
 		 layout_alignParentLeft="true"
 		 layout_alignParentTop="true"
 		 layout_alignParentButtom="true"
 
-ÓëÆäËûView¶ÔÆë   layout_alignRight="@+id/Tx_barItem"
+ä¸å…¶ä»–Viewå¯¹é½   layout_alignRight="@+id/Tx_barItem"
 		 layout_alignLeft="@+id/Tx_barItem"
 		 layout_alignTop="@+id/Tx_barItem"
 		 layout_alignButtom="@+id/Tx_barItem"
 
-Ïà¶ÔÓÚÆäËûViewÎ»ÖÃ·½Î»£ºlayout_above="@+id/Tx_barItem"
- (ÔÚÄ³viewµÄÊ²Ã´Î»ÖÃ)   layout_below=""
+ç›¸å¯¹äºå…¶ä»–Viewä½ç½®æ–¹ä½ï¼šlayout_above="@+id/Tx_barItem"
+ (åœ¨æŸviewçš„ä»€ä¹ˆä½ç½®)   layout_below=""
                         layout_toLeftOf=""
                         layout_toRightOf=""
 
 
-TableLayout²¼¾ÖÖĞ£º
-ÓĞviewÒªÕ¼¶àÁĞÊ± android:layout_Span="2"
-Ò²¿ÉÉèÖÃview¿ÉÉìËõ£ºandroid:StretchColums=""   
+TableLayoutå¸ƒå±€ä¸­ï¼š
+æœ‰viewè¦å å¤šåˆ—æ—¶ android:layout_Span="2"
+ä¹Ÿå¯è®¾ç½®viewå¯ä¼¸ç¼©ï¼šandroid:StretchColums=""   
                     android:ShrinkColums=""
 
 
-´úÂëÖĞ£º
-Matrix Àà£¬¿ÉÒÔÊµÏÖ¶ÔÍ¼Æ¬µÄ±ä»¯²Ù×÷¡£
-LinearGradient ÏßĞÔäÖÈ¾Æ÷£¬¿ÉÒÔÊµÏÖ²Êºç±ä»»
+ä»£ç ä¸­ï¼š
+Matrix ç±»ï¼Œå¯ä»¥å®ç°å¯¹å›¾ç‰‡çš„å˜åŒ–æ“ä½œã€‚
+LinearGradient çº¿æ€§æ¸²æŸ“å™¨ï¼Œå¯ä»¥å®ç°å½©è™¹å˜æ¢
 
 
-½â¾öappÒÑ½øÈëEditView¾Í½øÈë¾Û½¹µ¯³ö¼üÅÌµÄ½â¾ö·½·¨£º
-ÔÚ¸Ã¾Û½¹µÄEditViewµÄ¸¸ViewÉÏÌí¼Ó2ĞĞ²¼¾Ö²ÎÊı£º¾ÍOK
+è§£å†³appå·²è¿›å…¥EditViewå°±è¿›å…¥èšç„¦å¼¹å‡ºé”®ç›˜çš„è§£å†³æ–¹æ³•ï¼š
+åœ¨è¯¥èšç„¦çš„EditViewçš„çˆ¶Viewä¸Šæ·»åŠ 2è¡Œå¸ƒå±€å‚æ•°ï¼šå°±OK
     android:focusable="true"
     android:focusableInTouchMode="true"
