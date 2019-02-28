@@ -8,22 +8,50 @@ AbosulteLayout   绝对布局
 FrameLayout     帧布局
 TableLayout    表格布局  TableRow配合使用
 
-首先理解  dpi（像素密度）的含义  ：  每英寸距离的像素个数。   160 dpi 就表示 每英寸有 160px
-         而dp 是由 dpi 更小转化来的， 可以代表 实际肉眼视觉大小。 eg: 在像素点一样大的手机上，不管什么分辨率手机 100dp 视觉都是一样大小。
-	 dp 具体计算  1dp = density*1 px 
-	 
-	 
-
 ui使用大小单位：
 老的单位            新单位
 px 像素             dp(dip)密度 （1dp=160px/每英寸）
 pt 字体磅数         sp      字体可伸缩像素
-drawable-ldpi 320*240    120dpi     1dp=0.75px
-drawable-mdpi 480*320    160dpi     1dp=1px             1sp =1px    48px
-drawable-hdpi 480*800    240dpi     1dp=1.5px                       72px                  
-drawable-xhdpi 720*1280   320dpi    1dp=2px                         96px
-drawable-xxhdpi 1080*1920  480dpi   1dp=3px                         144px
+
+
+首先理解  dpi（像素密度）的含义  ：  每英寸距离的像素个数。   160 dpi 就表示 每英寸有 160px
+         而dp 是由 dpi 更小转化来的， 可以代表 实际肉眼视觉大小。 eg: 在像素点一样大的手机上，不管什么分辨率手机 100dp 视觉都是一样大小。
+	 dp 具体计算  1dp = density*1 px 
+	 
+所有的安卓机子  都有其特定的 屏幕参数：
+           分辨率：eg:1280*720
+	   density: 2.0      densityDpi: 320
+	   xdpi: 268.941    ydpi:268.694
+  其中densityDpi 就是其像素密度 dpi.    density就是其 dp 与px 的比值了。
+  一个手机 首先 了解其分辨率，然后了解其densityDpi (dpi) 就可以判断出会调用 mdpi\hdpi\xhdpi\xxhdpi\xxhdpi 哪个资源文件了。
+  再根据 density 的大小 就可以算出 代码中使用dp 数值 实际是多大px 了。
+  
+  mdpi\hdpi\xhdpi\xxhdpi\xxhdpi 这几个文件是根据dpi对应标准匹配的：
+  mdpi     对应   160dpi  
+  hdpi     对应   240dpi
+  xhdpi    对应   320dpi
+  xxhdpi   对应   480dpi
+而当我们项目中没有再创建其他特殊尺寸/分辨率匹配资源 时，  我们的代码匹配会找最接近的dpi 那个文件夹匹配。
+eg:  densityDpi=330 时 配置 xhdpi    densityDpi=280 时 也是配置 xhdpi 
+     densityDpi=320 时 最准确配置 xhdpi    densityDpi=480 时 也是配置 xxhdpi 
+     
+     注意虽然 dpi 根据就近原则使用了 对应的 匹配资源，但 dp 还是要实际计算 dp * density = px
+  
+
+最后根据 手机厂商的 习惯 一般手机情况 大概可能常出现的情况（只是可能，且只适用于手机）
+drawable-ldpi  代表120dpi       常被适配于手机分辨率320*240（因为很可能像素密度就是120dpi,或接近这个密度）   
+drawable-mdpi  代表160dpi       常被适配于手机分辨率480*320（因为很可能像素密度就是160dpi,或接近这个密度） 
+drawable-hdpi  代表240dpi       常被适配于手机分辨率480*800（因为很可能像素密度就是240dpi,或接近这个密度）             
+drawable-xhdpi  代表320dpi      常被适配于手机分辨率720*1280（因为很可能像素密度就是320dpi,或接近这个密度）
+drawable-xxhdpi  代表480dpi     常被适配于手机分辨率1080*1920（因为很可能像素密度就是480dpi,或接近这个密度）    
 drawable-xxxhdpi 1080+
+
+如果手机的像素密度如下：（只是可能，且只适用于手机）
+120dpi   那么denisity很可能为 0.75 或接近    1dp = density*1 px   0.75*1 = 0.75px
+160dpi   那么denisity很可能为 1   或接近     1dp = density*1 px   1*1 = 1px
+240dpi   那么denisity很可能为 1.5 或接近     1dp = density*1 px   1.5*1 = 1.5px
+320dpi   那么denisity很可能为 2  或接近      1dp = density*1 px   2*1 = 2px
+480dpi   那么denisity很可能为 3  或接近      1dp = density*1 px   3*1 = 3px
 
 图标栏宽度48dp  图标大小  xh-32px  xxh-48px
 间距：8dp-10dp-16dp-32dp
