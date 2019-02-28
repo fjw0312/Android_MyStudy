@@ -53,6 +53,8 @@ drawable-xxxhdpi 1080+
 320dpi   那么denisity很可能为 2  或接近      1dp = density*1 px   2*1 = 2px
 480dpi   那么denisity很可能为 3  或接近      1dp = density*1 px   3*1 = 3px
 
+由以上的厂商的2种可能习惯，所以一般手机 宽度都在sw360dp 以内,所以这个条件可以限定判断出一些平板 宽屏的配置
+
 图标栏宽度48dp  图标大小  xh-32px  xxh-48px
 间距：8dp-10dp-16dp-32dp
 
