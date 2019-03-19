@@ -1,4 +1,4 @@
-��ý�壺
+多媒体：
 
 Mediaplayer 
 soundPool
@@ -6,31 +6,104 @@ VideoView
 surfaceView
 MediaRecorder
 Camera
+AudioTrack
 
 ------------------------MediaPlayer----------------------------
-�����ڲ�����Ƶ����Ƶ(��ҪsurfaceView���)��
-ʹ�ã�
-1����ȡMediaPlayerʵ��
-   ����ֱ��new      MediaPlayer media = new MediaPlayer();
-  ��ʹ��create      MediaPlayer media = MediaPlayer.create(this, R.raw.test);
-                     //Ҳ���������ò�����ԴsetDataSource�ˡ�
+适用于播放音频、视频(需要surfaceView配合)。
+使用：
+1）获取MediaPlayer实例
+   可以直接new      MediaPlayer media = new MediaPlayer();
+  或使用create      MediaPlayer media = MediaPlayer.create(this, R.raw.test);
+                     //也不再用设置播放资源setDataSource了。
 
-2�����ò����ļ�
-  �ļ���Դһ����3�ַ�ʽ
-  a.Ӧ�����Դ�resource��Դ��mediaPlayer.create(this, R.raw.test);
-  b.ϵͳ�ļ���Դ���ţ�      media.setDataSource("/mnt/sdcard/test.mp3");
-  c.�����ϵ���Դý�壺      media.setDataSource("http://www.citynorth.cn/music/confucius.mp3");
-  // media.setDataSource������������4�ַ�ʽ��String path\ File fd \ contxt&Uri \ File&long&long
+2）设置播放文件
+  文件来源一般有3种方式
+  a.应用内自带resource资源：mediaPlayer.create(this, R.raw.test);
+  b.系统文件资源播放：      media.setDataSource("/mnt/sdcard/test.mp3");
+  c.网络上的资源媒体：      media.setDataSource("http://www.citynorth.cn/music/confucius.mp3");
+  // media.setDataSource（参数）共有4种方式：String path\ File fd \ contxt&Uri \ File&long&long
 
-3������������Ҫ���Ʒ���
-  1.perpare() �� prepareAsync() �ṩͬ�����첽 ��ʽ�ò���������׼������׶Ρ�
-    ע�⣬���MediaPlayer ��create�����ľͲ���Ҫperpare()����Ϊ����ʱ�����˻��塣
-  2.start()  ������������
-  3.pause() \ stop() ��ͣ ��ֹͣ���š�
-  4.seekTo() ��λ����,�÷���Ϊ�첽���������ز���ζ��λ��ɣ���
-             Ҫ������λ��ɻᴥ��OnSeekComplete.onSeekComplete();
-  5.release() �ͷŲ�����ռ�õ���Դ
-  6.reset()  ����ʹ��������Error״̬�лָ�������
+3）播放器的主要控制方法
+  1.perpare() 和 prepareAsync() 提供同步和异步 方式让播放器进入准备缓冲阶段。
+    注意，如果MediaPlayer 是create创建的就不需要perpare()，因为创建时已做了缓冲。
+  2.start()  真正启动播放
+  3.pause() \ stop() 暂停 和停止播放。
+  4.seekTo() 定位播放,该方法为异步（方法返回不意味定位完成），
+             要真正定位完成会触发OnSeekComplete.onSeekComplete();
+  5.release() 释放播放器占用的资源
+  6.reset()  可以使播放器从Error状态中恢复过来。
 
-4�����ò���������
+4）设置播放器监听
    setOnCompletionListener()  \   setOnErrorListener();
+   
+   
+   -------------------------------------------------------AudioTrack------------------------------------
+    private AudioTrack maudioTrack;
+    private int mBufferSizeInBytes;
+    //音频采样率 (MediaRecoder的采样率通常是8000Hz AAC的通常是44100Hz.设置采样率为44100目前为常用的采样率，官方文档表示这个值可以兼容所有的设置）
+    private static final int mSampleRateInHz = 44100;    //声道  //  目前44100Hz是唯一可以保证兼容所有Android手机的采样率。
+    private static final int mChannelConfig = AudioFormat.CHANNEL_CONFIGURATION_MONO; //单声道  //通道数的配置 CHANNEL_IN_MONO（单通道） CHANNEL_IN_STEREO（双通道）
+    //数据格式  (指定采样的数据的格式和每次采样的大小)    //指定音频量化位数 ,在AudioFormaat类中指定了以下各种可能的常量。通常我们选择ENCODING_PCM_16BIT和ENCODING_PCM_8BIT PCM代表的是脉冲编码调制，它实际上是原始音频样本。    //因此可以设置每个样本的分辨率为16位或者8位，16位将占用更多的空间和处理能力,表示的音频也更加接近真实。
+    private static final int mAudioFormat = AudioFormat.ENCODING_PCM_16BIT;
+
+    private static final String mFileName = "/mnt/sdcard/fjw/pp2.mp3";
+
+    public void playPCM_STREAM() throws FileNotFoundException {
+        if (maudioTrack != null) {
+            maudioTrack.stop();
+            maudioTrack.release();
+            maudioTrack = null;
+        }
+     //先估算最小缓冲区大小          //它配置的是 AudioRecord 内部的音频缓冲区的大小  int size = 采样率 x 位宽 x 采样时间 x 通道数
+        mBufferSizeInBytes = AudioRecord.getMinBufferSize(mSampleRateInHz, mChannelConfig, mAudioFormat);
+    //创建AudioTrack
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            maudioTrack = new AudioTrack(
+                    new AudioAttributes.Builder()
+                            .setUsage(AudioAttributes.USAGE_MEDIA)
+                            .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
+                            .build(),
+                    new AudioFormat.Builder()
+                            .setSampleRate(mSampleRateInHz)
+                            .setEncoding(mAudioFormat)
+                            .setChannelMask(mChannelConfig)
+                            .build(),
+                    mBufferSizeInBytes,
+                    AudioTrack.MODE_STREAM, AudioManager.AUDIO_SESSION_ID_GENERATE
+            );
+        }else{
+            maudioTrack = new AudioTrack(AudioManager.STREAM_MUSIC, mSampleRateInHz, mChannelConfig, mAudioFormat,
+                                           mBufferSizeInBytes, AudioTrack.MODE_STREAM);
+        }
+        // 先打开播放
+        maudioTrack.play(); //这个模式需要先play
+
+        File file = new File(mFileName); //原始pcm文件
+        final FileInputStream fileInputStream;
+        if (file.exists()) {
+            fileInputStream = new FileInputStream(file);
+            new Thread() {
+                @Override
+                public void run() {
+                    try {
+                        byte[] buffer = new byte[mBufferSizeInBytes];
+                        while (fileInputStream.available() > 0) {
+                            int readCount = fileInputStream.read(buffer); //一次次的读取
+                            //检测错误就跳过
+                            if (readCount == AudioTrack.ERROR_INVALID_OPERATION || readCount == AudioTrack.ERROR_BAD_VALUE) {
+                                continue;
+                            }
+                            if (readCount != -1 && readCount != 0) {
+                                //可以在这个位置用play()
+                                //输出音频数据
+                                maudioTrack.write(buffer, 0, readCount); //一次次的write输出播放
+                            }
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    Log.i("TAG", "STREAM模式播放完成");
+                }
+            }.start();
+        }
+    }
