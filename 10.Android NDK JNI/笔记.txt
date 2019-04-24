@@ -1,13 +1,71 @@
-NDK£º
-ÏÂÔØ¹¤¾ßÁ´£ºandroid-ndk-r8b-linux-x86.tar.bz2
+NDKï¼š
+ä¸‹è½½å·¥å…·é“¾ï¼šandroid-ndk-r8b-linux-x86.tar.bz2
 
-1.ÅäÖÃJNI Éú³ÉandroidÏîÄ¿µÄso
-ĞèÒª½«android-ndk-r8b-linux-x86.tar.bz2 ½âÑ¹ºóÅäÖÃndk-build »·¾³
+1.é…ç½®JNI ç”Ÿæˆandroidé¡¹ç›®çš„so
+éœ€è¦å°†android-ndk-r8b-linux-x86.tar.bz2 è§£å‹åé…ç½®ndk-build ç¯å¢ƒ
 eg:$PATH=/usr/fangCC/android-ndk-r8b/ndk-build:$PATH
 
-2.ÅäÖÃandroid ±ê×¼µÄC/C++±àÒëÁ´  ±àÒëC/C++Ó¦ÓÃ³ÌĞò
-  Ê¹ÓÃandroid-ndk-r8b-linux-x86.tar.bz2 ½âÑ¹ºó½øÈë/build/tools/ÏÂ£¬Ö´ĞĞÎÄ¼şÏÂµÄ
-  make-standalone-toolchain.sh ½Å±¾£¬ĞèÒª×·¼ÓÒ»Ğ©²ÎÊı£¨¾ßÌå¼Ó--help²é¿´£©
-  »áÉú³Éandroid ±ê×¼±àÒëÁ´ÓÚ/tmp/ndk
-  ÔÙ½«Éú³ÉµÄ±àÒëÁ´½âÑ¹£¬ÅäÖÃ»·¾³¼´¿ÉÊ¹ÓÃarm-linux-androideabi-gccµÈ±àÒë
+2.é…ç½®android æ ‡å‡†çš„C/C++ç¼–è¯‘é“¾  ç¼–è¯‘C/C++åº”ç”¨ç¨‹åº
+  ä½¿ç”¨android-ndk-r8b-linux-x86.tar.bz2 è§£å‹åè¿›å…¥/build/tools/ä¸‹ï¼Œæ‰§è¡Œæ–‡ä»¶ä¸‹çš„
+  make-standalone-toolchain.sh è„šæœ¬ï¼Œéœ€è¦è¿½åŠ ä¸€äº›å‚æ•°ï¼ˆå…·ä½“åŠ --helpæŸ¥çœ‹ï¼‰
+  ä¼šç”Ÿæˆandroid æ ‡å‡†ç¼–è¯‘é“¾äº/tmp/ndk
+  å†å°†ç”Ÿæˆçš„ç¼–è¯‘é“¾è§£å‹ï¼Œé…ç½®ç¯å¢ƒå³å¯ä½¿ç”¨arm-linux-androideabi-gccç­‰ç¼–è¯‘
   
+  
+  
+  +=================================================================JNICommon.h===============================================
+  #include <jni.h>
+/* Header for class jniExport */
+
+#ifndef _Included_JNIcommon
+#define _Included_JNIcommon
+
+
+//æ·»åŠ æ—¥å¿—æ‰“å° æ”¯æŒ
+#include<android/log.h>
+#define LOG_TAG "System.out" 
+#define LOGI(...)  __android_log_print(ANDROID_LOG_INFO,LOG_TAG, __VA_ARGS__) 
+#define LOGD(...)  __android_log_print(ANDROID_LOG_DEBUG,LOG_TAG, __VA_ARGS__) 
+#define LOGW(...)  __android_log_print(ANDROID_LOG_WARN,LOG_TAG, __VA_ARGS__) 
+#define LOGE(...)  __android_log_print(ANDROID_LOG_ERROR,LOG_TAG, __VA_ARGS__) 
+#define LOGF(...)  __android_log_print(ANDROID_LOG_FATAL,LOG_TAG, __VA_ARGS__)
+
+
+//å®šä¹‰ JNI æ¥å£ å˜é‡
+#define  JNI_void       JNIEXPORT void JNICALL
+#define  JNI_boolean    JNIEXPORT jboolean JNICALL
+#define  JNI_int        JNIEXPORT jint JNICALL
+#define  JNI_float      JNIEXPORT jfloat JNICALL
+#define  JNI_double     JNIEXPORT jdouble JNICALL
+#define  JNI_string     JNIEXPORT jstring JNICALL
+#define  JNI_bytes      JNIEXPORT jintArray JNICALL
+#define  JNI_strings    JNIEXPORT jobjectArray JNICALL
+
+//å®šä¹‰ java JNI çš„æ¥å£ ç±»ï¼š com.jni.Export 
+#define  JNI_Funtion_void(f)        JNIEXPORT void JNICALL Java_com_jni_Export_##f
+#define  JNI_Funtion_boolean(f)     JNIEXPORT jboolean JNICALL Java_com_jni_Export_##f
+#define  JNI_Funtion_int(f)         JNIEXPORT jint JNICALL Java_com_jni_Export_##f
+#define  JNI_Funtion_float(f)       JNIEXPORT jfloat JNICALL Java_com_jni_Export_##f
+#define  JNI_Funtion_double(f)      JNIEXPORT jdouble JNICALL Java_com_jni_Export_##f
+#define  JNI_Funtion_string(f)      JNIEXPORT string JNICALL Java_com_jni_Export_##f
+#define  JNI_Funtion_strings(f)     JNIEXPORT jobjectArray JNICALL Java_com_jni_Export_##f
+#define  JNI_Funtion_bytes(f)       JNIEXPORT jintArray JNICALL Java_com_jni_Export_##f
+
+/**
+* notice: ä½¿ç”¨demo:   JNI_Api_void(com_jni_MakeKey,Test01)(JNIEnv * env, jobject thiz);   æ³¨æ„ç±»åä¸èƒ½ç”¨å®å®šä¹‰   
+*/
+//å®šä¹‰ JNI å‡½æ•°æ¥å£å®å®šä¹‰  ç®€å•è°ƒç”¨  packageClass  javaå·¥ç¨‹çš„åŒ…å+ç±»å  functionName javaä»£ç å‡½æ•°å
+#define  JNI_Api_void(p,f)        JNIEXPORT void JNICALL Java_##p##_##f
+#define  JNI_Api_boolean(p,f)     JNIEXPORT jboolean JNICALL Java_##p##_##f
+#define  JNI_Api_int(p,f)         JNIEXPORT jint JNICALL Java_##p##_##f
+#define  JNI_Api_float(p,f)       JNIEXPORT jfloat JNICALL Java_##p##_##f
+#define  JNI_Api_double(p,f)      JNIEXPORT jdouble JNICALL Java_##p##_##f
+#define  JNI_Api_string(p,f)      JNIEXPORT string JNICALL Java_##p##_##f
+#define  JNI_Api_strings(p,f)     JNIEXPORT jobjectArray JNICALL Java_##p##_##f
+#define  JNI_Api_bytes(p,f)       JNIEXPORT jintArray JNICALL Java_##p##_##f
+
+//å®šä¹‰ JNI æ¥å£åŸºæœ¬å‚æ•°
+#define  ATTR_Context  JNIEnv *env, jobject thiz  
+
+
+#endif
