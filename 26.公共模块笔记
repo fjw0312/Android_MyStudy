@@ -12,3 +12,6 @@
           //相关 依赖库的版本
           supportVersion = '25.3.1'
         }
+  
+  二、创建公共 模块
+     1.在项目根目录 文件夹 新建->module->Android Library
