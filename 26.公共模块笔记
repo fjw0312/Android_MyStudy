@@ -1,0 +1,14 @@
+  android 公共模块 新项目 创建 基础笔记
+  
+  
+  一、gradle 定义 公用变量
+    1. 在最外层build.gradle 文件 定义变量：
+        eg:   //使用Gradle 全局变量命名
+      ext{
+          //版本号 相关
+          versionCode = 1;  //版本号
+          versionName  = '1.0.0'   //版本名称
+
+          //相关 依赖库的版本
+          supportVersion = '25.3.1'
+        }
