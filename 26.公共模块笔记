@@ -20,3 +20,5 @@
   二、创建公共 模块
      1.在项目根目录 文件夹 新建->module->Android Library
      2.让App 模块依赖common。
+     3.添加注解框架butterKnife.
+     4.创建基础activity & fragment
