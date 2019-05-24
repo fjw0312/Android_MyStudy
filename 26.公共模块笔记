@@ -15,3 +15,4 @@
   
   二、创建公共 模块
      1.在项目根目录 文件夹 新建->module->Android Library
+     2.让App 模块依赖common。
