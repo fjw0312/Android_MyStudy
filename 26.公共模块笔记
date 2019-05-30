@@ -22,3 +22,17 @@
      2.让App 模块依赖common。
      3.添加注解框架butterKnife.
      4.创建基础activity & fragment
+
+三 搭建基础配置
+   1.Application
+     a.配置bugly 奔溃上报
+     b.配置bugly 更新应用
+     c.配置bugly 热更新
+     
+     d.友盟 统计接入
+     e.友盟 分享接入
+     f.友盟 第三方登录
+     g.友盟 推送接入
+     
+     h.个推  推送接入
+   
