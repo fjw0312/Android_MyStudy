@@ -1,74 +1,74 @@
-
+常用第三方接入平台;https://blog.csdn.net/axi295309066/article/details/52901991
 
 1. react-native 
-����� Facebook �� React.js Conf 2015 ������Ƴ��Ļ��� JavaScript �Ŀ�Դ��� React Native, 
-�ÿ�ܽ���� Web Ӧ�ú� Native Ӧ�õ�����, ����ʹ�� JavaScript ������ iOS �� Android ԭ��Ӧ�� 
+这个是 Facebook 在 React.js Conf 2015 大会上推出的基于 JavaScript 的开源框架 React Native, 
+该框架结合了 Web 应用和 Native 应用的优势, 可以使用 JavaScript 来开发 iOS 和 Android 原生应用 
 
 2.Android-Universal-Image-Loader 
-ImageLoader �����翪Դ�� Android ͼƬ�����, ǿ��Ļ������, 
-���ڱ��㷺 Android Ӧ��ʹ��, ������Ȼ�кܶ� Android ��������ʹ�� 
+ImageLoader 是最早开源的 Android 图片缓存库, 强大的缓存机制, 
+早期被广泛 Android 应用使用, 至今仍然有很多 Android 开发者在使用 
 
 3. RxJava 
-RxJava ��һ���� Java VM ��ʹ�ÿɹ۲������������첽�ġ������¼��ĳ���Ŀ�, 
-����˵������һ��ʵ���첽�����Ŀ�, RxJava ���ŵ�����һ���� ����ࡱ, 
-ʹ��������������߼��ж�ô����, ����Ȼ�ܹ����ּ���׶� 
+RxJava 是一个在 Java VM 上使用可观测的序列来组成异步的、基于事件的程序的库, 
+简单来说它就是一个实现异步操作的库, RxJava 的优点在于一个词 “简洁”, 
+使用它就算你程序逻辑有多么复杂, 它依然能够保持简洁易懂 
 
 4. retrofit 
-Retrofit �� Square ��˾��Ʒ�� HTTP �����, 
-ͬʱ�� Square �����翪Դ��Ŀ֮һ, Retrofit ��Ŀǰ Android �����е� Http Client ��֮һ, 
-Ŀǰ�汾�� Retrofit2.0 Beta4, Խ��Խ�� Android �����߿�ʼʹ������������ 
+Retrofit 是 Square 公司出品的 HTTP 请求库, 
+同时是 Square 是最早开源项目之一, Retrofit 是目前 Android 最流行的 Http Client 库之一, 
+目前版本是 Retrofit2.0 Beta4, 越来越多 Android 开发者开始使用这个请求库了 
 
 5. okhttp 
-OKHttp �� Square ��˾��Ʒ�� HTTP ��һ�������, 
-Google ���Ƽ�����ʹ�� HttpClient, ���� HttpURLConnection ʵ����̫������, 
-��˺ܶ���ʹ���� OkHttp �����������, ��˵ Android4.4 ��Դ���п��Կ��� HttpURLConnection 
-�Ѿ��滻�� OkHttp ʵ���� 
+OKHttp 是 Square 公司出品的 HTTP 另一个请求库, 
+Google 不推荐人们使用 HttpClient, 可是 HttpURLConnection 实在是太难用了, 
+因此很多人使用了 OkHttp 来解决这问题, 据说 Android4.4 的源码中可以看到 HttpURLConnection 
+已经替换成 OkHttp 实现呢 
 
 7. picasso 
-Picasso �� Square ��˾��Ʒ��һ��ͼƬ�����, �������� JakeWharton ���� 
+Picasso 是 Square 公司出品的一款图片缓存库, 主导者是 JakeWharton 大神 
 
 8. android-best-practices 
-Android �������ʵ��, ���������ܵľ��鶼�������� Futurice ��˾ Android ������, 
-���������� Android �����淶���ܹ������ּ���, �Լ�ʹ��һЩ�����ڿ��ٿ�����ع��ߵȵ�, �ǳ��ʺ�����ȥѧϰ 
+Android 开发最佳实践, 里面所介绍的经验都是来自于 Futurice 公司 Android 开发者, 
+介绍内容有 Android 开发规范、架构、布局技巧, 以及使用一些有助于快速开发相关工具等等, 非常适合新手去学习 
 
 9. EventBus 
-EventBus �� Android �¼���������, ʹ����������� Android BroadCast, BroadCastReceiver, 
-Handler �� Activity, Fragment, Service, �߳�֮�䴫����Ϣ, �������¼������߼� 
+EventBus 是 Android 事件管理总线, 使用它可以替带 Android BroadCast, BroadCastReceiver, 
+Handler 在 Activity, Fragment, Service, 线程之间传递消息, 大大简化了事件传递逻辑 
 
 10. android-async-http 
-Android-Async-Http �� Android һ�������첽�����, 
-ר�Ŷ� Android �� Apache �� HttpClient �����Ϲ������첽 http ����, 
-�ÿ��кܶ�����, ����: ��� size С, ֧���ļ��ϴ�����ʹ�õ�������֧��, �ڲ�ʹ���̳߳�����������, �ȵ� 
+Android-Async-Http 是 Android 一款老牌异步请求库, 
+专门对 Android 在 Apache 的 HttpClient 基础上构建的异步 http 连接, 
+该库有很多特征, 例如: 库的 size 小, 支持文件上传不需使用第三方库支持, 内部使用线程池来处理并发, 等等 
 
 11. fresco 
-Fresco �� FaceBook ��˾��Ʒ��һ��ͼƬ�����, Fresco ��һ��ǿ���ͼƬ�������, 
-֧�ּ��� Gif ͼ�� WebP ��ʽ, ֧�� Android2.3(API level 9) ��������ϵͳ, 
-Fresco ������� Image pipeline �� Drawees ����ģ���ʩ��ְ, ʹ��ͼƬ�������س���, 
-��֪������ image pipeline �� Drawees �й�����������, ���Ե����ٷ�ƽ̨������ 
+Fresco 是 FaceBook 公司出品的一款图片缓存库, Fresco 是一个强大的图片加载组件, 
+支持加载 Gif 图和 WebP 格式, 支持 Android2.3(API level 9) 及其以上系统, 
+Fresco 中设计了 Image pipeline 和 Drawees 两个模块各施其职, 使得图片完美加载出来, 
+想知道更多 image pipeline 和 Drawees 有关于它的特性, 可以到它官方平台看介绍 
 
 12. zxing 
-ZXing �Ƕ�ά���������������Ŀ�Դ��Ŀ, ���ṩ�˶��ƽ̨�Ķ�ά��/������ɨ��������, 
-ӵ��ɨ���, ʶ���ʸ�, ʹ�ü򵥵��ص� 
+ZXing 是二维码领域中名气最大的开源项目, 它提供了多个平台的二维码/条形码扫描解决方案, 
+拥有扫描快, 识别率高, 使用简单等特点 
 
 13. leakcanary 
-LeakCanary �� Square ��˾����һ�����ڴ�й¶����, 
-�ù����ܰ������ڿ����׶η���ļ����ڴ�й¶������, ʹ�������ǳ��򵥷��� 
+LeakCanary 是 Square 公司出的一款检测内存泄露工具, 
+该工具能帮助你在开发阶段方便的检测出内存泄露的问题, 使用起来非常简单方便 
 
 14. butterknife 
-�� JakeWharton ���񿪷�������, ButterKnife �� View ע����, 
-ʹ����Ϊ�˼�д�ܶ� findViewById ����, ͬʱ��֧�� View ��һЩ�¼��������� 
+由 JakeWharton 大神开发出来的, ButterKnife 是 View 注入框架, 
+使用它为了简写很多 findViewById 代码, 同时还支持 View 的一些事件处理函数 
 
 15. MPAndroidChart 
-MPAndroidChart ��һ��ǿ��� Android ͼ����, ֧�ָ��ָ���ͼ����ʾ, 
-���뵽��ͼ����ʽ���Ｘ������, ͼ����֧��ѡ��, �Ϸź����Ŷ���Ч�� 
+MPAndroidChart 是一款强大的 Android 图表库, 支持各种各样图表显示, 
+能想到的图表样式这里几乎都有, 图表还支持选择, 拖放和缩放动画效果 
 
 
 
 
 
-һЩ�ſ��ܣ�http://blog.csdn.net/fancylovejava/article/details/45787729
-����ķ��࿪Դ���ӣ�http://www.cnblogs.com/yangguangfu/p/4429355.html
-�����ܣ�https://github.com/BolexLiu/DevNote
+一些炫酷框架：http://blog.csdn.net/fancylovejava/article/details/45787729
+优秀的分类开源帖子：http://www.cnblogs.com/yangguangfu/p/4429355.html
+优秀框架：https://github.com/BolexLiu/DevNote
 http://blog.csdn.net/tyk9999tyk/article/details/55050002
 http://www.cnblogs.com/dubo-/p/5649198.html
 http://www.cnblogs.com/yangguangcheng/p/4895305.html
