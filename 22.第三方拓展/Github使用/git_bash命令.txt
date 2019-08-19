@@ -1,96 +1,107 @@
 
----------------------�ڱ���git�ֵĲ��� ����-------------------
-1.��ʼ�����ؽ����ֿ�---����.git�ļ��������ֿ⣩
+---------------------在本地git仓的操作 命令-------------------
+1.初始化本地建立仓库---生成.git文件（管理仓库）
 git init
 
-2.�޸����ӱ��زֿ�Ĺ����������ļ��в��������ӡ��޸��ļ���
+2.修改添加本地仓库的工作区（对文件夹操作，增加、修改文件）
 
-3.���޸��ļ����������ֿ⣩���ӵ��ݻ���
+3.将修改文件（或整个仓库）添加到暂缓区
 git add "file"   
-����git add .  �����ύ�����ļ�
+或者git add .  代表提交所有文件
 
-4.���������ύ�����زֿ�
-git commit -m "����˵��"
+4.将缓冲区提交到本地仓库
+git commit -m "描述说明"
 
-5.�鿴 �����ļ����޸�״̬
+5.查看 本地文件与修改状态
 git status
-6.�鿴 �����ļ��޸����� 
+6.查看 本地文件修改内容 
 git diff
-7.�鿴��ʷ�ύ��¼
+7.查看历史提交记录
 git log
 
-8.�������ļ� �ص��ϸ��ύ״̬
-git reset --hard HEAD^     //���� git reset --hard �汾�ţ�git log���Գ�����
+8.将本地文件 回到上个提交状态
+git reset --hard HEAD^     //或者 git reset --hard 版本号（git log可以出来）
 
----------���Բ���Զ���ύ���Լ��ڱ�����--------------
-5.�����زֿ�master��֧�ύ��Զ�ֿ̲�gitHub
+---------可以不需远程提交，自己在本地玩--------------
+5.将本地仓库master分支提交到远程仓库gitHub
 git push origin master  
 
-6.�鿴���زֿ��ύ����־����
+6.查看本地仓库提交的日志更新
 git log
-7.���Բ鿴���زֿ��״̬
+7.可以查看本地仓库的状态
 git status
-8.�鿴�����ļ����ݴ����Ĳ���(�鿴��֮ǰ�ύ���޸���ʲô)
+8.查看本地文件与暂存区的差异(查看与之前提交的修改了什么)
 git diff
-���Ҫ�鿴�������޸ĵ������뱾�زֿ�Ĳ���
+如果要查看工作区修改的内容与本地仓库的差异
 git diff HEAD~n
-9.�������������޸�/�ָ�������Ϊ������������
+9.撤销工作区的修改/恢复（覆盖为）缓冲区内容
 git checkout --<file>
-10.�����ݴ������ύ����
+10.撤销暂存区的提交内容
 git reset HEAD <file>
-11.�����ֿ�ĸ���
+11.撤销仓库的更新
 git rest HEAD^
-12.ɾ���ļ�
+12.删除文件
 git rm <file>
 -------------------------------------------
-13��¡Զ�ֿ̲�
+13克隆远程仓库
 git clone   <"url">
 
-14.���±��زֿ���Զ�ֿ̲�һ��
+notice:出现远程仓库太大下载clone 不下来时，可采用的方式。
+  1.先浅层克隆主分支：
+     git clone --depth 1  http:***.git
+  2.再连接所需要的远程分支 (remote_branch_name)
+     git remote set-branches origin remote_branch_name
+     git fetch --depth 1 origin remote_branch_name
+  3.查看连接到的远程分支是否包含所要的分支（remote_branch_name） 
+     git branch -r
+   4.克隆远程分支到新建本地分支
+     git checkout -b local_branch_name origin/remote_branch_name
+
+14.更新本地仓库与远程仓库一致
 git pull
 -----------------------------------------------------------------
 
 
 
-����ʵ��ʹ�ð�����
-һ����¡����gitHub�ϵĲֿ⣬�����أ��޸ĺ����ϴ����£�
-1.��һ���հ��ļ����£���¡Զ�ֿ̲⣺
+个人实际使用案例：
+一、克隆现有gitHub上的仓库，到本地，修改后在上传更新：
+1.在一个空白文件夹下，克隆远程仓库：
 git clone https://github.com/fjw0312/android-app-linux-server.git
-2.����ֿ��ļ���cd  ./dir  �Ըù������ļ��޸ġ�
-3.�ύ�ݻ�����git add .
-4.�ύ�����زֿ⣺git commit -m "�ύ˵��"
-5.�ύ��Զ�ֿ̲⣺git push origin master
+2.进入仓库文件：cd  ./dir  对该工作区文件修改。
+3.提交暂缓区：git add .
+4.提交到本地仓库：git commit -m "提交说明"
+5.提交到远程仓库：git push origin master
 
-6.�������Զ�ֿ̲���£�����push ǰִ�и��£�git pull    ��git commit�� git pushǰ��
-  //���زֺͱ��ع����ļ���û�޸�����£�������£�ΪԶ�̲����ݣ�
-   ������������ļ����޸� 
-  1.�����Զ�̲��뱾�زֲ�һ���������޸����ύ���ز�orԶ�ֽ̲ϱ��ز����޸ģ���Ҫ��ͻ����
-  2.������زֺ�Զ�̲�һ���������޸�û�����ǡ�
-7.���Զ�˲ֿ��и����ˣ�Ҫ���±��زֿ�͹�������git pull  ���ںϲ���git merge
-8.����������޸�Ҫ�ָ����������ݣ�git checkout
-9.�鿴��֧��� git branch
+6.如果担心远程仓库更新，可以push 前执行更新：git pull    （git commit后 git push前）
+  //本地仓和本地工作文件（没修改情况下）都会更新（为远程仓内容）
+   但，如果本地文件有修改 
+  1.如果是远程仓与本地仓不一样（本地修改已提交本地仓or远程仓较本地仓有修改）需要冲突处理
+  2.如果本地仓和远程仓一样。本地修改没被覆盖。
+7.如果远端仓库有更新了，要更新本地仓库和工作区：git pull  后在合并：git merge
+8.如果工作区修改要恢复缓冲区内容：git checkout
+9.查看分支情况 git branch
 --------------------------------------------------------------
-����Ƶ�����޸ĺͶ���Э�������鳣������֧���в������޸�������л�������֧��
-1.������֧��
-git checkout -b dev (�൱��2�����git branch dev ; git checkout dev)
-2.�鿴��ǰ��֧�������ڵ�ǰ��֧�����޸���
+由于频繁的修改和多人协作，建议常建立分支进行操作，修改完后再切换回主分支。
+1.建立分支：
+git checkout -b dev (相当于2条命令：git branch dev ; git checkout dev)
+2.查看当前分支，可以在当前分支随意修改了
 git branch
-3.�л�������֧
+3.切换回主分支
 git checkout master 
-Ȼ����ϲ�ǰgit pull ����һ�¡�
-4.�ϲ���֧��������������dev��֧�ϲ�������֧master�ϡ�
+然后建议合并前git pull 更新一下。
+4.合并分支，将建立操作的dev分支合并到主分支master上。
 git merge dev
-5.����Զ���ύ�ˡ�
+5.可以远程提交了。
 
 ---------------------------
-1.�鿴Զ�̷�֧
+1.查看远程分支
 git remote -v
-2.��ȡԶ�����°汾������-�½�temp��֧
+2.获取远程最新版本到本地-新建temp分支
 git fetch origin matser:temp
-3.�Ƚϱ��ز������زֲ�ͬ
+3.比较本地仓与下载仓不同
 git diff temp
-4.�ϲ���֧ ע�����ڷ�֧
+4.合并分支 注意所在分支
 git merge temp
-5.ɾ����֧
+5.删除分支
 git branch -d temp
 
