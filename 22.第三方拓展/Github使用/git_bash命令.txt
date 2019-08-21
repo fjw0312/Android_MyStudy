@@ -111,4 +111,8 @@ git branch -d temp
  git add hexo-theme-matery/*
  
  7.忽略部分提交
+ 使用文件:  .gitignore 文件的方法
+ 忽略不生效时：
+ git rm -r --cached .
+ git add .
  https://www.cnblogs.com/zhangxiaoliu/p/6008038.html
