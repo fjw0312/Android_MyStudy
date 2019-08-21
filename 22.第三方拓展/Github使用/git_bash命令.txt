@@ -105,3 +105,7 @@ git merge temp
 5.删除分支
 git branch -d temp
 
+
+6.如果 代码模块有从别的仓库拿回来的（hexo-theme-matery），要提交到自己另外的仓库，提交不了-处理
+ git rm -rf --cached hexo-theme-matery
+ git add hexo-theme-matery/*
