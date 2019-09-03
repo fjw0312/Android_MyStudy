@@ -116,3 +116,26 @@ git branch -d temp
  git rm -r --cached .
  git add .
  https://www.cnblogs.com/zhangxiaoliu/p/6008038.html
+ 
+ 
+8.当想撤销中间某次提交时，强烈建议使用revert命令，而不是reset。 
+git reset –hard commit_id 虽然可以回退远程库，但是其要求pull最新代码的每个人的本地分支都要进行版本回退。这样就增加工作量了！
+
+正确的步骤：
+git revert commit_id
+//如果commit_id是merge节点的话,-m是指定具体哪个提交点
+git revert commit_id -m 1
+//接着就是解决冲突
+git add -A
+git commit -m ".."
+git revert commit_id -m 2
+//接着就是解决冲突
+git add -A
+git commit -m ".."
+git push
+
+其中git revert commit_id -m 数字是针对，merge提交点的操作。 
+如果是普通的提交点，不需要这么麻烦。
+————————————————
+版权声明：本文为CSDN博主「山鬼谣me」的原创文章，遵循 CC 4.0 BY-SA 版权协议，转载请附上原文出处链接及本声明。
+原文链接：https://blog.csdn.net/u013066244/article/details/79920012
