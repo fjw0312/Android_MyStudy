@@ -7,18 +7,18 @@ android 7.0    API-24
 android 7.1    API-25
 android 8.0    API-26
 
-×¢£ºeclipse¿ª·¢ÖĞ£¬ android6.0 android7.0 ĞèÒªJDK1.7 Ö§³Ö  android8.0 ĞèÒªJDK1.8Ö§³Ö¡£
+æ³¨ï¼šeclipseå¼€å‘ä¸­ï¼Œ android6.0 android7.0 éœ€è¦JDK1.7 æ”¯æŒ  android8.0 éœ€è¦JDK1.8æ”¯æŒã€‚
 
 
 
-androidÏµÍ³¼Ü¹¹·Ö²ã£º
-Ó¦ÓÃ²ã  app
-Ó¦ÓÃ¿ò¼Ü²ã  frameWork
-ÏµÍ³ÔËĞĞ¿â+ĞéÄâ»ú²ã  lib+Dalivk(Running Time)
-ÄÚºË²ã   linux kernel
+androidç³»ç»Ÿæ¶æ„åˆ†å±‚ï¼š
+åº”ç”¨å±‚  app
+åº”ç”¨æ¡†æ¶å±‚  frameWork
+ç³»ç»Ÿè¿è¡Œåº“+è™šæ‹Ÿæœºå±‚  lib+Dalivk(Running Time)
+å†…æ ¸å±‚   linux kernel
 
 
-androidÓ¦ÓÃËÄ´ó×é¼ş
+androidåº”ç”¨å››å¤§ç»„ä»¶
 Activity
 Service
 BroadcastReceiver
@@ -26,12 +26,15 @@ ContentProvider
 
 
 
-Ô´Âë²é¿´£º
+æºç æŸ¥çœ‹ï¼š
 http://androidxref.com/
 
-»òÕß https://github.com/android
+æˆ–è€… https://github.com/android
 
-»òÕß ÏÂÔØandroid sdk Ô´Âë¡£
+æˆ–è€… ä¸‹è½½android sdk æºç ã€‚
 
-android sdk apiÖĞÎÄÎÄµµ£º
+android sdk apiä¸­æ–‡æ–‡æ¡£ï¼š
 http://www.zhdoc.net/android/reference/android/widget/Switch.html
+
+
+gradleçš„ä½¿ç”¨ï¼šhttps://blog.csdn.net/u013651026/article/details/78764246
