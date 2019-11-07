@@ -38,3 +38,12 @@ http://www.zhdoc.net/android/reference/android/widget/Switch.html
 
 
 gradle的使用：https://blog.csdn.net/u013651026/article/details/78764246
+
+
+使用无线wifi adb 调试。
+1.首先确认 Pc 是有安装adb 的。用usb连接 adb shell 确认。
+2.保证pc 和手机是 同个网络 网段。用pc ping 手机Ip ok
+3.先adb disconnect **.**.**.** (手机Ip)  //或者adb usb 保证清除连接状态
+4.在手机usb 连接状态下 adb tcpip 5555 重启网络连接端口。 //保证端口不被使用
+5. adb connect **.**.**.** (手机Ip)   //adb wifi 正常能连接成功。不行 再重复几次以上步骤。
+3
