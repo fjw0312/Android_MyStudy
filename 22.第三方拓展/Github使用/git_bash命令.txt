@@ -58,7 +58,17 @@ notice:出现远程仓库太大下载clone 不下来时，可采用的方式。
      git checkout -b local_branch_name origin/remote_branch_name
 
 14.更新本地仓库与远程仓库一致
-git pull
+git pull   // or $git pull --rebase
+
+15.更新仓库 git pull --rebase 在更新远端代码的同时如果与本地代码产生冲突了，
+那么冲突的文件中就出现了需要手动合并的部分，而git pull --rebase不同的地方则是当有这些冲突存在时，
+git帮我们自动创建了一个新的分支，并且git告诉你接下来你要在这个新的分支上处理这个冲突.
+  a. git pull --rebase
+  b.出现冲突
+  c.解决冲突 git add .
+  d.git rebase --continue
+  e.git push
+
 -----------------------------------------------------------------
 
 
@@ -136,6 +146,4 @@ git push
 
 其中git revert commit_id -m 数字是针对，merge提交点的操作。 
 如果是普通的提交点，不需要这么麻烦。
-————————————————
-版权声明：本文为CSDN博主「山鬼谣me」的原创文章，遵循 CC 4.0 BY-SA 版权协议，转载请附上原文出处链接及本声明。
-原文链接：https://blog.csdn.net/u013066244/article/details/79920012
+
