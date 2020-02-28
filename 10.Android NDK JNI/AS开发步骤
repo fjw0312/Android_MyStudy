@@ -8,4 +8,10 @@ android studio NDK 开发步骤
   c.注意 编译时 先编译生成so,再编译调试整个App.
 
 二、新建/配置 编译工程
-  1.  main 下面增加了 cpp 目录，即放置 c/c++ 代码的地方   （Java目录并列）
+  1. 新建工程，新建时选择Native C++ 工程就可以 编译 开发了。
+  2. 在现有android工程上添加NDk功能
+     第一步，安装CMake/LLDB/NDK。
+     第二步，在项目中创建原生源文件。   (.main 下面增加了 cpp 目录，即放置 c/c++ 代码的地方   （Java目录并列）)
+     第三步，创建和编写CMake构建脚本CMakeLists.txt。
+     第四步，向Gradle注册构建请求
+     
