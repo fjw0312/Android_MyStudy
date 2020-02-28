@@ -3,9 +3,9 @@ android studio NDK 开发步骤
 
 一、准备配置
 1.Android studio配置直接支持NDK编译。
-  a. Settings->Android SDK->SDK Tools 确保下载NDK、CMake 包
+  a. Settings->Android SDK->SDK Tools 确保下载NDK、CMake LLDB----一种调试程序，Android Studio使用它来调试原生代码。
   b.Project Structure->Android NDK localtion配置本地正确NDK包路劲。eg:E:\app_soft\android_SDK\ndk-bundle
   c.注意 编译时 先编译生成so,再编译调试整个App.
 
 二、新建/配置 编译工程
-  
+  1.  main 下面增加了 cpp 目录，即放置 c/c++ 代码的地方   （Java目录并列）
