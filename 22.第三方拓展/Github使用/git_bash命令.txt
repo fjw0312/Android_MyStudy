@@ -103,6 +103,12 @@ git checkout master
 git merge dev
 5.可以远程提交了。
 
+6.创建本地新分支并拉去远程分支
+git checkout -b mater origin/mater
+如果不行：
+git fetch origin 远程分支名x:本地分支名x  （也会在本地新建分支，采用此种方法建立的本地分支不会和远程分支建立映射关系）
+git branch -u origin/分支名    （与远程分支建立连接）
+
 ---------------------------
 1.查看远程分支
 git remote -v
