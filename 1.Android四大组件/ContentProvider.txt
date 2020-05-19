@@ -1,20 +1,28 @@
-contentProvider �����ṩ��
+contentProvider 内容提供器
 
-Android�Ĵ����֮һ��
-��Ҫ����Ӧ�ó����ʵ�����ݹ������ܡ�һ�������ṩ�������� ��ӿڷ�ʽ��ʵ�����ݹ������ݰ�ȫ��
+Android四大组件之一：
+主要用于应用程序间实现数据共享功能。一套数据提供共享机制 或接口方式。实现数据共享数据安全。
 
-�Թ������ݵĲ�������Ҫ����ContentResolver.
-context.getContentResolver() ��ȡ�������ʵ����Ȼ����Խ���CRUD.  �����ݿ�SQLite����һ��
+对共享数据的操作，需要借助ContentResolver.
+context.getContentResolver() 获取到该类的实例。然后可以进行CRUD.  与数据库SQLite操作一样
 
-insert();  ---��Ҫ����ContentValue�ࡣ��.put("","");
+insert();  ---需要借助ContentValue类。再.put("","");
 delete();
 update();
-query();  --- ��Ҫ����Cursor�ࡣ��getString("");
+query();  --- 需要借助Cursor类。再getString("");
 
 onCreate()
 getType();
 
 
-�����ṩ��������ͨ��URI (2������ɣ�Ȩ��&·��)
-eg��content://com.example.app.provider/table1
-ʹ�ã�Uri uri = Uri.parse("content://com.example.app.provider/table1");
+内容提供器的索引通过URI (2部分组成：权限&路径)
+eg：content://com.example.app.provider/table1
+使用：Uri uri = Uri.parse("content://com.example.app.provider/table1");
+
+
+生命周期：
+AndroidManifest.xml 中注册的ContentProvider 的创建 生命周期特别早 在Application.attach()之后->ContentProvider.onCreate()->Application.onCreate()之前。  可考虑用于获取全局Content.
+ContentProvider 的生命周期默认在 Application onCreate() 之前，而且都是在主线程创建的。我们自定义的 ContentProvider 类的构造函数、静态代码块、onCreate 函数都尽量不要做耗时的操作，会拖慢启动速度。
+
+注意到 ContentProvider 加载和创建都是在主线程完成，并且还都是在应用启动过程完成，ContentProvider 的生命周期默认在 Application onCreate 之前。这也验证了文章开头为大家介绍的启动性能，在使用 ContentProvider 需要注意的“暗坑”，自定义 ContentProvider 类的构造函数、静态代码块、onCreate 函数都尽量不要做耗时的操作，会拖慢启动速度。
+
