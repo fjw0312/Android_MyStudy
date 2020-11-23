@@ -3,6 +3,7 @@
 一、JAVA 部分
  A类 学前基础
  https://blog.csdn.net/m0_37194191/article/details/87785045
+ https://zhuanlan.zhihu.com/p/64147696
  1.类的三大特性：继承、封装、多态。
  继承 ： 子类继承父类的属性和行为，并能根据自己的需求扩展出新的属性和行为，提高了代码的可复用性。
  封装 ： 隐藏了类的内部实现机制，只提供外部需要的方法和成员。
@@ -24,11 +25,222 @@
  重载：重新定义方法名相同，但参数不一样的方法。
  
  
+ 4.Serializable和Parcelable的区别
+ Serializable：Java序列化接口，在硬盘上读写，读写过程中有大量的临时变量生成，内部执行大量的I/O操作，效率低。
+ Parcelable：Android序列化接口，效率高，使用麻烦，在内存中读写，对象不能保存在磁盘中。
  
- B类 一般基础
+ 5.HashMap与HashTable的区别
+	a.HashMap不是线程安全的，效率高一些；HashTable是线程安全的
+	b.HashMap的key和value都可以是null值，HashTable不允许有null的键和值。
+	c.HashTable是继承自Dictionary类，而HashMap是继承自AbstractMap类，都实现了Map接口。
+	d.是否提供contains方法
+	e.两个遍历方式的内部实现不同
+    f.Hash值不同
+    g.内部实现使用的数组初始化和扩容方式不同
+	
+ 6.Java集合框架中有哪些类？都有什么特点？
+   可将Java集合框架大致分为Set、List、Queue和Map四种体系。
+	Set：代表无序、不可重复的集合，常见的如HashSet、TreeSet。
+	List：代表有序、可重复的集合，常见的如ArrayList、双向链表LinkedList、可变数组Vector
+	Map：代表具有映射关系的集合，常见的如HashMap、HashTable、LinkedHashMap、TreeMap
+	Queue：代表一种队列集合。 
  
- C类 应用提高
+ 7.ArrayList和LinkedList的区别
+	ArrayList的底层结构是数组，可用索引实现快速查找；是动态数组，相比于数组，容量可以实现动态增长。
+	LinkedList底层结构是链表，增删速度快；是一个双向循环链表，也可以被当做堆栈、队列或双端队列。
+	
+ 8. HashMap 中的 key若 Object类型， 则需实现哪些方法
+	hashCode和equals	
+	
+ 9. HashMap线程安全的解决方案
+	使用Collections.synchronizedMap()方法，该方法的实现方式是使用synchronized关键字
+	使用ConcurrentHashMap，性能比Collections.synchronizedMap()更好	
+	
+ 10.List和数组的互相转换/String转换成数组
+	String[] a = list.toArray(new String[size]));
+	List list = Arrays.asList(array);
+	char[] char = string.toCharArray();		
+
+  11.run和start的区别
+	run没有开辟新的栈空间，没有新线程，都是主线程在执行
+	start开辟了新的栈空间，在新的栈空间启动run()方法
+	
+  12. finally 语句一定会执行吗
+	在极特殊的情况下可能不执行
+	a.调用了System.exit()方法
+	b.JVM崩溃了	
+	
+  13. 抽象类和接口的区别
+	一个类只能继承单个类，但是可以实现多个接口
+	接口强调特定功能的实现，而抽象类强调所属关系
+	抽象类中的所有方法并不一定要是抽象的，你可以选择在抽象类中实现一些基本的方法。而接口要求所有的方法都必须是抽象的
+	
+  14.内存溢出和内存泄漏
+	内存溢出：指程序在申请内存时，没有足够的空间供其使用
+	内存泄漏：指程序分配出去的内存不再使用，无法进行回收	
+	
+ 15.sleep() 和 wait() 有什么区别?
+	1.这两个方法来自不同的类分别是，sleep来自Thread类，和wait来自Object类。
+	2.最主要是sleep方法没有释放锁，而wait方法释放了锁，使得其他线程可以使用同步控制块或者方法。sleep不出让系统资源；wait是进入线程等待池等待，出让系统资源，其他线程可以占用CPU。一般wait不会加时间限制，因为如果wait线程的运行资源不够，再出来也没用，要等待其他线程调用notify/notifyAll唤醒等待池中的所有线程，才会进入就绪队列等待OS分配系统资源。sleep(milliseconds)可以用时间指定使它自动唤醒过来，如果时间不到只能调用interrupt()强行打断。
+	3.wait，notify和notifyAll只能在同步控制方法或者同步控制块里面使用，而sleep可以在任何地方使用
+	4. Sleep需要捕获异常,而wait不需要
+	
+ 16.线程中wait，join，sleep，yield, notify，notifyall，synchronized，区别及联系
+	1).sleep()方法
+	在指定时间内让当前正在执行的线程暂停执行，但不会释放“锁标志”。不推荐使用。sleep()使当前线程进入阻塞状态，在指定时间内不会执行。
+	2).wait()方法
+	在其他线程调用对象的notify或notifyAll方法前，导致当前线程等待。线程会释放掉它所占有的“锁标志”，从而使别的线程有机会抢占该锁。
+	唤醒当前对象锁的等待线程使用notify或notifyAll方法,waite() 和notify()必须在synchronized函数或synchronized　block中进行调用。
+	yield方法暂停当前正在执行的线程对象。yield()只是使当前线程重新回到可执行状态，所以执行
+	3)yield()的线程有可能在进入到可执行状态后马上又被执行。yield()只能使同优先级或更高优先级的线程有执行的机会。
+	4).join方法
+	等待该线程终止。等待调用join方法的线程结束，再继续执行。如：t.join();//主要用于等待t线程运行结束，若无此句，main则会执行完毕，导致结果不可预测	
+		
+  17.Synchronized如何使用
+	Synchronized是Java的关键字，是一种同步锁，它可以修饰的对象有以下几种
+	修饰代码块：该代码块被称为同步代码块，作用的主要对象是调用这个代码块的对象
+	修饰方法：该方法称为同步方法，作用的主要对象是调用这个方法的对象
+	修饰静态方法：作用范围为整个静态方法，作用的主要对象为这个类的所有对象
+	修饰类：作用范围为Synchronized后面括号括起来的部分，作用的主要对象为这个类的所有对象	
+	
+  18.Synchronized和Lock的区别
+	相同点：Lock能完成Synchronized所实现的所有功能
+	不同点：
+	Synchronized是基于JVM的同步锁，JVM会帮我们自动释放锁。Lock是通过代码实现的，Lock要求我们手工释放，必须在finally语句中释放。
+	Lock锁的范围有局限性、块范围。Synchronized可以锁块、对象、类
+	Lock功能比Synchronized强大，可以通过tryLock方法在非阻塞线程的情况下拿到锁	
+	
+  19.多线程的等待唤醒主要方法
+	void notify()：唤醒在此对象监视器上等待的单个线程
+	void notifyAll()：唤醒在此对象监视器上等待的所有线程
+	void wait()：导致当前的线程等待，直到其他线程调用此对象的notify()方法或notifyAll()方法
+	void wait(long timeout)：导致当前的线程等待，直到其他线程调用此对象的notify()方法或notifyAll()方法，或者超过指定的时间量
+	void wait(long timeout, int nanos)：导致当前的线程等待，直到其他线程调用此对象的notify()方法或notifyAll()方法，或者其他某个线程中断当前线程，或者已超过某个实际时间量
+	 
+  20.什么是类加载器
+	ClassLoader是用来动态加载class文件到内存中
+	 
+  21.双亲委托模型（父委托加载机制）
+	当加载一个类时，首先会判断当前类是否已经被加载，如果被加载直接返回当前类加载器，如果没有被加载，则把机会让给父类，先让父类加载，
+	若是父类中不能加载，则会去找到Bootstrap加载器，
+	如果Bootstrap加载器加载失败，则会退回上层，自己通过findClass自己去加载对应的路径（这是孝顺型的，先想到父类，但是他们不是通过继承来实现的）
+
+  22.类加载过程
+	加载：将类的信息从文件中获取并且载入到JVM内存中
+	验证：检查读入的结构是否符合JVM规范的描述
+	准备：分配一个结构用来存储类信息
+	解析：把这个类的常量池的所有符号引用改变成直接引用
+	初始化：执行静态初始化程序、类构造器方法的过程
+	
+  23.类加载主要方法的区别	
+	findClass()：查找指定路径下的class文件
+	loadClass()：加载class字节码文件
+	defineClass()：将字节数组流转换成字节码
+	
+  24.http与https的区别
+	HTTP协议以明文方式发送内容，不提供任何方式的数据加密
+	HTTPS存在不同于HTTP的默认端口及一个加密/身份验证层（在HTTP与TCP之间）
+	HTTPS在HTTP的基础上加入了SSL协议，SSL依靠证书来验证服务器的身份，并为浏览器和服务器之间的通信加密。
+
+  25.WebSocket和Socket的区别
+	a.socket 其实并不是一个协议，而是为方便使用TCP、UDP而抽象出来的一层，是位于应用层和传输层之间的一组接口。
+	b.WebSocket则是一个典型的应用层协议。是TCP/ip协议的再封装。
+	c.websocket 是一个完整的应用层协议，有一套标准的api，相对sockect更灵活。
+	d.websocket是为了解决http单向传输。
+	e.WebSocket在建立握手时，数据是通过HTTP传输的。但是建立之后，在真正传输时候是不需要HTTP协议的。  
+	
+  26.Error和Exception有什么区别？
+	答：Error表示系统级的错误和程序不必处理的异常，是恢复不是不可能但很困难的情况下的一种严重问题；
+	比如内存溢出，不可能指望程序能处理这样的情况；
+	Exception表示需要捕捉或者需要程序进行处理的异常，是一种设计或实现问题；
+	也就是说，它表示如果程序运行正常，从不会发生的情况。	
+	
+  27.创建线程池有哪几种方式？
+	①. newFixedThreadPool(int nThreads)
+	创建一个固定长度的线程池，每当提交一个任务就创建一个线程，直到达到线程池的最大数量，这时线程规模将不再变化，当线程发生未预期的错误而结束时，线程池会补充一个新的线程。
+	②. newCachedThreadPool()
+	创建一个可缓存的线程池，如果线程池的规模超过了处理需求，将自动回收空闲线程，而当需求增加时，则可以自动添加新线程，线程池的规模不存在任何限制。
+	③. newSingleThreadExecutor()
+	这是一个单线程的Executor，它创建单个工作线程来执行任务，如果这个线程异常结束，会创建一个新的来替代它；它的特点是能确保依照任务在队列中的顺序来串行执行。
+	④. newScheduledThreadPool(int corePoolSize)
+	创建了一个固定长度的线程池，而且以延迟或定时的方式来执行任务，类似于Timer。
+	
+  28.线程池都有哪些状态？
+	线程池有5种状态：Running、ShutDown、Stop、Tidying、Terminated。
+	
+  29.创建线程有哪几种方式？
+	创建线程有三种方式：
+	继承 Thread 重写 run 方法；
+	实现 Runnable 接口；
+	实现 Callable 接口	
+	
+  30.线程有几种状态
+  	NEW 尚未启动
+	RUNNABLE 正在执行中
+	BLOCKED 阻塞的（被同步锁或者IO锁阻塞）
+	WAITING 永久等待状态
+	TIMED_WAITING 等待指定的时间重新被唤醒的状态
+	TERMINATED 执行完成	
+	
+  31.synchronized 和 volatile 的区别是什么？
+	volatile 是变量修饰符；synchronized 是修饰类、方法、代码段。
+	volatile 仅能实现变量的修改可见性，不能保证原子性；而 synchronized 则可以保证变量的修改可见性和原子性。
+	volatile 不会造成线程的阻塞；synchronized 可能会造成线程的阻塞。
+
+  32.synchronized 和 ReentrantLock 区别是什么？
+	主要区别如下：
+	ReentrantLock 使用起来比较灵活，但是必须有释放锁的配合动作；
+	ReentrantLock 必须手动获取与释放锁，而 synchronized 不需要手动释放和开启锁；
+	ReentrantLock 只适用于代码块锁，而 synchronized 可用于修饰方法、代码块等。 
+
+  33.简述 tcp 和 udp的区别？
+  tcp 和 udp 是 OSI 模型中的运输层中的协议。tcp 提供可靠的通信传输，而 udp 则常被用于让广播和细节控制交给应用的通信传输。
+  两者的区别大致如下：
+	tcp 面向连接，udp 面向非连接即发送数据前不需要建立链接；
+	tcp 提供可靠的服务（数据传输），udp 无法保证；
+	tcp 面向字节流，udp 面向报文；
+	tcp 数据传输慢，udp 数据传输快；
+	
+  34.Vector 与 Array 的区别
+	1）ArrayList在内存不够时默认是扩展50% + 1个，Vector是默认扩展1倍。
+	2）Vector属于线程安全级别的，但是大多数情况下不使用Vector，因为线程安全需要更大的系统开销。
+	
+  35.JVM如何加载一个类的过程，双亲委派模型中有哪些方法
+	类加载过程：加载、验证（验证阶段作用是保证Class文件的字节流包含的信息符合JVM规范，不会给JVM造成危害）、
+	准备（准备阶段为变量分配内存并设置类变量的初始化）、
+	解析（解析过程是将常量池内的符号引用替换成直接引用）、
+	初始化。
+	双亲委派模型中方法：双亲委派是指如果一个类收到了类加载的请求，不会自己先尝试加载，先找父类加载器去完成。
+	当顶层启动类加载器表示无法加载这个类的时候，子类才会尝试自己去加载。
+	当回到最开的发起者加载器还无法加载时，并不会向下找，而是抛出ClassNotFound异常。
+	
+  36.普通类和抽象类有哪些区别？
+	普通类不能包含抽象方法，抽象类可以包含抽象方法。
+	抽象类不能直接实例化，普通类可以直接实例化
+	
+  37.Iterator 怎么使用？有什么特点？
+	Java中的Iterator功能比较简单，并且只能单向移动：
+	(1) 使用方法iterator()要求容器返回一个Iterator。第一次调用Iterator的next()方法时，它返回序列的第一个元素。注意：iterator()方法是java.lang.Iterable接口,被Collection继承。
+	(2) 使用next()获得序列中的下一个元素。
+	(3) 使用hasNext()检查序列中是否还有元素。
+	(4) 使用remove()将迭代器新返回的元素删除。
+	Iterator是Java迭代器最简单的实现，为List设计的ListIterator具有更多的功能，它可以从两个方向遍历List，也可以从List中插入和删除元素。
+	
+  38.Iterator 和 ListIterator 有什么区别？
+	Iterator可用来遍历Set和List集合，但是ListIterator只能用来遍历List。 
+	Iterator对集合只能是前向遍历，ListIterator既可以前向也可以后向。 
+	ListIterator实现了Iterator接口，并包含其他的功能，比如：增加元素，替换元素，获取前一个和后一个元素的索引，等等。
+	 
+  39.线程安全在三个方面体现：
+	原子性：提供互斥访问，同一时刻只能有一个线程对数据进行操作，（atomic,synchronized）；
+	可见性：一个线程对主内存的修改可以及时地被其他线程看到，（synchronized,volatile）；
+	有序性：一个线程观察其他线程中的指令执行顺序，由于指令重排序，该观察结果一般杂乱无序，（happens-before原则）。
  
+  40.什么是类反射
+	 （1）Java反射机制的核心是在程序运行时动态加载类并获取类的详细信息，从而操作类或对象的属性和方法。本质是JVM得到class对象之后，再通过class对象进行反编译，
+	 从而获取t对象的各种信息。
+	（2）Java属于先编译再运行的语言，程序中对象的类型在编译期就确定下来了，而当程序在运行时可能需要动态加载某些类，这些类因为之前用不到，所以没有被加载到JVM。
+	通过反射，可以在运行时动态地创建对象并调用其属性，不需要提前在编译期知道运行的对象是谁。
  
  二、Android部分
  A类 学前基础
