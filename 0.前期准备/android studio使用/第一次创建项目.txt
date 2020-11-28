@@ -1,20 +1,27 @@
-µÚÒ»´Î´´½¨ÏîÄ¿Ê±£º
+ç¬¬ä¸€æ¬¡åˆ›å»ºé¡¹ç›®æ—¶ï¼š
 
 
-³öÏÖ´íÎó£ºGradle sync failed: Unable to tunnel through proxy. Proxy returns "HTTP/1.1 400 Bad Request"
-½â¾ö·½°¸ÊÇ£¬Ñ¡Ôñ±¾µØµÄGradle£º
-ÉèÖÃ£ºsettings->Build,Execution,Deploymnet->Gradle  Ñ¡Ôñ±¾µØGradleÂ·¾¢¼´¿É
+å‡ºç°é”™è¯¯ï¼šGradle sync failed: Unable to tunnel through proxy. Proxy returns "HTTP/1.1 400 Bad Request"
+è§£å†³æ–¹æ¡ˆæ˜¯ï¼Œé€‰æ‹©æœ¬åœ°çš„Gradleï¼š
+è®¾ç½®ï¼šsettings->Build,Execution,Deploymnet->Gradle  é€‰æ‹©æœ¬åœ°Gradleè·¯åŠ²å³å¯
 
 
-ÏÂÔØGradle£»http://downloads.gradle.org/distributions/gradle-3.3-all.zip
+ä¸‹è½½Gradleï¼›http://downloads.gradle.org/distributions/gradle-3.3-all.zip
 
 
 
-µ±Òªµ¼Èë±ğÈËµÄAndroid studio¹¤³ÌÊ±¡£
-1.ÏÈÉ¾³ı .gradle  .idea  build ÎÄ¼ş¼Ğ
-2.ĞŞ¸Ä ¸ùÄ¿Â¼ÏÂbuild.gradleÎÄ¼şÀïÃæµÄ gradle:2.2.2 Õâ¸ö±àºÅ£¨¸ÄÎª×Ô¼ºµÄgradle±àºÅ£©
-3.ĞŞ¸Ä gradle-wrapper.propertiesÎÄ¼şÀïÃæµÄgradle-3.3-all.zip Õâ¸ö±àºÅ£¨¸ÄÎª×Ô¼ºµÄgradle°æ±¾±àºÅ£©
-4. setting->gradle Ñ¡Ôñ±¾µØµÄgradle°ü¡£È»ºótry aync ¿´¿´ÄÜ±àÒëÃ´¡£
-5.Èç¹û´úÀí»¹ÓĞÎÊÌâĞŞ¸Ä¸ùÄ¿Â¼ÏÂgradle.propertiesÎÄ¼şÀïÃæµÄ org.gradle.jvmargs
-  ¿ÉÒÔĞŞ¸ÄÎªÕâ¾ä£ºorg.gradle.jvmargs=-Xmx512m -XX:MaxPermSize=512m
-6.Ê£ÏÂµÄ±àÒëandroid sdk°æ±¾ÎÊÌâÔÙĞŞ¸ÄÒ»ÏÂ¾Í¿ÉÒÔÁË¡£
+å½“è¦å¯¼å…¥åˆ«äººçš„Android studioå·¥ç¨‹æ—¶ã€‚
+1.å…ˆåˆ é™¤ .gradle  .idea  build æ–‡ä»¶å¤¹
+2.ä¿®æ”¹ æ ¹ç›®å½•ä¸‹build.gradleæ–‡ä»¶é‡Œé¢çš„ gradle:2.2.2 è¿™ä¸ªç¼–å·ï¼ˆæ”¹ä¸ºè‡ªå·±çš„gradleç¼–å·ï¼‰
+3.ä¿®æ”¹ gradle-wrapper.propertiesæ–‡ä»¶é‡Œé¢çš„gradle-3.3-all.zip è¿™ä¸ªç¼–å·ï¼ˆæ”¹ä¸ºè‡ªå·±çš„gradleç‰ˆæœ¬ç¼–å·ï¼‰
+4. setting->gradle é€‰æ‹©æœ¬åœ°çš„gradleåŒ…ã€‚ç„¶åtry aync çœ‹çœ‹èƒ½ç¼–è¯‘ä¹ˆã€‚
+5.å¦‚æœä»£ç†è¿˜æœ‰é—®é¢˜ä¿®æ”¹æ ¹ç›®å½•ä¸‹gradle.propertiesæ–‡ä»¶é‡Œé¢çš„ org.gradle.jvmargs
+  å¯ä»¥ä¿®æ”¹ä¸ºè¿™å¥ï¼šorg.gradle.jvmargs=-Xmx512m -XX:MaxPermSize=512m
+6.å‰©ä¸‹çš„ç¼–è¯‘android sdkç‰ˆæœ¬é—®é¢˜å†ä¿®æ”¹ä¸€ä¸‹å°±å¯ä»¥äº†ã€‚
+
+
+å½“å·¥ç¨‹æ›´æ¢æ–°android studio ç‰ˆæœ¬æ—¶ç¼–è¯‘å‡ºç° AIDL ä¹±ç é”™è¯¯æ—¶ï¼Œå¯èƒ½æ˜¯æ–°asç‰ˆæœ¬é«˜ï¼ŒMvç¼–è¯‘çš„æ ¼å¼ä¸å¯¹éœ€è¦é…ç½®ä¸€ä¸‹ï¼Œ
+è§£å†³æ–¹æ³•
+åœ¨Android Studioä¸­åŒå‡»Shiftæˆ–è€…ç‚¹å‡»é¡¶éƒ¨å…¨å±€æœç´¢"Edit Custom VM Options"
+ç„¶ååœ¨æ‰“å¼€çš„æ–‡ä»¶ä¸­æ·»åŠ ä¸€å¥    -Dfile.encoding=UTF-8
+ç„¶åé‡å¯Android Studio  ->Invalidate Cashes/Restart
