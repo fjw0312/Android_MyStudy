@@ -241,13 +241,123 @@
 	 从而获取t对象的各种信息。
 	（2）Java属于先编译再运行的语言，程序中对象的类型在编译期就确定下来了，而当程序在运行时可能需要动态加载某些类，这些类因为之前用不到，所以没有被加载到JVM。
 	通过反射，可以在运行时动态地创建对象并调用其属性，不需要提前在编译期知道运行的对象是谁。
+	
+  41.并发和并行的区别
+	并发：（在一个时间段内同时执行多件事）如单核cpu以时间片的方式让多个线程轮循执行，在外界看来他们是同时执行的
+	并行：（在一个时刻同时执行多件事）多核cpu每个核运行一个App，他们是真正的同时执行
+	
+  51.Java中的volatile 变量是什么
+	volatile是一个修饰符，只能修饰成员变量
+	volatile保证了变量的可见性（A线程的改变，B线程马上可以获取到）
+	volatile禁止进行指令重排序
+	
+  52.sleep和wait方法的对比
+	两个方法都是暂停线程,释放cpu资源给其他线程
+	sleep是Thread的静态方法，wait是Object的方法。
+	sleep使线程进入阻塞状态；wait使线程进入等待状态，靠其他线程notify或者notifyAll来改变状态
+	sleep可以在任何地方使用，必须捕获异常；而wait必须在同步方法或者同步块中使用，否则会抛出运行时异常
+	最重要的：sleep继续持用锁，wait释放锁
+	扩展：yield停止当前线程，让同优先级或者优先级高的线程先执行（但不会释放锁）；
+	join方法在某一个线程的执行过程中调用另一个线程执行，等到被调用的线程执行结束后，再继续执行当前线程
+
+  53.为什么wait和notify方法要在同步块中调用
+	java规定必须在同步块中，不在同步块中会抛出异常
+	如果不在同步块中，有可能notify在执行的时候，wait没有收到陷入死锁
+	
+  54.synchronized关键字的用法
+	synchronized 用于线程同步
+	可以修饰方法
+	可以修饰代码块
+	当持有的锁是类时，那么所有实例对象调用该方法或者代码块都会被锁
+	
+  55.synchronized 在静态方法和普通方法的区别
+	synchronized修饰静态方法时，锁是类，所有的对象实例用同一把锁修饰普通方法时，锁是类的实例
+	
+  56. 当一个线程进入一个对象的synchronized方法A之后，其它线程是否可进入此对象的synchronized方法B？
+	不能。其它线程只能访问该对象的非同步方法。第一个线程持有了对象锁，第二个线程的同步方法也需要该对象的锁才能运行，只能在锁池中等待了。
+
+ 
  
  二、Android部分
  A类 学前基础
      略.
  
- B类 基础知识
  
+ B类 基础知识
+    1.跨进程通信的几种方式
+		(1.Intent                       最后也是基于Binder机制  还有intent+Bundle
+		(2.广播 Brocadcast/BroadcastReceiver 最后也是基于Binder机制
+		(3.IBinder                      更是基于Binder机制（3种方式）
+			继承Binder类、
+			使用Messenger类、 
+			使用AIDL。
+		(4.使用数据存储技术
+		  file,contentProvider,数据库存储数据
+		(5. 网络socket.
+	各自特点:
+		1.intent,常用于组件间启动调用，传递附加数据。eg:调用启动同个应用或不同应用的Activity。
+		2.广播， 不在一个应用，常用于系统或不同应用间的信息传递。
+		3.Ibinder 常用于IPC,是基于ServiceManager对象。
+		4.使用数据存储技术。常用于数据量大，数据公开，速度要求不高。
+	
+    2.Binder机制
+	    组成：Client\Server\ServerManager\BinderDriver
+		android 大部分的IPC是基于Binder实现的。Binder为同步通信、高效，为系统IPC.
+		Binder的用户空间为每个进程维护着一个现场池。工作模式：基于Service-Client
+		获取到IBinder接口进行IPC的方式有三种：继承Binder类，使用Messenger类，使用AIDL.
+		Messenger--核心就是Message与Handler来进行线程间通信（ITC）只能串行通信
+		AIDL   能并行通信。
+		
+	3.wait和 sleep 的区别
+	wait是Object的方法，wait是对象锁，锁定方法不让继续执行，当执行notify方法后就会继续执行，
+	sleep 是Thread的方法，sleep 是使线程睡眠，让出cpu，结束后自动继续执行
+
+   4.View和SurfaceView的区别
+	  View基于主线程刷新UI，SurfaceView子线程又可以刷新UI
+
+   5.View的绘制原理
+	View为所有图形控件的基类，View的绘制由3个函数完成
+	measure,计算视图的大小
+	layout,提供视图要显示的位置
+	draw,绘制
+	
+   6.View的分发机制，滑动冲突
+	View的事件传递顺序有3个重要的方法，dispatchTouchEvent()是否消耗了本次事件，
+	onInterceptTouchEvent()是否拦截了本次事件，onTouchEvent()是否处理本次事件，滑动冲突分为同方向滑动冲突，
+	例如ScrollView和ListView，同方向滑动冲突，可以计算ListView高度而动态设置ListView的高度，ScrollView高度可变。
+	例如ViewPager和ListView,不同方向滑动冲突，一个是横向滑动一个是竖直滑动，
+	不同方向滑动可以判断滑动的x，y轴是横向还是竖直滑动，如果判断得到是横向滑动，就拦截ListView的事件，竖则反之。
+	
+   7.RecyclerView和ListView的区别
+	缓存上:前者缓存的是View+ViewHolder+flag，不用每次调用findViewById,后者则只是缓存View
+	刷新数据方面，前者提供了局部刷新，后者则全部刷新
+	
+   8.说下Activity 的四种启动模式、应用场景
+	standard 标准模式： 每次启动一个 Activity 都会重新创建一个新的实例，不管这个实例是否已经存在，此模式的 Activity 默认会进入启动它的 Activity 所属的任务栈中；
+	singleTop 栈顶复用模式： 如果新 Activity 已经位于任务栈的栈顶，那么此 Activity 不会被重新创建，同时会回调 onNewIntent方法，如果新 Activity 实例已经存在但不在栈顶，那么Activity 依然会被重新创建；
+	singleTask 栈内复用模式： 只要 Activity 在一个任务栈中存在，那么多次启动此 Activity 都不会重新创建实例，并回调onNewIntent 方法，此模式启动 Activity A，系统首先会寻找是否存在 A 想要的任务栈，如果不存在，就会重新创建一个任务栈，然后把创建好 A 的实例放到栈中；
+	singleInstance单实例模式： 这是一种加强的 singleTask 模式，具有此种模式的 Activity 只能单独地位于一个任务栈中，且此任务栈中只有唯一一个实例；
+	
+   9.Android中的几种动画
+	FrameAnimation（逐帧动画）：将多张图片组合起来进行播放，类似于早期电影的工作原理，很多App的loading是采用这种方式。
+	TweenAnimation（补间动画）：是对某个View进行一系列的动画的操作，包括淡入淡出（Alpha），缩放（Scale），平移（Translate），旋转（Rotate）四种模式。
+	PropertyAnimation（属性动画）：属性动画不再仅仅是一种视觉效果了，而是一种不断地对值进行操作的机制，并将值赋到指定对象的指定属性上，可以是任意对象的任意属性。
+	
+   10.Android类加载器
+	在Android开发中，不管是插件化还是组件化，都是基于Android系统的类加载器ClassLoader来设计的。
+	只不过Android平台上虚拟机运行的是Dex字节码，一种对class文件优化的产物，传统Class文件是一个Java源码文件会生成一个.class文件，
+	而Android是把所有Class文件进行合并、优化，然后再生成一个最终的class.dex，目的是把不同class文件重复的东西只需保留一份，
+	在早期的Android应用开发中，如果不对Android应用进行分dex处理，那么最后一个应用的apk只会有一个dex文件。
+	Android中常用的类加载器有两种，DexClassLoader和PathClassLoader，它们都继承于BaseDexClassLoader。
+	区别在于调用父类构造器时，DexClassLoader多传了一个optimizedDirectory参数，这个目录必须是内部存储路径，用来缓存系统创建的Dex文件。
+	而PathClassLoader该参数为null，只能加载内部存储目录的Dex文件。所以我们可以用DexClassLoader去加载外部的apk文件，这也是很多插件化技术的基础。
+	
+   11.IntentService
+	IntentService是一个抽象类，继承自Service，内部存在一个ServiceHandler（Handler）和HandlerThread（Thread）。
+	IntentService是处理异步请求的一个类，在IntentService中有一个工作线程（HandlerThread）来处理耗时操作，
+	启动IntentService的方式和普通的一样，不过当执行完任务之后，IntentService会自动停止。
+	另外可以多次启动IntentService，每一个耗时操作都会以工作队列的形式在IntentService的onHandleIntent回调中执行，并且每次执行一个工作线程。
+	IntentService的本质是：封装了一个HandlerThread和Handler的异步框架。
  
  C类 中高级
  
