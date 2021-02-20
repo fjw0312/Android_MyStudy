@@ -12,3 +12,19 @@
       常有特点：对象是单例、静态对象、长生命周期对象。
       被引用常有：1.(activity中获得)context 2.（activity中的）View  3.(activity中实例化的)Handler 4.对象内线程（不及时和activity死去） 5.未注销注册和回调
       比如引用了context view 和Handle实例化就绝对有嫌疑了，如果是静态或单例对象引用没有对应提前规范释放引用的就绝逼是会泄露了。
+
+二、观察者模式使用 RxJava+Retrofit
+//定义接口
+//interface AnchorApiSevice {
+//        @GET("News/{userId}")
+//        Call<TradesBean> getItem(@Path("userId") String userId);  //简单单参数get请求
+//        @GET("search")
+//        Observable<SearchResult> searchLyric(@QueryMap Map<String, Object> params);//简单多参数get请求
+//@POST("mv/trial")
+//Observable<Response<MvUrl>> getMvUrlAnonymous(@Header("signature") String signature, @Header("signtrial") String signtrial, @Body Map<String, Object> params);
+//分块上传初始化
+//@POST("/multipart/initiate")
+//Observable<Response<UploadInitResult>> initUpload(@HeaderMap Map<String, String> heardParams, @QueryMap Map<String, Object> params);
+//分块上传文件内容
+//@POST("/multipart/upload")
+//Observable<Response<UploadPartResult>> upload(@HeaderMap Map<String, Object> heardParams, @QueryMap Map<String, Object> params, @Body RequestBody requestBody);
