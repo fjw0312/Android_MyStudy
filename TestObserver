@@ -1,0 +1,112 @@
+private final static String TAG = "Jiong_x_"+TestObserver.class.getSimpleName();
+
+    //使用测试
+    public void test(){
+        //1.
+        getTestObservable("JJYYY")
+                .observeOn(Schedulers.io())
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<String>() {
+                    @Override
+                    public void accept(String s) throws Exception {
+                        android.util.Log.i(TAG, "方式1-正常accept  >>"+s);
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        android.util.Log.i(TAG, "方式1-抛出accept  >>"+throwable.toString());
+                    }
+                });
+        //2.
+        switcher.observeOn(Schedulers.io())
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<String>() {
+                    @Override
+                    public void accept(String s) throws Exception {
+                        android.util.Log.i(TAG, "方式2-正常accept  >>"+s);
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        android.util.Log.i(TAG, "方式2-抛出accept  >>"+throwable.toString());
+                    }
+                });
+    }
+
+
+
+    protected Maybe<String> TestMy(String tag) {
+        Log.i(TAG, "打印测试："+tag);
+        String str = "测试成功！";
+        String str2 = "测试成功2！";
+        String str3 = "测试成功3！";
+        Maybe<String> may = new Maybe<String>() {
+            @Override
+            protected void subscribeActual(MaybeObserver<? super String> observer) {
+            }
+        };
+        return  may;
+    }
+
+    //打印异常
+    protected Observable<String> getTestObservable1(String str) {
+        return TestMy(str).toObservable()
+                .map(new Function<String, String>() {
+                    @Override
+                    public String apply(String s) throws Exception {
+                        Log.i(TAG, "getTestObservable1() 打印测试："+s);
+                        return null;
+                    }
+                });
+    }
+
+    //创建一个观察者  observer Add 到 Observable(被观察者)
+    Observer<String> observer = new Observer<String>() {
+        @Override
+        public void onSubscribe(@NonNull Disposable d) {
+            Log.d(TAG, "onSubscribe!");
+        }
+
+        @Override
+        public void onNext(String s) {
+            Log.d(TAG, "onNext: " + s);
+        }
+
+
+        @Override
+        public void onError(Throwable e) {
+            Log.d(TAG, "onError!");
+        }
+
+        @Override
+        public void onComplete() {
+            Log.d(TAG, "onComplete!");
+        }
+    };
+
+    //============================================================================
+    //####################################创建Observable##########################
+    //方式1：测试打印正常
+    protected Observable<String> getTestObservable(String str) {
+        //Observable.just 与from** 都是简便创建的一种方式
+//        String[] s = {"x","y"};
+//        Observable.fromArray(s)
+        return Observable.just(str)
+                .observeOn(Schedulers.io())
+                .map(new Function<String, String>() {
+                    @Override
+                    public String apply(@NonNull String s) throws Exception {
+                        Log.i(TAG, "getTestObservable() 打印测试："+s);
+                        return s;
+                    }
+                });
+    }
+
+
+    //方式2：创建一个被观察者
+    Observable switcher = Observable.create(new ObservableOnSubscribe() {
+        @Override
+        public void subscribe(@NonNull ObservableEmitter emitter) throws Exception {
+            Log.d(TAG, "Observable.create() -subscribe");
+        }
+    });
